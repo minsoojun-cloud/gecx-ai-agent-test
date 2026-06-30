@@ -177,9 +177,42 @@ async def get_product_details(product_id: str) -> str:
     
     try:
         product = client.get_product(name=name)
-        return str(product) # Returns full protobuf details including attributes
+        
+        subtitle = product.description if product.description else (product.categories[0] if product.categories else "")
+        price = str(product.price_info.price) if product.price_info else "0.0"
+        image_uris = [img.uri for img in product.images if img.uri] if product.images else []
+        
+        # Rating & Reviews
+        rating = None
+        review = None
+        
+        try:
+            if product.rating:
+                if product.rating.average_rating != 0.0:
+                    rating = product.rating.average_rating
+                
+                rating_count = product.rating.rating_count
+                if rating_count > 0:
+                    review = {
+                        "count": rating_count,
+                        "reviewUri": f"{product.uri}#reviews" if product.uri else ""
+                    }
+        except AttributeError:
+            pass
+
+        result = {
+            "productId": product_id,
+            "title": product.title,
+            "subtitle": subtitle,
+            "price": price,
+            "uri": product.uri,
+            "imageUris": image_uris,
+            "rating": rating,
+            "review": review
+        }
+        return json.dumps(result, ensure_ascii=False, indent=2)
     except Exception as e:
-        return f"Error finding product {product_id}: {str(e)}"
+        return json.dumps({"error": f"Error finding product {product_id}: {str(e)}"}, ensure_ascii=False)
 
 @mcp.tool()
 async def predict_recommendations(user_event_type: str = "detail-page-view", product_id: str = None) -> str:
