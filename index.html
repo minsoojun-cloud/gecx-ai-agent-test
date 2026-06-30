@@ -322,6 +322,96 @@
         }),
       );
     });
+
+  // Handle hash change events (triggered by clicks on custom widget detail links)
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash;
+    if (hash.startsWith('#product-detail?id=')) {
+      const productId = hash.split('?id=')[1];
+      if (productId) {
+        // Clear hash immediately so the same item can be clicked/re-clicked consecutively
+        window.location.hash = '';
+
+        // Submit query to Dialogflow/Vertex AI agent
+        sendQueryToAgent(`Show details for product ${productId}`);
+      }
+    }
+  });
+
+  // Robust recursive finder to traverse both light DOM and Shadow DOMs to find input/button
+  function findInputAndButton() {
+    const messenger = document.querySelector('chat-messenger');
+    if (!messenger) return null;
+
+    let input = null;
+    let sendButton = null;
+
+    function traverse(root) {
+      if (!root) return;
+
+      if (root.nodeType === 1) { // ELEMENT_NODE
+        // Check if this node is input/textarea
+        if (root.tagName === 'TEXTAREA' || (root.tagName === 'INPUT' && root.type === 'text')) {
+          input = root;
+        }
+
+        // Check if this node is the send button
+        const ariaLabel = root.getAttribute('aria-label');
+        const isSendLabel = ariaLabel && ariaLabel.toLowerCase().includes('send');
+        const isSendClassOrId = root.classList.contains('send-button') || 
+                                root.id === 'send-button' ||
+                                (root.className && typeof root.className === 'string' && root.className.toLowerCase().includes('send'));
+                                
+        const isButtonTag = root.tagName === 'BUTTON' || root.tagName.endsWith('-BUTTON');
+
+        if (isSendLabel || (isButtonTag && (isSendClassOrId || root.querySelector('svg') || root.innerHTML.includes('send')))) {
+          sendButton = root;
+        }
+      }
+
+      if (input && sendButton) return;
+
+      // Traverse children in light DOM
+      if (root.children) {
+        for (const child of root.children) {
+          traverse(child);
+          if (input && sendButton) return;
+        }
+      }
+
+      // Traverse shadow DOM if exists
+      if (root.shadowRoot) {
+        traverse(root.shadowRoot);
+      }
+    }
+
+    traverse(messenger);
+    return { input, sendButton };
+  }
+
+  // Helper function to programmatically type and send a query inside GECX Chat Messenger
+  function sendQueryToAgent(text) {
+    const elements = findInputAndButton();
+    if (!elements || !elements.input) {
+      console.error("Could not find GECX input element!");
+      return;
+    }
+    
+    const { input, sendButton } = elements;
+    
+    // Set the input field value and dispatch input event so GECX updates internal states
+    input.value = text;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    
+    if (sendButton) {
+      sendButton.click();
+    } else {
+      // Fallback: Dispatch Enter keypress on the input
+      input.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true
+      }));
+    }
+  }
   </script>
 </head>
 
