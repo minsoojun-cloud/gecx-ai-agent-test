@@ -14,7 +14,7 @@
         <step name="Search Catalog">
             <trigger>User asks to search for products, styles, or specific categories.</trigger>
             <action>
-                Call the tool {@TOOL: product_search_tool_search_products} with the user's query as the argument.
+                Call the tool {@TOOL: product_search_tool_ai_agent_search_products} with the user's query as the argument.
             </action>
         </step>
         <step name="Summarize Search Results">
