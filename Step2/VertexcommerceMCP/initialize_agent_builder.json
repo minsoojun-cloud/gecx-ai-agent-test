@@ -1,0 +1,13 @@
+{
+    "jsonrpc": "2.0",
+    "method": "initialize",
+    "id": "d49ca065-0",
+    "params": {
+        "protocolVersion": "2025-06-18",
+        "capabilities": {},
+        "clientInfo": {
+            "name": "Java SDK MCP Client",
+            "version": "1.0.0"
+        }
+    }
+}
