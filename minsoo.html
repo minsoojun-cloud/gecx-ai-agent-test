@@ -311,10 +311,10 @@
 
   <!-- GECX InBody Script -->
   <script>
-      function initChat() {
-        if (typeof chatSdk !== 'undefined') {
-          chatSdk.registerContext(
-            chatSdk.prebuilts.ces.createContext({
+    function initChat() {
+      if (typeof chatSdk !== 'undefined') {
+        chatSdk.registerContext(
+          chatSdk.prebuilts.ces.createContext({
             deploymentName: "projects/retail-search-jp-demo-minsoo/locations/us/apps/07a08655-1d08-44dc-a43b-ec06235393e1/deployments/52ccae7a-3ddc-4a40-bc3c-67821fde8b1b",
             tokenBroker: {
               enableTokenBroker: true,
@@ -538,8 +538,8 @@
           widgetBox.style.cssText = 'display: flex; flex-direction: column; padding: 20px; border: 1px solid #e2e8f0; border-radius: 24px; background: #ffffff; width: 100%; box-sizing: border-box; box-shadow: 0 4px 14px rgba(0,0,0,0.06); color: #0f172a; gap: 12px; margin-top: 6px;';
 
           // 1. Image Gallery
-          const images = (data.imageUris && Array.isArray(data.imageUris) && data.imageUris.length > 0)
-            ? data.imageUris
+          const images = (data.imageUris && Array.isArray(data.imageUris) && data.imageUris.length > 0) 
+            ? data.imageUris 
             : (data.imageUri ? [data.imageUri] : []);
 
           // Main Image Box
@@ -561,7 +561,7 @@
             images.forEach((imgSrc, idx) => {
               const thumbBox = document.createElement('div');
               thumbBox.style.cssText = `width: 54px; height: 54px; border-radius: 12px; background: #f8fafc; border: ${idx === 0 ? '2px solid #0f172a' : '1px solid #e2e8f0'}; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; overflow: hidden; padding: 4px; box-sizing: border-box; transition: all 0.2s;`;
-
+              
               const thumbImg = document.createElement('img');
               thumbImg.src = imgSrc;
               thumbImg.style.cssText = 'max-width: 100%; max-height: 100%; object-fit: contain;';
@@ -847,14 +847,14 @@
       }
     }
 
-      // Handle hash change events (triggered by clicks on custom widget detail links)
-      window.addEventListener('hashchange', () => {
-        const hash = window.location.hash;
-        if (hash.startsWith('#product-detail?id=')) {
-          const productId = hash.split('?id=')[1];
-          if (productId) {
-            // Clear hash immediately so the same item can be clicked/re-clicked consecutively
-            window.location.hash = '';
+    // Handle hash change events (triggered by clicks on custom widget detail links)
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#product-detail?id=')) {
+        const productId = hash.split('?id=')[1];
+        if (productId) {
+          // Clear hash immediately so the same item can be clicked/re-clicked consecutively
+          window.location.hash = '';
 
           // Submit query to Dialogflow/Vertex AI agent
           sendQueryToAgent(`Show details for product ${productId}`);
@@ -862,33 +862,33 @@
       }
     });
 
-      // Helper function to programmatically type and send a query inside GECX Chat Messenger
-      function sendQueryToAgent(text) {
-        const messenger = document.querySelector('chat-messenger');
-        if (messenger && typeof messenger.sendQuery === 'function') {
-          messenger.sendQuery(text);
-        } else {
-          console.error("GECX Chat Messenger component or sendQuery method not found!");
-          }
-        }
-
-        let chatInitialized = false;
-        function safeInitChat() {
-          if (chatInitialized) return;
-          if (typeof chatSdk !== 'undefined') {
-            chatInitialized = true;
-            initChat();
-          }
+    // Helper function to programmatically type and send a query inside GECX Chat Messenger
+    function sendQueryToAgent(text) {
+      const messenger = document.querySelector('chat-messenger');
+      if (messenger && typeof messenger.sendQuery === 'function') {
+        messenger.sendQuery(text);
+      } else {
+        console.error("GECX Chat Messenger component or sendQuery method not found!");
+      }
     }
 
-  if (typeof chatSdk !== 'undefined') {
-    safeInitChat();
-  } else {
-    window.addEventListener("chat-messenger-loaded", safeInitChat);
-    window.addEventListener("DOMContentLoaded", safeInitChat);
-    window.addEventListener("load", safeInitChat);
-    setTimeout(safeInitChat, 1000);
-    setTimeout(safeInitChat, 2000);
+    let chatInitialized = false;
+    function safeInitChat() {
+      if (chatInitialized) return;
+      if (typeof chatSdk !== 'undefined') {
+        chatInitialized = true;
+        initChat();
+      }
+    }
+
+    if (typeof chatSdk !== 'undefined') {
+      safeInitChat();
+    } else {
+      window.addEventListener("chat-messenger-loaded", safeInitChat);
+      window.addEventListener("DOMContentLoaded", safeInitChat);
+      window.addEventListener("load", safeInitChat);
+      setTimeout(safeInitChat, 1000);
+      setTimeout(safeInitChat, 2000);
     }
   </script>
 </head>

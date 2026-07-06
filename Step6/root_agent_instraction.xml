@@ -31,9 +31,9 @@
             </action>
         </step>
     </subtask>
-    <subtask name="Product Search and Advice Handling">
+    <subtask name="Product Search, Advice, and Comparison Handling">
         <step name="Delegate to Search Agent">
-            <trigger>User asks to search for products, find items, check shopping catalog, or asks questions/seeks advice about products.</trigger>
+            <trigger>User asks to search for products, find items, check shopping catalog, compare products, or asks questions/seeks advice about products.</trigger>
             <action>
                 Delegate the request to {@AGENT: Search-Agent}. Ensure that the results returned from the Search-Agent maintain valid `imageUris` and `uri` mappings.
             </action>

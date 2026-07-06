@@ -311,10 +311,10 @@
 
   <!-- GECX InBody Script -->
   <script>
-      function initChat() {
-        if (typeof chatSdk !== 'undefined') {
-          chatSdk.registerContext(
-            chatSdk.prebuilts.ces.createContext({
+    function initChat() {
+      if (typeof chatSdk !== 'undefined') {
+        chatSdk.registerContext(
+          chatSdk.prebuilts.ces.createContext({
             deploymentName: "projects/retail-search-jp-demo-minsoo/locations/us/apps/07a08655-1d08-44dc-a43b-ec06235393e1/deployments/52ccae7a-3ddc-4a40-bc3c-67821fde8b1b",
             tokenBroker: {
               enableTokenBroker: true,
@@ -449,7 +449,7 @@
 
         function createProductCardElement(item) {
           const card = document.createElement('df-product-detail-card');
-          card.style.cssText = 'display: inline-block !important; flex-shrink: 0; width: 140px; box-sizing: border-box; cursor: pointer;';
+          card.style.cssText = 'display: inline-block !important; flex-shrink: 0; width: 140px; box-sizing: border-box;';
           card.setAttribute('product-id', item.productId || '');
           card.setAttribute('title', item.title || '');
           card.setAttribute('subtitle', item.subtitle || item.description || '');
@@ -462,26 +462,11 @@
             card.setAttribute('uri', item.uri);
           }
 
-          // Handle click on card element to request product-detail widget instead of navigating away
-          card.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (item.productId) {
-              sendQueryToAgent(`Show details for product ${item.productId}`);
-            }
-          });
-
           // Build a visual fallback HTML card matching Step1/index.html side-by-side layout
           const cardInner = document.createElement('a');
-          cardInner.href = item.uri && item.uri.startsWith('#') ? item.uri : (`#product-detail?id=${item.productId || ''}`);
-          cardInner.style.cssText = 'display: flex; flex-direction: column; padding: 10px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; text-decoration: none; color: #0f172a; box-shadow: 0 2px 6px rgba(0,0,0,0.04); width: 140px; box-sizing: border-box; transition: transform 0.2s; cursor: pointer;';
-          cardInner.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (item.productId) {
-              sendQueryToAgent(`Show details for product ${item.productId}`);
-            }
-          });
+          cardInner.href = item.uri || '#';
+          cardInner.target = '_blank';
+          cardInner.style.cssText = 'display: flex; flex-direction: column; padding: 10px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; text-decoration: none; color: #0f172a; box-shadow: 0 2px 6px rgba(0,0,0,0.04); width: 140px; box-sizing: border-box; transition: transform 0.2s;';
 
           // 1. Top Image Box
           const imgUrl = (item.imageUris && item.imageUris[0]) ? item.imageUris[0] : '';
@@ -517,115 +502,6 @@
           cardInner.appendChild(btn);
 
           card.appendChild(cardInner);
-          return card;
-        }
-
-        function createProductDetailWidgetElement(data) {
-          const card = document.createElement('df-product-detail-card');
-          card.style.cssText = 'display: block !important; width: 100% !important; margin-top: 10px; box-sizing: border-box;';
-          card.setAttribute('product-id', data.productId || '');
-          card.setAttribute('title', data.title || '');
-          card.setAttribute('subtitle', data.subtitle || data.description || '');
-          card.setAttribute('price', data.price || '0.0');
-          if (data.imageUris && data.imageUris.length > 0) {
-            card.setAttribute('image-uris', JSON.stringify(data.imageUris));
-            card.setAttribute('image-uri', data.imageUris[0]);
-          }
-          if (data.uri) card.setAttribute('uri', data.uri);
-
-          // Build original full-size product detail widget layout matching user screenshot
-          const widgetBox = document.createElement('div');
-          widgetBox.style.cssText = 'display: flex; flex-direction: column; padding: 20px; border: 1px solid #e2e8f0; border-radius: 24px; background: #ffffff; width: 100%; box-sizing: border-box; box-shadow: 0 4px 14px rgba(0,0,0,0.06); color: #0f172a; gap: 12px; margin-top: 6px;';
-
-          // 1. Image Gallery
-          const images = (data.imageUris && Array.isArray(data.imageUris) && data.imageUris.length > 0)
-            ? data.imageUris
-            : (data.imageUri ? [data.imageUri] : []);
-
-          // Main Image Box
-          const mainImgBox = document.createElement('div');
-          mainImgBox.style.cssText = 'width: 100%; height: 220px; background: #f8fafc; border-radius: 16px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9; padding: 12px; box-sizing: border-box;';
-
-          const mainImg = document.createElement('img');
-          mainImg.src = images[0] || '';
-          mainImg.alt = data.title || '';
-          mainImg.style.cssText = 'max-width: 100%; max-height: 100%; object-fit: contain; transition: opacity 0.2s;';
-          mainImgBox.appendChild(mainImg);
-          widgetBox.appendChild(mainImgBox);
-
-          // 2. Thumbnails Row (when multiple photos exist)
-          if (images.length > 0) {
-            const thumbRow = document.createElement('div');
-            thumbRow.style.cssText = 'display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px; scrollbar-width: none;';
-
-            images.forEach((imgSrc, idx) => {
-              const thumbBox = document.createElement('div');
-              thumbBox.style.cssText = `width: 54px; height: 54px; border-radius: 12px; background: #f8fafc; border: ${idx === 0 ? '2px solid #0f172a' : '1px solid #e2e8f0'}; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; overflow: hidden; padding: 4px; box-sizing: border-box; transition: all 0.2s;`;
-
-              const thumbImg = document.createElement('img');
-              thumbImg.src = imgSrc;
-              thumbImg.style.cssText = 'max-width: 100%; max-height: 100%; object-fit: contain;';
-              thumbBox.appendChild(thumbImg);
-
-              thumbBox.onclick = () => {
-                mainImg.style.opacity = '0.5';
-                setTimeout(() => {
-                  mainImg.src = imgSrc;
-                  mainImg.style.opacity = '1';
-                }, 100);
-                Array.from(thumbRow.children).forEach(child => child.style.border = '1px solid #e2e8f0');
-                thumbBox.style.border = '2px solid #0f172a';
-              };
-
-              thumbRow.appendChild(thumbBox);
-            });
-            widgetBox.appendChild(thumbRow);
-          }
-
-          // 3. Badge (Bestseller / Category)
-          const badgeText = data.badge || data.category || data.subtitle || 'Bestseller';
-          if (badgeText) {
-            const badge = document.createElement('div');
-            badge.style.cssText = 'display: inline-block; align-self: flex-start; background: #1e293b; color: #ffffff; font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; margin-top: 2px;';
-            badge.textContent = badgeText;
-            widgetBox.appendChild(badge);
-          }
-
-          // 4. Product Title
-          const titleEl = document.createElement('h3');
-          titleEl.style.cssText = 'font-size: 1.15rem; font-weight: 600; color: #0f172a; margin: 0; line-height: 1.35;';
-          titleEl.textContent = data.title || '';
-          widgetBox.appendChild(titleEl);
-
-          // 5. Product Description
-          if (data.description || data.subtitle) {
-            const descEl = document.createElement('p');
-            descEl.style.cssText = 'font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.4;';
-            descEl.textContent = data.description || data.subtitle || '';
-            widgetBox.appendChild(descEl);
-          }
-
-          // 6. Price
-          const priceEl = document.createElement('div');
-          priceEl.style.cssText = 'font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-top: 2px;';
-          const numPrice = Number(data.price);
-          priceEl.textContent = isNaN(numPrice) || numPrice === 0 ? (data.price || '') : ('¥' + numPrice.toLocaleString());
-          widgetBox.appendChild(priceEl);
-
-          // 7. Rating
-          const ratingRow = document.createElement('div');
-          ratingRow.style.cssText = 'display: flex; align-items: center; gap: 4px; font-size: 0.82rem; color: #475569; margin-top: -2px;';
-          ratingRow.innerHTML = '<span style="color: #f59e0b;">★</span> <strong>4.8</strong> <span style="color: #94a3b8;">(15 reviews)</span>';
-          widgetBox.appendChild(ratingRow);
-
-          // 8. Add to Cart Button (Black rounded pill button from screenshot)
-          const cartBtn = document.createElement('button');
-          cartBtn.type = 'button';
-          cartBtn.style.cssText = 'display: flex; align-items: center; gap: 8px; background: #1e293b; color: #ffffff; border: none; border-radius: 24px; padding: 10px 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; align-self: flex-start; margin-top: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); transition: background 0.2s;';
-          cartBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Add to cart';
-          widgetBox.appendChild(cartBtn);
-
-          card.appendChild(widgetBox);
           return card;
         }
 
@@ -746,7 +622,7 @@
                     data = parseProductListFallback(parsed.rawJsonStr).productDetails[0] || {};
                   }
 
-                  const card = createProductDetailWidgetElement(data);
+                  const card = createProductCardElement(data);
                   const wrapper = document.createElement('div');
                   wrapper.style.cssText = 'width: 100%;';
 
@@ -847,14 +723,14 @@
       }
     }
 
-      // Handle hash change events (triggered by clicks on custom widget detail links)
-      window.addEventListener('hashchange', () => {
-        const hash = window.location.hash;
-        if (hash.startsWith('#product-detail?id=')) {
-          const productId = hash.split('?id=')[1];
-          if (productId) {
-            // Clear hash immediately so the same item can be clicked/re-clicked consecutively
-            window.location.hash = '';
+    // Handle hash change events (triggered by clicks on custom widget detail links)
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#product-detail?id=')) {
+        const productId = hash.split('?id=')[1];
+        if (productId) {
+          // Clear hash immediately so the same item can be clicked/re-clicked consecutively
+          window.location.hash = '';
 
           // Submit query to Dialogflow/Vertex AI agent
           sendQueryToAgent(`Show details for product ${productId}`);
@@ -862,33 +738,33 @@
       }
     });
 
-      // Helper function to programmatically type and send a query inside GECX Chat Messenger
-      function sendQueryToAgent(text) {
-        const messenger = document.querySelector('chat-messenger');
-        if (messenger && typeof messenger.sendQuery === 'function') {
-          messenger.sendQuery(text);
-        } else {
-          console.error("GECX Chat Messenger component or sendQuery method not found!");
-          }
-        }
-
-        let chatInitialized = false;
-        function safeInitChat() {
-          if (chatInitialized) return;
-          if (typeof chatSdk !== 'undefined') {
-            chatInitialized = true;
-            initChat();
-          }
+    // Helper function to programmatically type and send a query inside GECX Chat Messenger
+    function sendQueryToAgent(text) {
+      const messenger = document.querySelector('chat-messenger');
+      if (messenger && typeof messenger.sendQuery === 'function') {
+        messenger.sendQuery(text);
+      } else {
+        console.error("GECX Chat Messenger component or sendQuery method not found!");
+      }
     }
 
-  if (typeof chatSdk !== 'undefined') {
-    safeInitChat();
-  } else {
-    window.addEventListener("chat-messenger-loaded", safeInitChat);
-    window.addEventListener("DOMContentLoaded", safeInitChat);
-    window.addEventListener("load", safeInitChat);
-    setTimeout(safeInitChat, 1000);
-    setTimeout(safeInitChat, 2000);
+    let chatInitialized = false;
+    function safeInitChat() {
+      if (chatInitialized) return;
+      if (typeof chatSdk !== 'undefined') {
+        chatInitialized = true;
+        initChat();
+      }
+    }
+
+    if (typeof chatSdk !== 'undefined') {
+      safeInitChat();
+    } else {
+      window.addEventListener("chat-messenger-loaded", safeInitChat);
+      window.addEventListener("DOMContentLoaded", safeInitChat);
+      window.addEventListener("load", safeInitChat);
+      setTimeout(safeInitChat, 1000);
+      setTimeout(safeInitChat, 2000);
     }
   </script>
 </head>
