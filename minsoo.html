@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 
 <head>
   <script>
@@ -788,33 +788,63 @@
 
                   const compareWrapper = document.createElement('div');
                   compareWrapper.className = 'custom-compare-products';
-                  compareWrapper.style.cssText = 'display: flex; flex-direction: column; gap: 12px; margin-top: 10px; border: 1px solid #e0e0e0; padding: 12px; border-radius: 8px; background: #fff; width: 100%;';
+                  compareWrapper.style.cssText = 'display: flex; flex-direction: column; gap: 14px; margin-top: 10px; border: 1px solid #e2e8f0; padding: 16px; border-radius: 16px; background: #ffffff; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.05); box-sizing: border-box;';
 
                   if (data.title) {
                     const titleEl = document.createElement('h4');
                     titleEl.textContent = data.title;
-                    titleEl.style.cssText = 'margin: 0 0 8px 0; font-size: 14px; font-weight: bold; color: #333;';
+                    titleEl.style.cssText = 'margin: 0 0 4px 0; font-size: 15px; font-weight: 700; color: #0f172a;';
                     compareWrapper.appendChild(titleEl);
                   }
 
-                  if (data.productDetails && Array.isArray(data.productDetails)) {
+                  // 1. Product Cards Grid
+                  if (data.productDetails && Array.isArray(data.productDetails) && data.productDetails.length > 0) {
                     const grid = document.createElement('div');
-                    grid.style.cssText = 'display: grid; grid-template-columns: repeat(' + data.productDetails.length + ', 1fr); gap: 8px;';
+                    grid.style.cssText = 'display: grid; grid-template-columns: repeat(' + data.productDetails.length + ', 1fr); gap: 10px; width: 100%; box-sizing: border-box;';
                     data.productDetails.forEach(item => {
-                      const card = document.createElement('df-product-detail-card');
-                      card.setAttribute('product-id', item.productId || '');
-                      card.setAttribute('title', item.title || '');
-                      card.setAttribute('subtitle', item.subtitle || '');
-                      card.setAttribute('price', item.price || '0.0');
-                      if (item.imageUris && item.imageUris.length > 0) {
-                        card.setAttribute('image-uris', JSON.stringify(item.imageUris));
-                      }
-                      if (item.uri) {
-                        card.setAttribute('uri', item.uri);
+                      const card = createProductCardElement(item);
+                      card.style.cssText = 'display: block !important; width: 100% !important; box-sizing: border-box;';
+                      if (card.firstChild) {
+                        card.firstChild.style.width = '100%';
                       }
                       grid.appendChild(card);
                     });
                     compareWrapper.appendChild(grid);
+                  }
+
+                  // 2. Features Comparison Table
+                  if (data.features && Array.isArray(data.features) && data.features.length > 0) {
+                    const tableContainer = document.createElement('div');
+                    tableContainer.style.cssText = 'overflow-x: auto; margin-top: 6px; border: 1px solid #e2e8f0; border-radius: 12px;';
+
+                    const table = document.createElement('table');
+                    table.style.cssText = 'width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;';
+
+                    const tbody = document.createElement('tbody');
+                    data.features.forEach((feat, idx) => {
+                      const tr = document.createElement('tr');
+                      tr.style.cssText = idx % 2 === 0 ? 'background-color: #f8fafc;' : 'background-color: #ffffff;';
+                      tr.style.borderBottom = '1px solid #f1f5f9';
+
+                      const th = document.createElement('td');
+                      th.style.cssText = 'padding: 10px 12px; font-weight: 600; color: #334155; width: 25%; white-space: nowrap; vertical-align: top; border-right: 1px solid #f1f5f9;';
+                      th.textContent = feat.label || '';
+                      tr.appendChild(th);
+
+                      if (feat.productSpecs && Array.isArray(feat.productSpecs)) {
+                        feat.productSpecs.forEach(spec => {
+                          const td = document.createElement('td');
+                          td.style.cssText = 'padding: 10px 12px; color: #475569; vertical-align: top; line-height: 1.4;';
+                          td.textContent = spec.text || spec.val || spec.value || '';
+                          tr.appendChild(td);
+                        });
+                      }
+                      tbody.appendChild(tr);
+                    });
+
+                    table.appendChild(tbody);
+                    tableContainer.appendChild(table);
+                    compareWrapper.appendChild(tableContainer);
                   }
 
                   const wrapper = document.createElement('div');
@@ -903,7 +933,7 @@
       </div>
       <h1>GECX Web Widget Test</h1>
       <p class="subtitle">
-        Minsoo Demo Agent를 웹 환경에서 직접 테스트하고 검증하기 위한 샌드박스 페이지입니다.
+        This is a sandbox page for testing and validating the Minsoo Demo Agent directly in a web environment.
       </p>
     </header>
 
@@ -953,9 +983,8 @@
       <div class="instruction-box">
         <div class="instruction-icon">💬</div>
         <div class="instruction-text">
-          <h3>테스트 시작 방법</h3>
-          <p>화면 오른쪽 아래에 있는 파란색 또는 말풍선 모양의 채팅 아이콘을 클릭하면 <strong>Minsoo Demo Agent</strong>와의 대화 창이 활성화됩니다. 파일 업로드 및 음성
-            입력을 지원합니다.</p>
+          <h3>How to Start Testing</h3>
+          <p>Click the blue or speech bubble chat icon at the bottom right of the screen to activate the chat window with the <strong>Minsoo Demo Agent</strong>. File uploads and voice input are supported.</p>
         </div>
       </div>
     </div>
