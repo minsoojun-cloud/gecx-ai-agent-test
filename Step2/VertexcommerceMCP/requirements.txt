@@ -1,9 +1,0 @@
-mcp
-google-cloud-retail
-uvicorn
-langchain-google-vertexai 
-google-auth 
-google-auth-oauthlib
-langchain-google-genai
-langchain-mcp-adapters
-langchain-classic

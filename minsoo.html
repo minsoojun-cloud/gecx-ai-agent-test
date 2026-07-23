@@ -311,8 +311,136 @@
 
   <!-- GECX InBody Script -->
   <script>
+            // Cookie management for gecx_cookie
+            function getCookie(name) {
+              const value = `; ${document.cookie}`;
+              const parts = value.split(`; ${name}=`);
+              if (parts.length === 2) return parts.pop().split(';').shift();
+              return null;
+            }
+
+            function setCookie(name, value, days = 365) {
+              const expires = new Date(Date.now() + days * 86400000).toUTCString();
+              document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+            }
+
+            function generateUUIDv4() {
+              if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+                return crypto.randomUUID();
+              }
+              return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+              });
+            }
+
+            function initGecxCookie() {
+              let cookieData = {};
+              const rawCookie = getCookie('gecx_cookie');
+              if (rawCookie) {
+                try {
+                  cookieData = JSON.parse(decodeURIComponent(rawCookie));
+                } catch (e) {
+                  if (rawCookie.includes('visitor_id=')) {
+                    cookieData.visitor_id = rawCookie.split('visitor_id=')[1].split('&')[0];
+                  }
+                }
+              }
+              if (!cookieData.visitor_id) {
+                cookieData.visitor_id = 'ga_' + generateUUIDv4();
+                setCookie('gecx_cookie', JSON.stringify(cookieData));
+                console.log("gecx_cookie created with visitor_id:", cookieData.visitor_id);
+              } else {
+                console.log("Existing gecx_cookie visitor_id:", cookieData.visitor_id);
+              }
+              return cookieData;
+            }
+
+            function updateCookieDisplay() {
+              const cookieData = initGecxCookie();
+              const visitorIdEl = document.getElementById('display-visitor-id');
+              const userIdInput = document.getElementById('input-user-id');
+
+              if (visitorIdEl) {
+                visitorIdEl.textContent = cookieData.visitor_id || '-';
+              }
+              if (userIdInput && (cookieData.userid !== undefined || cookieData.user_id !== undefined) && !userIdInput.value) {
+                userIdInput.value = cookieData.userid || cookieData.user_id;
+              }
+            }
+
+            function saveUserIdToCookie() {
+              const userIdInput = document.getElementById('input-user-id');
+              if (!userIdInput) return;
+              const val = userIdInput.value.trim();
+
+              let cookieData = initGecxCookie();
+              cookieData.userid = val;
+              cookieData.user_id = val;
+              setCookie('gecx_cookie', JSON.stringify(cookieData));
+
+              console.log("Updated gecx_cookie userid:", val);
+
+              // Re-register Chat SDK context with updated cookie parameters
+              if (typeof initChat === 'function') {
+                initChat();
+              }
+
+              const btn = document.getElementById('btn-save-user-id');
+              if (btn) {
+                const origText = btn.textContent;
+                btn.textContent = 'Saved!';
+                btn.style.background = '#059669';
+                setTimeout(() => {
+                  btn.textContent = origText;
+                  btn.style.background = '#2563eb';
+                }, 1500);
+              }
+            }
+
+            // Initialize gecx_cookie on page load & bind UI
+            initGecxCookie();
+            document.addEventListener("DOMContentLoaded", () => {
+              updateCookieDisplay();
+              if (typeof initChat === 'function') {
+                initChat();
+              }
+              const messenger = document.querySelector('chat-messenger');
+              if (messenger) {
+                messenger.addEventListener('chat-messenger-loaded', () => {
+                  console.log("chat-messenger-loaded fired, re-registering context...");
+                  initChat();
+                });
+              }
+              const saveBtn = document.getElementById('btn-save-user-id');
+              if (saveBtn) {
+                saveBtn.addEventListener('click', saveUserIdToCookie);
+              }
+            });
+
     function initChat() {
-      if (typeof chatSdk !== 'undefined') {
+      if (typeof chatSdk === 'undefined') {
+        console.warn("chatSdk not ready yet, retrying initChat in 200ms...");
+        setTimeout(initChat, 200);
+        return;
+      }
+
+      const cookieData = initGecxCookie();
+      const visitorIdStr = cookieData.visitor_id || '';
+      const userIdStr = cookieData.userid || cookieData.user_id || '';
+
+      const rawParams = {
+        visitor_id: visitorIdStr,
+        userid: userIdStr
+      };
+
+      const structParams = {
+        visitor_id: { stringValue: visitorIdStr },
+        userid: { stringValue: userIdStr }
+      };
+
+      try {
         chatSdk.registerContext(
           chatSdk.prebuilts.ces.createContext({
             deploymentName: "projects/retail-search-jp-demo-minsoo/locations/us/apps/07a08655-1d08-44dc-a43b-ec06235393e1/deployments/52ccae7a-3ddc-4a40-bc3c-67821fde8b1b",
@@ -322,7 +450,87 @@
             }
           }),
         );
-        console.log("Chat SDK context registered successfully!");
+
+      const messenger = document.querySelector('chat-messenger');
+      if (messenger) {
+        if (typeof messenger.setVariables === 'function') {
+          messenger.setVariables(rawParams);
+          console.log("✅ messenger.setVariables applied:", rawParams);
+        }
+        if (typeof messenger.setQueryParameters === 'function') {
+          messenger.setQueryParameters({
+            parameters: rawParams
+          });
+          console.log("✅ messenger.setQueryParameters applied:", rawParams);
+        }
+      }
+
+      console.log("✅ Chat SDK context registered successfully with visitor_id & userid:", cookieData);
+    } catch (err) {
+      console.error("❌ Failed to register Chat SDK context:", err);
+    }
+  }
+
+  // Intercept outgoing chat requests to automatically inject session parameters directly into requestBody
+  function attachRequestInterceptor() {
+    const injectParams = (requestBody) => {
+      if (!requestBody) return;
+      const cookieData = initGecxCookie();
+      const visitorIdStr = cookieData.visitor_id || '';
+      const userIdStr = cookieData.userid || cookieData.user_id || '';
+      //console.log(userIdStr);
+      const paramObj = {
+        visitor_id: visitorIdStr,
+        userid: userIdStr
+      };
+
+      // 1. For Dialogflow CX / CES queryParams
+      if (!requestBody.queryParams) requestBody.queryParams = {};
+      requestBody.queryParams.parameters = paramObj;
+
+      // 2. For CES / Agent Studio (runSession inputs)
+      if (Array.isArray(requestBody.inputs)) {
+        let varObj = requestBody.inputs.find(item => item && item.variables);
+        if (varObj) {
+          Object.assign(varObj.variables, paramObj);
+        } else {
+          requestBody.inputs.push({ variables: paramObj });
+        }
+      }
+
+      console.log("🚀 Injected session parameters & CES variables into outgoing request:", requestBody);
+    };
+
+    const messenger = document.querySelector('chat-messenger');
+    const events = ['df-request-sent', 'chat-request-sent', 'chat-messenger-request-sent'];
+    events.forEach(eventName => {
+      window.addEventListener(eventName, (e) => {
+        if (e.detail && e.detail.requestBody) injectParams(e.detail.requestBody);
+      });
+      if (messenger) {
+        messenger.addEventListener(eventName, (e) => {
+          if (e.detail && e.detail.requestBody) injectParams(e.detail.requestBody);
+        });
+      }
+    });
+
+    // Override window.fetch to log and ensure queryParams are present in all outgoing POSTs
+    const origFetch = window.fetch;
+    window.fetch = async function (...args) {
+      const [url, config] = args;
+      if (config && config.method === 'POST' && config.body) {
+        try {
+          const bodyObj = JSON.parse(config.body);
+          console.log("📡 [window.fetch Intercepted POST]", url, bodyObj);
+        } catch (e) { }
+      }
+      return origFetch.apply(this, args);
+    };
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    attachRequestInterceptor();
+  });
 
         // Function to log shadow DOM launcher styling details
         function logLauncherStyle(stage) {
@@ -874,8 +1082,6 @@
             }
           });
         }, 300);
-      }
-    }
 
     // Handle hash change events (triggered by clicks on custom widget detail links)
     window.addEventListener('hashchange', () => {
@@ -978,6 +1184,26 @@
             <div class="config-value" style="color: #059669; font-weight: 600;">Enabled</div>
           </div>
         </div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+  <div class="config-item">
+    <div class="config-label">Visitor ID (gecx_cookie)</div>
+    <div class="config-value" id="display-visitor-id"
+      style="color: #0f172a; font-family: monospace; font-size: 0.82rem; word-break: break-all; margin-top: 4px;">
+      -
+    </div>
+  </div>
+  <div class="config-item">
+    <div class="config-label">User ID (gecx_cookie)</div>
+    <div style="display: flex; gap: 8px; margin-top: 4px; align-items: center;">
+      <input type="text" id="input-user-id" placeholder="Enter User ID"
+        style="flex: 1; padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem; font-family: inherit; outline: none; box-sizing: border-box;" />
+      <button type="button" id="btn-save-user-id"
+        style="padding: 6px 12px; background: #2563eb; color: #ffffff; border: none; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.2s;">
+        Save
+      </button>
+    </div>
+  </div>
+</div>
       </div>
 
       <div class="instruction-box">
