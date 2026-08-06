@@ -60,6 +60,15 @@
             </action>
         </step>
     </subtask>
+    
+    <subtask name="Product Comparison">
+        <step name="Delegate to Product Comparison Agent">
+            <trigger>User asks to compare products (e.g. comparing two or more models, "compare the first two", "1番目と2番目の冷蔵庫を比較して", "どれが良いか比較して").</trigger>
+            <action>
+                Delegate the request to {@AGENT: Product-Comparison-Agent}.
+            </action>
+        </step>
+    </subtask>
 </taskflow>
 
 <examples>

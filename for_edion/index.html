@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
   <script>
@@ -8,13 +8,13 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GECX Web Widget Test - Ask Edi</title>
+  <title>エディオン公式通販 - 家電と暮らしのオンラインショップ | AIコンシェルジュ Ask Edi</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
     rel="stylesheet">
 
   <!-- GECX Chat Messenger SDK & Themes -->
@@ -25,24 +25,18 @@
   <style>
     :root {
       color-scheme: light;
-      /* Force browser and elements into light mode */
-      --bg-color: #F8FAFC;
-      /* Light slate grey */
+      --edion-blue: #00479D;
+      --edion-blue-dark: #003370;
+      --edion-blue-light: #EBF3FB;
+      --edion-blue-hover: #0056bd;
+      --edion-red: #E60012;
+      --edion-yellow: #FFD200;
+      --bg-main: #F4F6F9;
       --card-bg: #FFFFFF;
-      /* Pure white */
-      --card-border: rgba(15, 23, 42, 0.08);
-      --text-primary: #0F172A;
-      /* Dark slate */
-      --text-secondary: #475569;
-      /* Medium slate */
-      --accent-primary: #4F46E5;
-      /* Indigo */
-      --accent-secondary: #7C3AED;
-      /* Violet */
-      --accent-success: #10B981;
-      /* Emerald green */
-      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --text-main: #222222;
+      --text-sub: #666666;
+      --border-color: #E2E8F0;
+      --font-family: 'Noto Sans JP', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     * {
@@ -52,269 +46,606 @@
     }
 
     body {
-      background-color: var(--bg-color);
-      color: var(--text-primary);
-      font-family: var(--font-sans);
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: var(--font-family);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      line-height: 1.5;
+    }
+
+    /* Top utility bar */
+    .top-bar {
+      background-color: #FAFAFA;
+      border-bottom: 1px solid #E5E7EB;
+      font-size: 0.75rem;
+      color: #666;
+      padding: 6px 0;
+    }
+
+    .top-bar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      overflow-x: hidden;
+    }
+
+    .top-links {
+      display: flex;
+      gap: 16px;
+      list-style: none;
+    }
+
+    .top-links a {
+      color: #555;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .top-links a:hover {
+      color: var(--edion-blue);
+      text-decoration: underline;
+    }
+
+    /* Main Header */
+    header {
+      background: #FFFFFF;
+      border-bottom: 2px solid var(--edion-blue);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 71, 157, 0.06);
+    }
+
+    .header-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .edion-logo-badge {
+      background: var(--edion-blue);
+      color: #FFFFFF;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      padding: 4px 14px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
     }
 
-    /* Soft ambient glowing background effects (Light pastel colors) */
-    body::before {
+    .edion-logo-badge::after {
       content: "";
       position: absolute;
-      width: 600px;
-      height: 600px;
-      top: -200px;
-      left: -100px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, rgba(255, 255, 255, 0) 70%);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    body::after {
-      content: "";
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      bottom: -200px;
-      right: -100px;
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, rgba(255, 255, 255, 0) 70%);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .container {
-      max-width: 800px;
-      width: 90%;
-      z-index: 10;
-      margin: 40px auto;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-
-    /* Header styling */
-    header {
-      text-align: center;
-      animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .badge-container {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(79, 70, 229, 0.06);
-      border: 1px solid rgba(79, 70, 229, 0.15);
-      padding: 6px 14px;
-      border-radius: 100px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--accent-primary);
-      margin-bottom: 20px;
-    }
-
-    .badge-dot {
+      bottom: 0;
+      right: 0;
       width: 8px;
       height: 8px;
-      background-color: var(--accent-success);
-      border-radius: 50%;
-      box-shadow: 0 0 12px var(--accent-success);
-      animation: pulse 2s infinite;
+      background-color: var(--edion-red);
+      border-top-left-radius: 4px;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #0F172A 30%, #4F46E5 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.025em;
-      line-height: 1.2;
-      margin-bottom: 12px;
+    .logo-text {
+      display: flex;
+      flex-direction: column;
     }
 
-    .subtitle {
+    .logo-title {
       font-size: 1.1rem;
-      color: var(--text-secondary);
-      max-width: 600px;
+      font-weight: 700;
+      color: var(--edion-blue);
+      line-height: 1.2;
+    }
+
+    .logo-subtitle {
+      font-size: 0.65rem;
+      color: #777;
+    }
+
+    /* Search Bar */
+    .search-container {
+      flex: 1;
+      max-width: 540px;
+      display: flex;
+      border: 2px solid var(--edion-blue);
+      border-radius: 24px;
+      overflow: hidden;
+      background: #FFFFFF;
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-family: inherit;
+    }
+
+    .search-btn {
+      background: var(--edion-blue);
+      border: none;
+      color: #FFFFFF;
+      padding: 0 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+
+    .search-btn:hover {
+      background: var(--edion-blue-hover);
+    }
+
+    /* Header action buttons */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-action-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #444;
+      font-size: 0.72rem;
+      font-weight: 500;
+      gap: 3px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .header-action-item svg {
+      color: var(--edion-blue);
+    }
+
+    .header-action-item:hover {
+      color: var(--edion-blue);
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -4px;
+      right: 4px;
+      background: var(--edion-red);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Category Navigation */
+    .category-nav {
+      background: var(--edion-blue);
+      color: #FFFFFF;
+    }
+
+    .category-nav-inner {
+      max-width: 1200px;
       margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-item {
+      padding: 10px 16px;
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      transition: background 0.2s;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-item.highlight {
+      background: var(--edion-red);
+    }
+
+    /* Main Container */
+    .main-wrapper {
+      max-width: 1200px;
+      width: 100%;
+      margin: 20px auto 40px;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* AI Hero Banner Section */
+    .ai-hero-banner {
+      background: linear-gradient(135deg, #00479D 0%, #002B66 100%);
+      border-radius: 16px;
+      color: #FFFFFF;
+      padding: 32px 36px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 71, 157, 0.15);
+    }
+
+    .ai-hero-banner::before {
+      content: "";
+      position: absolute;
+      right: -60px;
+      bottom: -60px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(255, 210, 0, 0.18) 0%, rgba(255, 255, 255, 0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--edion-yellow);
+      color: #003370;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .ai-hero-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+
+    .ai-hero-desc {
+      font-size: 0.92rem;
+      color: #E2E8F0;
+      max-width: 680px;
+      margin-bottom: 24px;
       line-height: 1.6;
     }
 
-    /* Card styling */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 32px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-    }
-
-    .card-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 24px;
+    /* Prompt Chips Section */
+    .prompt-chips-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--edion-yellow);
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
+      gap: 6px;
+    }
+
+    .prompt-chips {
+      display: flex;
+      flex-wrap: wrap;
       gap: 10px;
-      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
-      padding-bottom: 16px;
     }
 
-    .card-title svg {
-      color: var(--accent-primary);
+    .prompt-chip {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      padding: 8px 14px;
+      border-radius: 24px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(4px);
     }
 
-    .config-grid {
+    .prompt-chip:hover {
+      background: #FFFFFF;
+      color: var(--edion-blue);
+      border-color: #FFFFFF;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Content Grid */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sidebar */
+    .sidebar-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
-    .config-item {
+    .sidebar-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--edion-blue);
+      border-bottom: 2px solid var(--edion-blue);
+      padding-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .category-list {
+      list-style: none;
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
 
-    .config-label {
+    .category-list li a {
+      color: #444;
       font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .category-list li a:hover {
+      background: var(--edion-blue-light);
+      color: var(--edion-blue);
       font-weight: 600;
     }
 
-    .config-value {
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      background: #F1F5F9;
-      border: 1px solid rgba(15, 23, 42, 0.04);
-      padding: 10px 14px;
-      border-radius: 8px;
-      color: #334155;
-      word-break: break-all;
+    /* Section Cards */
+    .section-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    /* Interactive Instruction Section */
-    .instruction-box {
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #F1F5F9;
+      padding-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1E293B;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 4px;
+      height: 18px;
+      background: var(--edion-blue);
+      border-radius: 2px;
+    }
+
+    /* Features Grid */
+    .features-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-box {
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 16px;
+      background: #FAFAFC;
       display: flex;
       align-items: flex-start;
-      gap: 16px;
-      background: rgba(124, 58, 237, 0.03);
-      border: 1px solid rgba(124, 58, 237, 0.1);
-      border-radius: 16px;
-      padding: 20px;
-      margin-top: 24px;
+      gap: 12px;
     }
 
-    .instruction-icon {
+    .feature-icon {
       font-size: 1.5rem;
     }
 
-    .instruction-text h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 6px;
+    .feature-box h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 4px;
     }
 
-    .instruction-text p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
+    .feature-box p {
+      font-size: 0.75rem;
+      color: #64748B;
+      line-height: 1.4;
+    }
+
+    /* Config / Status Box */
+    .config-box {
+      background: var(--edion-blue-light);
+      border: 1px solid #BFDBFE;
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 0.8rem;
+      color: #1E3A8A;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .config-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF;
+      color: #059669;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid #A7F3D0;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10B981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
     }
 
     /* Footer */
     footer {
-      text-align: center;
-      margin-top: auto;
-      padding: 40px 0 20px 0;
-      font-size: 0.85rem;
+      background: #1E293B;
       color: #94A3B8;
-      z-index: 10;
-      animation: fadeIn 1s ease 0.4s both;
+      font-size: 0.8rem;
+      padding: 36px 16px 24px;
+      margin-top: auto;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #CBD5E1;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+      color: #FFFFFF;
     }
 
     /* GECX Messenger Layout Fixes */
     chat-messenger {
       display: block !important;
       position: fixed !important;
-      bottom: 16px !important;
-      right: 16px !important;
+      bottom: 20px !important;
+      right: 20px !important;
       z-index: 99999 !important;
       overflow: visible !important;
     }
 
     chat-messenger:not(.messenger-hidden) {
-      width: 380px !important;
-      height: 620px !important;
+      width: 400px !important;
+      height: 640px !important;
     }
 
-    /* Animations */
+    /* Floating Chat Trigger Tooltip */
+    .chat-bubble-cta {
+      position: fixed;
+      bottom: 95px;
+      right: 24px;
+      background: #FFFFFF;
+      color: var(--edion-blue);
+      border: 2px solid var(--edion-blue);
+      padding: 8px 14px;
+      border-radius: 20px;
+      box-shadow: 0 4px 14px rgba(0, 71, 157, 0.2);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 99998;
+      cursor: pointer;
+      animation: bounce 2s infinite;
+    }
+
+    .chat-bubble-cta::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      right: 24px;
+      width: 10px;
+      height: 10px;
+      background: #FFFFFF;
+      border-right: 2px solid var(--edion-blue);
+      border-bottom: 2px solid var(--edion-blue);
+      transform: rotate(45deg);
+    }
+
     @keyframes pulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-
-      50% {
-        transform: scale(1.2);
-        opacity: 0.7;
-      }
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
     }
 
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
     }
   </style>
 
-  <!-- GECX InBody Script -->
+  <!-- GECX Client Script -->
   <script>
-      function initChat() {
-        if (typeof chatSdk !== 'undefined') {
-          chatSdk.registerContext(
-            chatSdk.prebuilts.ces.createContext({
+    function initChat() {
+      if (typeof chatSdk !== 'undefined') {
+        chatSdk.registerContext(
+          chatSdk.prebuilts.ces.createContext({
             deploymentName: "projects/1047996184557/locations/us/apps/1501f451-79bc-43c4-a418-43a31b7b3188/deployments/0329b185-baf8-4a11-83d5-781026ca6e71",
             tokenBroker: {
               enableTokenBroker: true,
@@ -322,245 +653,226 @@
             }
           }),
         );
-        console.log("Chat SDK context registered successfully!");
+        console.log("EDION Ask Edi SDK context registered successfully!");
+      }
 
-        // Function to log shadow DOM launcher styling details
-        function logLauncherStyle(stage) {
-          if (messenger.shadowRoot) {
-            const wrapper = messenger.shadowRoot.querySelector('.chat-wrapper') ||
-              messenger.shadowRoot.querySelector('[class*="wrapper"]') ||
-              messenger.shadowRoot.children[0];
-            const launcher = messenger.shadowRoot.querySelector('.df-messenger-launcher') ||
-              messenger.shadowRoot.querySelector('[class*="launcher"]') ||
-              messenger.shadowRoot.querySelector('button') ||
-              messenger.shadowRoot.querySelector('div');
-            console.log(`[${stage}] Shadow DOM status:`);
-            if (wrapper) {
-              console.log(`  Wrapper className:`, wrapper.className, "style:", wrapper.getAttribute('style'));
+      // Helper function to query all elements matching a selector inside shadow roots recursively
+      function querySelectorAllShadow(selector, root = document) {
+        const results = [];
+        function traverse(node) {
+          if (!node) return;
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            if (node.matches(selector)) {
+              results.push(node);
             }
-            if (launcher) {
-              console.log(`  Launcher tag:`, launcher.tagName, "className:", launcher.className, "style:", launcher.getAttribute('style'));
-              try {
-                const computed = window.getComputedStyle(launcher);
-                console.log(`  Launcher computed style - Display:`, computed.display, "Visibility:", computed.visibility, "Opacity:", computed.opacity, "Width:", computed.width, "Height:", computed.height);
-              } catch (e) {
-                console.log(`  Failed computed style:`, e.message);
-              }
+            if (node.shadowRoot) {
+              traverse(node.shadowRoot);
             }
-          } else {
-            console.log(`[${stage}] No shadowRoot found on chat-messenger.`);
+          }
+          let child = node.firstChild;
+          while (child) {
+            traverse(child);
+            child = child.nextSibling;
           }
         }
+        traverse(root);
+        return results;
+      }
 
-        // Track host attributes/class changes to log style state of shadow DOM
-        const messenger = document.querySelector('chat-messenger');
-        if (messenger) {
-          console.log("MutationObserver initialized!");
+      function cleanLLMJson(str) {
+        if (!str) return '';
+        // Strip auto-linked <a> tags inserted by chat-messenger
+        str = str.replace(/<a [^>]*>(https?:\/\/[^<]+)<\/a>/gi, '$1');
+        // Fix stray quotes after array closing bracket
+        str = str.replace(/(\]|\]\s*)"\s*,/g, '],');
+        str = str.replace(/(\]|\]\s*)"\s*\n/g, ']\n');
+        // Fix trailing commas before closing braces/brackets
+        str = str.replace(/,\s*([\}\]])/g, '$1');
+        // Fix raw linebreaks inside quotes
+        str = str.replace(/"([^"]*)"/g, (m, p1) => '"' + p1.replace(/[\r\n]+/g, '').trim() + '"');
+        return str;
+      }
 
-          // Log initial styles on load (after 2 seconds to ensure element upgrades)
-          setTimeout(() => {
-            logLauncherStyle("Initial Load");
-          }, 2000);
+      function parseProductListFallback(rawStr) {
+        const items = [];
+        const itemMatches = rawStr.match(/\{[^{}]*"productId"[\s\S]*?\}/g) || [];
+        itemMatches.forEach(itemStr => {
+          const idMatch = itemStr.match(/"productId"\s*:\s*"([^"]+)"/);
+          const titleMatch = itemStr.match(/"title"\s*:\s*"([^"]+)"/);
+          const subMatch = itemStr.match(/"subtitle"\s*:\s*"([^"]+)"/);
+          const uriMatch = itemStr.match(/https?:\/\/www\.edion\.com[^\s"<>]+/i) || itemStr.match(/https?:\/\/[^\s"<>]+/i);
+          const imgMatch = itemStr.match(/https?:\/\/[^\s"<>]*\.(?:jpg|jpeg|png|webp|gif)/i);
+          const priceMatch = itemStr.match(/"price"\s*:\s*"([^"]+)"/);
 
-          const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-              if (mutation.attributeName === 'class') {
-                console.log("Host Class Mutation:", messenger.className);
-                logLauncherStyle("Class Mutation");
-              }
+          if (idMatch || titleMatch) {
+            items.push({
+              productId: idMatch ? idMatch[1] : '',
+              title: titleMatch ? titleMatch[1] : '',
+              subtitle: subMatch ? subMatch[1] : '',
+              uri: uriMatch ? uriMatch[0] : '',
+              imageUris: imgMatch ? [imgMatch[0]] : [],
+              price: priceMatch ? priceMatch[1] : '0'
             });
-          });
-        }
-
-        // Helper function to query all elements matching a selector inside shadow roots recursively
-        function querySelectorAllShadow(selector, root = document) {
-          const results = [];
-          function traverse(node) {
-            if (!node) return;
-            if (node.nodeType === Node.ELEMENT_NODE) {
-              if (node.matches(selector)) {
-                results.push(node);
-              }
-              if (node.shadowRoot) {
-                traverse(node.shadowRoot);
-              }
-            }
-            let child = node.firstChild;
-            while (child) {
-              traverse(child);
-              child = child.nextSibling;
-            }
           }
-          traverse(root);
-          return results;
+        });
+        return { productDetails: items };
+      }
+
+      function parseProductDetailFallback(rawStr) {
+        if (!rawStr) return {};
+        const idMatch = rawStr.match(/"productId"\s*:\s*"([^"]+)"/);
+        const titleMatch = rawStr.match(/"title"\s*:\s*"([^"]+)"/);
+        const subMatch = rawStr.match(/"subtitle"\s*:\s*"([^"]+)"/);
+        const descMatch = rawStr.match(/"description"\s*:\s*"([^"]+)"/);
+        const uriMatch = rawStr.match(/https?:\/\/www\.edion\.com[^\s"<>]+/i) || rawStr.match(/https?:\/\/[^\s"<>]+/i);
+        const priceMatch = rawStr.match(/"price"\s*:\s*"([^"]+)"/);
+        const imgMatches = rawStr.match(/https?:\/\/[^\s"<>]+\.(?:jpg|jpeg|png|webp|gif)/gi) || [];
+
+        return {
+          productId: idMatch ? idMatch[1] : '',
+          title: titleMatch ? titleMatch[1] : '',
+          subtitle: subMatch ? subMatch[1] : (descMatch ? descMatch[1] : ''),
+          description: descMatch ? descMatch[1] : '',
+          uri: uriMatch ? uriMatch[0] : '',
+          imageUris: imgMatches,
+          price: priceMatch ? priceMatch[1] : '0'
+        };
+      }
+
+      function extractJsonBlock(fullText, widgetTag) {
+        const idx = fullText.indexOf(widgetTag);
+        if (idx === -1) return null;
+        const jsonStart = fullText.indexOf('{', idx);
+        if (jsonStart === -1) return null;
+        const jsonEnd = fullText.lastIndexOf('}');
+        if (jsonEnd === -1 || jsonEnd <= jsonStart) return null;
+
+        const textBefore = fullText.substring(0, idx).trim();
+        const rawJsonStr = fullText.substring(jsonStart, jsonEnd + 1);
+        return { textBefore, rawJsonStr };
+      }
+
+      function createProductCardElement(item) {
+        const card = document.createElement('df-product-detail-card');
+        card.style.cssText = 'display: inline-block !important; flex-shrink: 0; width: 140px; box-sizing: border-box; cursor: pointer;';
+        card.setAttribute('product-id', item.productId || '');
+        card.setAttribute('title', item.title || '');
+        card.setAttribute('subtitle', item.subtitle || item.description || '');
+        card.setAttribute('price', item.price || '0');
+        if (item.imageUris && item.imageUris.length > 0) {
+          card.setAttribute('image-uris', JSON.stringify(item.imageUris));
+          card.setAttribute('image-uri', item.imageUris[0]);
+        }
+        if (item.uri) {
+          card.setAttribute('uri', item.uri);
         }
 
-        function cleanLLMJson(str) {
-          if (!str) return '';
-          // Strip auto-linked <a> tags inserted by chat-messenger
-          str = str.replace(/<a [^>]*>(https?:\/\/[^<]+)<\/a>/gi, '$1');
-          // Fix stray quotes after array closing bracket (e.g. `"]",` -> `"],`)
-          str = str.replace(/(\]|\]\s*)"\s*,/g, '],');
-          str = str.replace(/(\]|\]\s*)"\s*\n/g, ']\n');
-          // Fix trailing commas before closing braces/brackets
-          str = str.replace(/,\s*([\}\]])/g, '$1');
-          // Fix raw linebreaks inside quotes
-          str = str.replace(/"([^"]*)"/g, (m, p1) => '"' + p1.replace(/[\r\n]+/g, '').trim() + '"');
-          return str;
-        }
+        // Build a visual card element (DIV to prevent hash change and duplicate event trigger)
+        const cardInner = document.createElement('div');
+        cardInner.style.cssText = 'display: flex; flex-direction: column; padding: 10px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; text-decoration: none; color: #0f172a; box-shadow: 0 2px 6px rgba(0,0,0,0.04); width: 140px; box-sizing: border-box; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; user-select: none;';
+        
+        cardInner.onmouseenter = () => {
+          cardInner.style.transform = 'translateY(-2px)';
+          cardInner.style.boxShadow = '0 6px 12px rgba(0, 71, 157, 0.1)';
+        };
+        cardInner.onmouseleave = () => {
+          cardInner.style.transform = 'none';
+          cardInner.style.boxShadow = '0 2px 6px rgba(0,0,0,0.04)';
+        };
 
-        function parseProductListFallback(rawStr) {
-          const items = [];
-          const itemMatches = rawStr.match(/\{[^{}]*"productId"[\s\S]*?\}/g) || [];
-          itemMatches.forEach(itemStr => {
-            const idMatch = itemStr.match(/"productId"\s*:\s*"([^"]+)"/);
-            const titleMatch = itemStr.match(/"title"\s*:\s*"([^"]+)"/);
-            const subMatch = itemStr.match(/"subtitle"\s*:\s*"([^"]+)"/);
-            const uriMatch = itemStr.match(/https?:\/\/www\.shiseido\.co\.jp[^\s"<>]+/i) || itemStr.match(/https?:\/\/[^\s"<>]+/i);
-            const imgMatch = itemStr.match(/https?:\/\/imagecdn\.shiseido\.co\.jp[^\s"<>]+/i) || itemStr.match(/https?:\/\/[^\s"<>]*\.(?:jpg|png|webp|gif)/i);
-            const priceMatch = itemStr.match(/"price"\s*:\s*"([^"]+)"/);
-
-            if (idMatch || titleMatch) {
-              items.push({
-                productId: idMatch ? idMatch[1] : '',
-                title: titleMatch ? titleMatch[1] : '',
-                subtitle: subMatch ? subMatch[1] : '',
-                uri: uriMatch ? uriMatch[0] : '',
-                imageUris: imgMatch ? [imgMatch[0]] : [],
-                price: priceMatch ? priceMatch[1] : '0.0'
-              });
-            }
-          });
-          return { productDetails: items };
-        }
-
-        function extractJsonBlock(fullText, widgetTag) {
-          const idx = fullText.indexOf(widgetTag);
-          if (idx === -1) return null;
-          const jsonStart = fullText.indexOf('{', idx);
-          if (jsonStart === -1) return null;
-          const jsonEnd = fullText.lastIndexOf('}');
-          if (jsonEnd === -1 || jsonEnd <= jsonStart) return null;
-
-          const textBefore = fullText.substring(0, idx).trim();
-          const rawJsonStr = fullText.substring(jsonStart, jsonEnd + 1);
-          return { textBefore, rawJsonStr };
-        }
-
-        function createProductCardElement(item) {
-          const card = document.createElement('df-product-detail-card');
-          card.style.cssText = 'display: inline-block !important; flex-shrink: 0; width: 140px; box-sizing: border-box; cursor: pointer;';
-          card.setAttribute('product-id', item.productId || '');
-          card.setAttribute('title', item.title || '');
-          card.setAttribute('subtitle', item.subtitle || item.description || '');
-          card.setAttribute('price', item.price || '0.0');
-          if (item.imageUris && item.imageUris.length > 0) {
-            card.setAttribute('image-uris', JSON.stringify(item.imageUris));
-            card.setAttribute('image-uri', item.imageUris[0]);
+        // Click handler sends single query to agent
+        cardInner.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (item.productId) {
+            sendQueryToAgent(`Show details for product ${item.productId}`);
           }
-          if (item.uri) {
-            card.setAttribute('uri', item.uri);
-          }
+        });
 
-          // Handle click on card element to request product-detail widget instead of navigating away
-          card.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (item.productId) {
-              sendQueryToAgent(`Show details for product ${item.productId}`);
-            }
-          });
+        // 1. Top Image Box
+        const imgUrl = (item.imageUris && item.imageUris[0]) ? item.imageUris[0] : '';
+        const imgContainer = document.createElement('div');
+        imgContainer.style.cssText = 'width: 100%; height: 110px; background: #ffffff; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9; padding: 4px;';
 
-          // Build a visual fallback HTML card matching Step1/index.html side-by-side layout
-          const cardInner = document.createElement('a');
-          cardInner.href = item.uri && item.uri.startsWith('#') ? item.uri : (`#product-detail?id=${item.productId || ''}`);
-          cardInner.style.cssText = 'display: flex; flex-direction: column; padding: 10px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; text-decoration: none; color: #0f172a; box-shadow: 0 2px 6px rgba(0,0,0,0.04); width: 140px; box-sizing: border-box; transition: transform 0.2s; cursor: pointer;';
-          cardInner.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (item.productId) {
-              sendQueryToAgent(`Show details for product ${item.productId}`);
-            }
-          });
+        if (imgUrl) {
+          const img = document.createElement('img');
+          img.src = imgUrl;
+          img.alt = item.title || '';
+          img.style.cssText = 'max-width: 100%; max-height: 100%; object-fit: contain;';
+          imgContainer.appendChild(img);
+        }
+        cardInner.appendChild(imgContainer);
 
-          // 1. Top Image Box
-          const imgUrl = (item.imageUris && item.imageUris[0]) ? item.imageUris[0] : '';
-          const imgContainer = document.createElement('div');
-          imgContainer.style.cssText = 'width: 100%; height: 110px; background: #ffffff; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9; padding: 4px;';
+        // 2. Title
+        const titleEl = document.createElement('div');
+        titleEl.style.cssText = 'font-weight: 600; font-size: 0.78rem; color: #0f172a; line-height: 1.35; margin-top: 8px; height: 2.7em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; word-break: break-word;';
+        titleEl.textContent = item.title || '';
+        cardInner.appendChild(titleEl);
 
-          if (imgUrl) {
-            const img = document.createElement('img');
-            img.src = imgUrl;
-            img.alt = item.title || '';
-            img.style.cssText = 'max-width: 100%; max-height: 100%; object-fit: contain;';
-            imgContainer.appendChild(img);
-          }
-          cardInner.appendChild(imgContainer);
+        // 3. Price
+        const priceEl = document.createElement('div');
+        priceEl.style.cssText = 'font-weight: 700; font-size: 0.85rem; color: #E60012; margin-top: 6px;';
+        const numericPrice = Number(item.price);
+        priceEl.textContent = isNaN(numericPrice) || numericPrice === 0 ? (item.price ? `${item.price}円` : '0円') : `${numericPrice.toLocaleString()}円`;
+        cardInner.appendChild(priceEl);
 
-          // 2. Title
-          const titleEl = document.createElement('div');
-          titleEl.style.cssText = 'font-weight: 500; font-size: 0.8rem; color: #0f172a; line-height: 1.35; margin-top: 8px; height: 2.7em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; word-break: break-word;';
-          titleEl.textContent = item.title || '';
-          cardInner.appendChild(titleEl);
+        // 4. "Add to cart" Button at bottom
+        const btn = document.createElement('div');
+        btn.style.cssText = 'display: flex; align-items: center; justify-content: center; gap: 4px; background: #f1f5f9; border-radius: 20px; padding: 6px 10px; color: #00479D; font-size: 0.75rem; margin-top: 8px; font-weight: 600;';
+        btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> カートに入れる';
+        cardInner.appendChild(btn);
 
-          // 3. Price
-          const priceEl = document.createElement('div');
-          priceEl.style.cssText = 'font-weight: 600; font-size: 0.85rem; color: #334155; margin-top: 6px;';
-          const numericPrice = Number(item.price);
-          priceEl.textContent = isNaN(numericPrice) || numericPrice === 0 ? (item.price ? `${item.price}円` : '0円') : `${numericPrice.toLocaleString()}円`;
-          cardInner.appendChild(priceEl);
+        card.appendChild(cardInner);
+        return card;
+      }
 
-          // 4. "Add to cart" Button at bottom
-          const btn = document.createElement('div');
-          btn.style.cssText = 'display: flex; align-items: center; justify-content: center; gap: 4px; background: #f1f5f9; border-radius: 20px; padding: 6px 10px; color: #64748b; font-size: 0.75rem; margin-top: 8px; font-weight: 500;';
-          btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Add to cart';
-          cardInner.appendChild(btn);
-
-          card.appendChild(cardInner);
-          return card;
+      function createProductDetailWidgetElement(data) {
+        if (!data) data = {};
+        const card = document.createElement('df-product-detail-card');
+        card.style.cssText = 'display: block !important; width: 100% !important; margin-top: 10px; box-sizing: border-box;';
+        card.setAttribute('product-id', data.productId || '');
+        card.setAttribute('title', data.title || '');
+        card.setAttribute('subtitle', data.subtitle || data.description || '');
+        card.setAttribute('price', data.price || '0');
+        
+        let images = [];
+        if (data.imageUris && Array.isArray(data.imageUris) && data.imageUris.length > 0) {
+          images = data.imageUris.filter(u => u && typeof u === 'string' && u.startsWith('http'));
+        } else if (typeof data.imageUris === 'string' && data.imageUris.startsWith('http')) {
+          images = [data.imageUris];
+        } else if (data.imageUri && typeof data.imageUri === 'string' && data.imageUri.startsWith('http')) {
+          images = [data.imageUri];
         }
 
-        function createProductDetailWidgetElement(data) {
-          const card = document.createElement('df-product-detail-card');
-          card.style.cssText = 'display: block !important; width: 100% !important; margin-top: 10px; box-sizing: border-box;';
-          card.setAttribute('product-id', data.productId || '');
-          card.setAttribute('title', data.title || '');
-          card.setAttribute('subtitle', data.subtitle || data.description || '');
-          card.setAttribute('price', data.price || '0.0');
-          if (data.imageUris && data.imageUris.length > 0) {
-            card.setAttribute('image-uris', JSON.stringify(data.imageUris));
-            card.setAttribute('image-uri', data.imageUris[0]);
-          }
-          if (data.uri) card.setAttribute('uri', data.uri);
+        if (images.length > 0) {
+          card.setAttribute('image-uris', JSON.stringify(images));
+          card.setAttribute('image-uri', images[0]);
+        }
+        if (data.uri) card.setAttribute('uri', data.uri);
 
-          // Build original full-size product detail widget layout matching user screenshot
-          const widgetBox = document.createElement('div');
-          widgetBox.style.cssText = 'display: flex; flex-direction: column; padding: 20px; border: 1px solid #e2e8f0; border-radius: 24px; background: #ffffff; width: 100%; box-sizing: border-box; box-shadow: 0 4px 14px rgba(0,0,0,0.06); color: #0f172a; gap: 12px; margin-top: 6px;';
+        const widgetBox = document.createElement('div');
+        widgetBox.style.cssText = 'display: flex; flex-direction: column; padding: 20px; border: 1px solid #e2e8f0; border-radius: 20px; background: #ffffff; width: 100%; box-sizing: border-box; box-shadow: 0 4px 14px rgba(0,0,0,0.06); color: #0f172a; gap: 12px; margin-top: 6px;';
 
-          // 1. Image Gallery
-          const images = (data.imageUris && Array.isArray(data.imageUris) && data.imageUris.length > 0)
-            ? data.imageUris
-            : (data.imageUri ? [data.imageUri] : []);
-
-          // Main Image Box
+        // 1. Image Gallery
+        if (images.length > 0 && images[0]) {
           const mainImgBox = document.createElement('div');
-          mainImgBox.style.cssText = 'width: 100%; height: 220px; background: #f8fafc; border-radius: 16px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9; padding: 12px; box-sizing: border-box;';
+          mainImgBox.style.cssText = 'width: 100%; height: 220px; background: #ffffff; border-radius: 16px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9; padding: 12px; box-sizing: border-box;';
 
           const mainImg = document.createElement('img');
-          mainImg.src = images[0] || '';
+          mainImg.src = images[0];
           mainImg.alt = data.title || '';
           mainImg.style.cssText = 'max-width: 100%; max-height: 100%; object-fit: contain; transition: opacity 0.2s;';
           mainImgBox.appendChild(mainImg);
           widgetBox.appendChild(mainImgBox);
 
-          // 2. Thumbnails Row (when multiple photos exist)
-          if (images.length > 0) {
+          // Thumbnails
+          if (images.length > 1) {
             const thumbRow = document.createElement('div');
-            thumbRow.style.cssText = 'display: flex; gap: 10px; overflow-x: auto; padding: 4px 2px; scrollbar-width: none;';
+            thumbRow.style.cssText = 'display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px; scrollbar-width: none;';
 
             images.forEach((imgSrc, idx) => {
               const thumbBox = document.createElement('div');
-              thumbBox.style.cssText = `width: 54px; height: 54px; border-radius: 12px; background: #f8fafc; border: ${idx === 0 ? '2px solid #0f172a' : '1px solid #e2e8f0'}; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; overflow: hidden; padding: 4px; box-sizing: border-box; transition: all 0.2s;`;
+              thumbBox.style.cssText = `width: 48px; height: 48px; border-radius: 10px; background: #ffffff; border: ${idx === 0 ? '2px solid #00479D' : '1px solid #e2e8f0'}; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; overflow: hidden; padding: 2px; box-sizing: border-box;`;
 
               const thumbImg = document.createElement('img');
               thumbImg.src = imgSrc;
@@ -574,426 +886,586 @@
                   mainImg.style.opacity = '1';
                 }, 100);
                 Array.from(thumbRow.children).forEach(child => child.style.border = '1px solid #e2e8f0');
-                thumbBox.style.border = '2px solid #0f172a';
+                thumbBox.style.border = '2px solid #00479D';
               };
 
               thumbRow.appendChild(thumbBox);
             });
             widgetBox.appendChild(thumbRow);
           }
-
-          // 3. Badge (Bestseller / Category)
-          const badgeText = data.badge || data.category || data.subtitle || 'Bestseller';
-          if (badgeText) {
-            const badge = document.createElement('div');
-            badge.style.cssText = 'display: inline-block; align-self: flex-start; background: #1e293b; color: #ffffff; font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; margin-top: 2px;';
-            badge.textContent = badgeText;
-            widgetBox.appendChild(badge);
-          }
-
-          // 4. Product Title
-          const titleEl = document.createElement('h3');
-          titleEl.style.cssText = 'font-size: 1.15rem; font-weight: 600; color: #0f172a; margin: 0; line-height: 1.35;';
-          titleEl.textContent = data.title || '';
-          widgetBox.appendChild(titleEl);
-
-          // 5. Product Description
-          if (data.description || data.subtitle) {
-            const descEl = document.createElement('p');
-            descEl.style.cssText = 'font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.4;';
-            descEl.textContent = data.description || data.subtitle || '';
-            widgetBox.appendChild(descEl);
-          }
-
-          // 6. Price
-          const priceEl = document.createElement('div');
-          priceEl.style.cssText = 'font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-top: 2px;';
-          const numPrice = Number(data.price);
-          priceEl.textContent = isNaN(numPrice) || numPrice === 0 ? (data.price ? `${data.price}円` : '') : `${numPrice.toLocaleString()}円`;
-          widgetBox.appendChild(priceEl);
-
-          // 7. Rating
-          const ratingRow = document.createElement('div');
-          ratingRow.style.cssText = 'display: flex; align-items: center; gap: 4px; font-size: 0.82rem; color: #475569; margin-top: -2px;';
-          ratingRow.innerHTML = '<span style="color: #f59e0b;">★</span> <strong>4.8</strong> <span style="color: #94a3b8;">(15 reviews)</span>';
-          widgetBox.appendChild(ratingRow);
-
-          // 8. Add to Cart Button (Black rounded pill button from screenshot)
-          const cartBtn = document.createElement('button');
-          cartBtn.type = 'button';
-          cartBtn.style.cssText = 'display: flex; align-items: center; gap: 8px; background: #1e293b; color: #ffffff; border: none; border-radius: 24px; padding: 10px 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; align-self: flex-start; margin-top: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); transition: background 0.2s;';
-          cartBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Add to cart';
-          widgetBox.appendChild(cartBtn);
-
-          card.appendChild(widgetBox);
-          return card;
         }
 
-        // Client-side Widget Auto-Renderer: Automatically converts [widget:...] JSON text into UI Components
-        setInterval(() => {
-          // 1. Hide 'Add to cart' buttons inside Shadow DOM
-          querySelectorAllShadow('df-cart-button').forEach(el => {
-            el.style.setProperty('display', 'none', 'important');
-          });
-          querySelectorAllShadow('md-filled-button').forEach(el => {
-            const icon = el.querySelector('md-icon');
-            const hasCartIcon = icon && icon.textContent.trim() === 'shopping_cart';
-            const hasCartText = el.textContent.toLowerCase().includes('add to cart');
-            if (hasCartIcon || hasCartText) {
-              el.style.setProperty('display', 'none', 'important');
-            }
-          });
+        // 2. Badge
+        const badgeText = data.badge || data.category || data.subtitle || 'エディオンおすすめ';
+        if (badgeText) {
+          const badge = document.createElement('div');
+          badge.style.cssText = 'display: inline-block; align-self: flex-start; background: #00479D; color: #ffffff; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 4px;';
+          badge.textContent = badgeText;
+          widgetBox.appendChild(badge);
+        }
 
-          // 2. Scan and parse unrendered [widget:...] text blocks inside message bubbles
-          querySelectorAllShadow('.message-content, .bot-message, .message').forEach(container => {
-            if (container.dataset.widgetRendered === "true") return;
+        // 3. Title
+        const titleEl = document.createElement('h3');
+        titleEl.style.cssText = 'font-size: 1.05rem; font-weight: 700; color: #0f172a; margin: 0; line-height: 1.4;';
+        titleEl.textContent = data.title || '';
+        widgetBox.appendChild(titleEl);
 
-            const fullText = container.innerText || container.textContent;
-            if (!fullText) return;
+        // 4. Description
+        if (data.description || data.subtitle) {
+          const descEl = document.createElement('p');
+          descEl.style.cssText = 'font-size: 0.82rem; color: #64748b; margin: 0; line-height: 1.45;';
+          descEl.textContent = data.description || data.subtitle || '';
+          widgetBox.appendChild(descEl);
+        }
 
-            // Process [widget:product_list]
-            if (fullText.includes('[widget:product_list]')) {
-              const parsed = extractJsonBlock(fullText, '[widget:product_list]');
-              if (parsed) {
-                try {
-                  let data;
-                  try {
-                    data = JSON.parse(cleanLLMJson(parsed.rawJsonStr));
-                  } catch (err) {
-                    console.warn("JSON.parse failed, using fallback regex parser:", err);
-                    data = parseProductListFallback(parsed.rawJsonStr);
-                  }
+        // 5. Price
+        const priceEl = document.createElement('div');
+        priceEl.style.cssText = 'font-size: 1.25rem; font-weight: 800; color: #E60012; margin-top: 2px;';
+        const numPrice = Number(data.price);
+        priceEl.textContent = isNaN(numPrice) || numPrice === 0 ? (data.price ? `${data.price}円` : '') : `${numPrice.toLocaleString()}円`;
+        widgetBox.appendChild(priceEl);
 
-                  const carouselContainer = document.createElement('df-product-list-card');
-                  carouselContainer.style.cssText = 'position: relative; display: flex; align-items: center; width: 100%; margin-top: 10px; box-sizing: border-box;';
+        // 6. Rating
+        const ratingRow = document.createElement('div');
+        ratingRow.style.cssText = 'display: flex; align-items: center; gap: 4px; font-size: 0.8rem; color: #475569;';
+        ratingRow.innerHTML = '<span style="color: #f59e0b;">★</span> <strong>4.8</strong> <span style="color: #94a3b8;">(エディオン購入者レビュー)</span>';
+        widgetBox.appendChild(ratingRow);
 
-                  const listWrapper = document.createElement('div');
-                  listWrapper.className = 'custom-product-list';
-                  listWrapper.style.cssText = 'display: flex; flex-direction: row; gap: 12px; width: 100%; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; padding: 6px 4px;';
+        // 7. Actions row
+        const actionsRow = document.createElement('div');
+        actionsRow.style.cssText = 'display: flex; gap: 10px; margin-top: 6px;';
 
-                  if (data.productDetails && Array.isArray(data.productDetails)) {
-                    data.productDetails.forEach(item => {
-                      const card = createProductCardElement(item);
-                      listWrapper.appendChild(card);
-                    });
-                  }
+        const cartBtn = document.createElement('button');
+        cartBtn.type = 'button';
+        cartBtn.style.cssText = 'display: flex; align-items: center; gap: 6px; background: #00479D; color: #ffffff; border: none; border-radius: 20px; padding: 10px 18px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: background 0.2s;';
+        cartBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> カートに入れる';
+        actionsRow.appendChild(cartBtn);
 
-                  // Add Left (<) and Right (>) carousel slide buttons if multiple items exist
-                  if (data.productDetails && data.productDetails.length > 1) {
-                    const prevBtn = document.createElement('button');
-                    prevBtn.innerHTML = '&#10094;';
-                    prevBtn.type = 'button';
-                    prevBtn.style.cssText = 'position: absolute; left: -8px; top: 50%; transform: translateY(-50%); z-index: 15; width: 28px; height: 28px; border-radius: 50%; background: #ffffff; border: 1px solid #cbd5e1; box-shadow: 0 2px 5px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #334155; font-size: 13px; font-weight: bold; outline: none; transition: background 0.2s, transform 0.2s;';
-                    prevBtn.onclick = (e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      listWrapper.scrollBy({ left: -150, behavior: 'smooth' });
-                    };
+        if (data.uri) {
+          const detailLink = document.createElement('a');
+          detailLink.href = data.uri;
+          detailLink.target = '_blank';
+          detailLink.style.cssText = 'display: flex; align-items: center; gap: 4px; background: #f1f5f9; color: #0f172a; text-decoration: none; border-radius: 20px; padding: 10px 16px; font-size: 0.85rem; font-weight: 600;';
+          detailLink.innerHTML = '詳細ページを開く ↗';
+          actionsRow.appendChild(detailLink);
+        }
 
-                    const nextBtn = document.createElement('button');
-                    nextBtn.innerHTML = '&#10095;';
-                    nextBtn.type = 'button';
-                    nextBtn.style.cssText = 'position: absolute; right: -8px; top: 50%; transform: translateY(-50%); z-index: 15; width: 28px; height: 28px; border-radius: 50%; background: #ffffff; border: 1px solid #cbd5e1; box-shadow: 0 2px 5px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #334155; font-size: 13px; font-weight: bold; outline: none; transition: background 0.2s, transform 0.2s;';
-                    nextBtn.onclick = (e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      listWrapper.scrollBy({ left: 150, behavior: 'smooth' });
-                    };
-
-                    carouselContainer.appendChild(prevBtn);
-                    carouselContainer.appendChild(listWrapper);
-                    carouselContainer.appendChild(nextBtn);
-                  } else {
-                    carouselContainer.appendChild(listWrapper);
-                  }
-
-                  const wrapper = document.createElement('div');
-                  wrapper.style.cssText = 'width: 100%;';
-
-                  if (parsed.textBefore) {
-                    const textEl = document.createElement('div');
-                    textEl.style.cssText = 'white-space: pre-wrap; line-height: 1.5; margin-bottom: 12px; font-family: inherit; font-size: inherit; color: inherit;';
-                    textEl.textContent = parsed.textBefore;
-                    wrapper.appendChild(textEl);
-                  }
-                  wrapper.appendChild(carouselContainer);
-
-                  container.dataset.widgetRendered = "true";
-
-                  const targetChild = Array.from(container.childNodes).find(n => n.textContent && n.textContent.includes('[widget:product_list]'));
-                  if (targetChild) {
-                    targetChild.replaceWith(wrapper);
-                  } else {
-                    container.innerHTML = '';
-                    container.appendChild(wrapper);
-                  }
-                } catch (e) {
-                  console.error("Failed to parse product_list JSON client-side:", e);
-                }
-              }
-            }
-
-            // Process [widget:product-detail]
-            else if (fullText.includes('[widget:product-detail]')) {
-              const parsed = extractJsonBlock(fullText, '[widget:product-detail]');
-              if (parsed) {
-                try {
-                  let data;
-                  try {
-                    data = JSON.parse(cleanLLMJson(parsed.rawJsonStr));
-                  } catch (err) {
-                    console.warn("JSON.parse failed for product-detail, using fallback parser:", err);
-                    data = parseProductListFallback(parsed.rawJsonStr).productDetails[0] || {};
-                  }
-
-                  const card = createProductDetailWidgetElement(data);
-                  const wrapper = document.createElement('div');
-                  wrapper.style.cssText = 'width: 100%;';
-
-                  if (parsed.textBefore) {
-                    const textEl = document.createElement('div');
-                    textEl.style.cssText = 'white-space: pre-wrap; line-height: 1.5; margin-bottom: 12px; font-family: inherit; font-size: inherit; color: inherit;';
-                    textEl.textContent = parsed.textBefore;
-                    wrapper.appendChild(textEl);
-                  }
-                  wrapper.appendChild(card);
-
-                  container.dataset.widgetRendered = "true";
-
-                  const targetChild = Array.from(container.childNodes).find(n => n.textContent && n.textContent.includes('[widget:product-detail]'));
-                  if (targetChild) {
-                    targetChild.replaceWith(wrapper);
-                  } else {
-                    container.innerHTML = '';
-                    container.appendChild(wrapper);
-                  }
-                } catch (e) {
-                  console.error("Failed to parse product-detail JSON client-side:", e);
-                }
-              }
-            }
-
-            // Process [widget:compare_products]
-            else if (fullText.includes('[widget:compare_products]')) {
-              const parsed = extractJsonBlock(fullText, '[widget:compare_products]');
-              if (parsed) {
-                try {
-                  let data;
-                  try {
-                    data = JSON.parse(cleanLLMJson(parsed.rawJsonStr));
-                  } catch (err) {
-                    console.warn("JSON.parse failed for compare_products:", err);
-                    data = parseProductListFallback(parsed.rawJsonStr);
-                  }
-
-                  const compareWrapper = document.createElement('div');
-                  compareWrapper.className = 'custom-compare-products';
-                  compareWrapper.style.cssText = 'display: flex; flex-direction: column; gap: 14px; margin-top: 10px; border: 1px solid #e2e8f0; padding: 16px; border-radius: 16px; background: #ffffff; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.05); box-sizing: border-box;';
-
-                  if (data.title) {
-                    const titleEl = document.createElement('h4');
-                    titleEl.textContent = data.title;
-                    titleEl.style.cssText = 'margin: 0 0 4px 0; font-size: 15px; font-weight: 700; color: #0f172a;';
-                    compareWrapper.appendChild(titleEl);
-                  }
-
-                  // 1. Product Cards Grid
-                  if (data.productDetails && Array.isArray(data.productDetails) && data.productDetails.length > 0) {
-                    const grid = document.createElement('div');
-                    grid.style.cssText = 'display: grid; grid-template-columns: repeat(' + data.productDetails.length + ', 1fr); gap: 10px; width: 100%; box-sizing: border-box;';
-                    data.productDetails.forEach(item => {
-                      const card = createProductCardElement(item);
-                      card.style.cssText = 'display: block !important; width: 100% !important; box-sizing: border-box;';
-                      if (card.firstChild) {
-                        card.firstChild.style.width = '100%';
-                      }
-                      grid.appendChild(card);
-                    });
-                    compareWrapper.appendChild(grid);
-                  }
-
-                  // 2. Features Comparison Table
-                  if (data.features && Array.isArray(data.features) && data.features.length > 0) {
-                    const tableContainer = document.createElement('div');
-                    tableContainer.style.cssText = 'overflow-x: auto; margin-top: 6px; border: 1px solid #e2e8f0; border-radius: 12px;';
-
-                    const table = document.createElement('table');
-                    table.style.cssText = 'width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;';
-
-                    const tbody = document.createElement('tbody');
-                    data.features.forEach((feat, idx) => {
-                      const tr = document.createElement('tr');
-                      tr.style.cssText = idx % 2 === 0 ? 'background-color: #f8fafc;' : 'background-color: #ffffff;';
-                      tr.style.borderBottom = '1px solid #f1f5f9';
-
-                      const th = document.createElement('td');
-                      th.style.cssText = 'padding: 10px 12px; font-weight: 600; color: #334155; width: 25%; white-space: nowrap; vertical-align: top; border-right: 1px solid #f1f5f9;';
-                      th.textContent = feat.label || '';
-                      tr.appendChild(th);
-
-                      if (feat.productSpecs && Array.isArray(feat.productSpecs)) {
-                        feat.productSpecs.forEach(spec => {
-                          const td = document.createElement('td');
-                          td.style.cssText = 'padding: 10px 12px; color: #475569; vertical-align: top; line-height: 1.4;';
-                          td.textContent = spec.text || spec.val || spec.value || '';
-                          tr.appendChild(td);
-                        });
-                      }
-                      tbody.appendChild(tr);
-                    });
-
-                    table.appendChild(tbody);
-                    tableContainer.appendChild(table);
-                    compareWrapper.appendChild(tableContainer);
-                  }
-
-                  const wrapper = document.createElement('div');
-                  wrapper.style.cssText = 'width: 100%;';
-
-                  if (parsed.textBefore) {
-                    const textEl = document.createElement('div');
-                    textEl.style.cssText = 'white-space: pre-wrap; line-height: 1.5; margin-bottom: 12px; font-family: inherit; font-size: inherit; color: inherit;';
-                    textEl.textContent = parsed.textBefore;
-                    wrapper.appendChild(textEl);
-                  }
-                  wrapper.appendChild(compareWrapper);
-
-                  container.dataset.widgetRendered = "true";
-
-                  const targetChild = Array.from(container.childNodes).find(n => n.textContent && n.textContent.includes('[widget:compare_products]'));
-                  if (targetChild) {
-                    targetChild.replaceWith(wrapper);
-                  } else {
-                    container.innerHTML = '';
-                    container.appendChild(wrapper);
-                  }
-                } catch (e) {
-                  console.error("Failed to parse compare_products JSON client-side:", e);
-                }
-              }
-            }
-          });
-        }, 300);
+        widgetBox.appendChild(actionsRow);
+        card.appendChild(widgetBox);
+        return card;
       }
+
+      // Client-side Widget Auto-Renderer
+      setInterval(() => {
+        // 1. Hide default Add to cart buttons inside Shadow DOM
+        querySelectorAllShadow('df-cart-button').forEach(el => {
+          el.style.setProperty('display', 'none', 'important');
+        });
+        querySelectorAllShadow('md-filled-button').forEach(el => {
+          const icon = el.querySelector('md-icon');
+          const hasCartIcon = icon && icon.textContent.trim() === 'shopping_cart';
+          const hasCartText = el.textContent.toLowerCase().includes('add to cart');
+          if (hasCartIcon || hasCartText) {
+            el.style.setProperty('display', 'none', 'important');
+          }
+        });
+
+        // 2. Scan and parse unrendered [widget:...] text blocks inside message bubbles
+        querySelectorAllShadow('.message-content, .bot-message, .message').forEach(container => {
+          if (container.dataset.widgetRendered === "true") return;
+
+          const fullText = container.innerText || container.textContent;
+          if (!fullText) return;
+
+          // Process [widget:product_list]
+          if (fullText.includes('[widget:product_list]')) {
+            const parsed = extractJsonBlock(fullText, '[widget:product_list]');
+            if (parsed) {
+              try {
+                let data;
+                try {
+                  data = JSON.parse(cleanLLMJson(parsed.rawJsonStr));
+                } catch (err) {
+                  data = parseProductListFallback(parsed.rawJsonStr);
+                }
+
+                const carouselContainer = document.createElement('df-product-list-card');
+                carouselContainer.style.cssText = 'position: relative; display: flex; align-items: center; width: 100%; margin-top: 10px; box-sizing: border-box;';
+
+                const listWrapper = document.createElement('div');
+                listWrapper.className = 'custom-product-list';
+                listWrapper.style.cssText = 'display: flex; flex-direction: row; gap: 12px; width: 100%; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; padding: 6px 4px;';
+
+                if (data.productDetails && Array.isArray(data.productDetails)) {
+                  data.productDetails.forEach(item => {
+                    const card = createProductCardElement(item);
+                    listWrapper.appendChild(card);
+                  });
+                }
+
+                // Add Carousel navigation arrows
+                if (data.productDetails && data.productDetails.length > 1) {
+                  const prevBtn = document.createElement('button');
+                  prevBtn.innerHTML = '&#10094;';
+                  prevBtn.type = 'button';
+                  prevBtn.style.cssText = 'position: absolute; left: -8px; top: 50%; transform: translateY(-50%); z-index: 15; width: 28px; height: 28px; border-radius: 50%; background: #ffffff; border: 1px solid #cbd5e1; box-shadow: 0 2px 5px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #00479D; font-size: 13px; font-weight: bold; outline: none;';
+                  prevBtn.onclick = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    listWrapper.scrollBy({ left: -180, behavior: 'smooth' });
+                  };
+
+                  const nextBtn = document.createElement('button');
+                  nextBtn.innerHTML = '&#10095;';
+                  nextBtn.type = 'button';
+                  nextBtn.style.cssText = 'position: absolute; right: -8px; top: 50%; transform: translateY(-50%); z-index: 15; width: 28px; height: 28px; border-radius: 50%; background: #ffffff; border: 1px solid #cbd5e1; box-shadow: 0 2px 5px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #00479D; font-size: 13px; font-weight: bold; outline: none;';
+                  nextBtn.onclick = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    listWrapper.scrollBy({ left: 180, behavior: 'smooth' });
+                  };
+
+                  carouselContainer.appendChild(prevBtn);
+                  carouselContainer.appendChild(listWrapper);
+                  carouselContainer.appendChild(nextBtn);
+                } else {
+                  carouselContainer.appendChild(listWrapper);
+                }
+
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'width: 100%;';
+
+                if (parsed.textBefore) {
+                  const textEl = document.createElement('div');
+                  textEl.style.cssText = 'white-space: pre-wrap; line-height: 1.5; margin-bottom: 12px; font-family: inherit; font-size: inherit; color: inherit;';
+                  textEl.textContent = parsed.textBefore;
+                  wrapper.appendChild(textEl);
+                }
+                wrapper.appendChild(carouselContainer);
+
+                container.dataset.widgetRendered = "true";
+
+                const targetChild = Array.from(container.childNodes).find(n => n.textContent && n.textContent.includes('[widget:product_list]'));
+                if (targetChild) {
+                  targetChild.replaceWith(wrapper);
+                } else {
+                  container.innerHTML = '';
+                  container.appendChild(wrapper);
+                }
+              } catch (e) {
+                console.error("Failed to parse product_list JSON client-side:", e);
+              }
+            }
+          }
+
+          // Process [widget:product-detail]
+          else if (fullText.includes('[widget:product-detail]')) {
+            const parsed = extractJsonBlock(fullText, '[widget:product-detail]');
+            if (parsed) {
+              try {
+                let data;
+                try {
+                  data = JSON.parse(cleanLLMJson(parsed.rawJsonStr));
+                } catch (err) {
+                  data = parseProductDetailFallback(parsed.rawJsonStr);
+                }
+
+                if (!data || (!data.title && !data.imageUris) || (Array.isArray(data.imageUris) && data.imageUris.length === 0)) {
+                  const fallbackData = parseProductDetailFallback(parsed.rawJsonStr);
+                  data = { ...fallbackData, ...data };
+                  if (fallbackData.imageUris && fallbackData.imageUris.length > 0 && (!data.imageUris || data.imageUris.length === 0)) {
+                    data.imageUris = fallbackData.imageUris;
+                  }
+                }
+
+                const card = createProductDetailWidgetElement(data);
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'width: 100%;';
+
+                if (parsed.textBefore) {
+                  const textEl = document.createElement('div');
+                  textEl.style.cssText = 'white-space: pre-wrap; line-height: 1.5; margin-bottom: 12px; font-family: inherit; font-size: inherit; color: inherit;';
+                  textEl.textContent = parsed.textBefore;
+                  wrapper.appendChild(textEl);
+                }
+                wrapper.appendChild(card);
+
+                container.dataset.widgetRendered = "true";
+
+                const targetChild = Array.from(container.childNodes).find(n => n.textContent && n.textContent.includes('[widget:product-detail]'));
+                if (targetChild) {
+                  targetChild.replaceWith(wrapper);
+                } else {
+                  container.innerHTML = '';
+                  container.appendChild(wrapper);
+                }
+              } catch (e) {
+                console.error("Failed to parse product-detail JSON client-side:", e);
+              }
+            }
+          }
+
+          // Process [widget:product-comparison] or [widget:compare_products]
+          else if (fullText.includes('[widget:product-comparison]') || fullText.includes('[widget:product_comparison]') || fullText.includes('[widget:compare_products]')) {
+            const widgetTag = fullText.includes('[widget:product-comparison]')
+              ? '[widget:product-comparison]'
+              : (fullText.includes('[widget:product_comparison]') ? '[widget:product_comparison]' : '[widget:compare_products]');
+            const parsed = extractJsonBlock(fullText, widgetTag);
+            if (parsed) {
+              try {
+                let data;
+                try {
+                  data = JSON.parse(cleanLLMJson(parsed.rawJsonStr));
+                } catch (err) {
+                  data = parseProductListFallback(parsed.rawJsonStr);
+                }
+
+                const compareWrapper = document.createElement('div');
+                compareWrapper.className = 'custom-compare-products';
+                compareWrapper.style.cssText = 'display: flex; flex-direction: column; gap: 14px; margin-top: 10px; border: 1px solid #e2e8f0; padding: 16px; border-radius: 16px; background: #ffffff; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.05); box-sizing: border-box;';
+
+                if (data.title) {
+                  const titleEl = document.createElement('h4');
+                  titleEl.textContent = data.title;
+                  titleEl.style.cssText = 'margin: 0 0 4px 0; font-size: 15px; font-weight: 700; color: #00479D;';
+                  compareWrapper.appendChild(titleEl);
+                }
+
+                // 1. Product Cards Grid
+                if (data.productDetails && Array.isArray(data.productDetails) && data.productDetails.length > 0) {
+                  const grid = document.createElement('div');
+                  grid.style.cssText = 'display: grid; grid-template-columns: repeat(' + data.productDetails.length + ', 1fr); gap: 10px; width: 100%; box-sizing: border-box;';
+                  data.productDetails.forEach(item => {
+                    const card = createProductCardElement(item);
+                    card.style.cssText = 'display: block !important; width: 100% !important; box-sizing: border-box;';
+                    if (card.firstChild) {
+                      card.firstChild.style.width = '100%';
+                    }
+                    grid.appendChild(card);
+                  });
+                  compareWrapper.appendChild(grid);
+                }
+
+                // 2. Features Comparison Table
+                if (data.features && Array.isArray(data.features) && data.features.length > 0) {
+                  const tableContainer = document.createElement('div');
+                  tableContainer.style.cssText = 'overflow-x: auto; margin-top: 6px; border: 1px solid #e2e8f0; border-radius: 12px;';
+
+                  const table = document.createElement('table');
+                  table.style.cssText = 'width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;';
+
+                  const tbody = document.createElement('tbody');
+                  data.features.forEach((feat, idx) => {
+                    const tr = document.createElement('tr');
+                    tr.style.cssText = idx % 2 === 0 ? 'background-color: #f8fafc;' : 'background-color: #ffffff;';
+                    tr.style.borderBottom = '1px solid #f1f5f9';
+
+                    const th = document.createElement('td');
+                    th.style.cssText = 'padding: 10px 12px; font-weight: 600; color: #334155; width: 25%; white-space: nowrap; vertical-align: top; border-right: 1px solid #f1f5f9;';
+                    th.textContent = feat.label || '';
+                    tr.appendChild(th);
+
+                    if (feat.productSpecs && Array.isArray(feat.productSpecs)) {
+                      feat.productSpecs.forEach(spec => {
+                        const td = document.createElement('td');
+                        td.style.cssText = 'padding: 10px 12px; color: #475569; vertical-align: top; line-height: 1.4;';
+                        td.textContent = spec.text || spec.val || spec.value || '';
+                        tr.appendChild(td);
+                      });
+                    }
+                    tbody.appendChild(tr);
+                  });
+
+                  table.appendChild(tbody);
+                  tableContainer.appendChild(table);
+                  compareWrapper.appendChild(tableContainer);
+                }
+
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'width: 100%;';
+
+                if (parsed.textBefore) {
+                  const textEl = document.createElement('div');
+                  textEl.style.cssText = 'white-space: pre-wrap; line-height: 1.5; margin-bottom: 12px; font-family: inherit; font-size: inherit; color: inherit;';
+                  textEl.textContent = parsed.textBefore;
+                  wrapper.appendChild(textEl);
+                }
+                wrapper.appendChild(compareWrapper);
+
+                container.dataset.widgetRendered = "true";
+
+                const targetChild = Array.from(container.childNodes).find(n => n.textContent && (n.textContent.includes('[widget:product-comparison]') || n.textContent.includes('[widget:product_comparison]') || n.textContent.includes('[widget:compare_products]')));
+                if (targetChild) {
+                  targetChild.replaceWith(wrapper);
+                } else {
+                  container.innerHTML = '';
+                  container.appendChild(wrapper);
+                }
+              } catch (e) {
+                console.error("Failed to parse comparison JSON client-side:", e);
+              }
+            }
+          }
+        });
+      }, 300);
     }
 
-      // Handle hash change events (triggered by clicks on custom widget detail links)
-      window.addEventListener('hashchange', () => {
-        const hash = window.location.hash;
-        if (hash.startsWith('#product-detail?id=')) {
-          const productId = hash.split('?id=')[1];
-          if (productId) {
-            // Clear hash immediately so the same item can be clicked/re-clicked consecutively
-            window.location.hash = '';
-
-          // Submit query to Dialogflow/Vertex AI agent
-          sendQueryToAgent(`Show details for product ${productId}`);
-        }
+    // Helper function to programmatically type and send a query inside GECX Chat Messenger with debounce
+    let lastQueryTime = 0;
+    let lastQueryText = '';
+    function sendQueryToAgent(text) {
+      if (!text) return;
+      const now = Date.now();
+      if (text === lastQueryText && now - lastQueryTime < 1000) {
+        console.warn("Throttling duplicate query:", text);
+        return;
       }
-    });
+      lastQueryTime = now;
+      lastQueryText = text;
 
-      // Helper function to programmatically type and send a query inside GECX Chat Messenger
-      function sendQueryToAgent(text) {
-        const messenger = document.querySelector('chat-messenger');
-        if (messenger && typeof messenger.sendQuery === 'function') {
+      const messenger = document.querySelector('chat-messenger');
+      if (messenger) {
+        messenger.classList.remove('messenger-hidden');
+        if (typeof messenger.sendQuery === 'function') {
           messenger.sendQuery(text);
         } else {
-          console.error("GECX Chat Messenger component or sendQuery method not found!");
-          }
+          const toggleBtn = messenger.querySelector('chat-toggle-dialog-button');
+          if (toggleBtn) toggleBtn.click();
         }
-
-        let chatInitialized = false;
-        function safeInitChat() {
-          if (chatInitialized) return;
-          if (typeof chatSdk !== 'undefined') {
-            chatInitialized = true;
-            initChat();
-          }
+      }
     }
 
-  if (typeof chatSdk !== 'undefined') {
-    safeInitChat();
-  } else {
-    window.addEventListener("chat-messenger-loaded", safeInitChat);
-    window.addEventListener("DOMContentLoaded", safeInitChat);
-    window.addEventListener("load", safeInitChat);
-    setTimeout(safeInitChat, 1000);
-    setTimeout(safeInitChat, 2000);
+    function openChatWidget() {
+      const messenger = document.querySelector('chat-messenger');
+      if (messenger) {
+        messenger.classList.remove('messenger-hidden');
+      }
+    }
+
+    let chatInitialized = false;
+    function safeInitChat() {
+      if (chatInitialized) return;
+      if (typeof chatSdk !== 'undefined') {
+        chatInitialized = true;
+        initChat();
+      }
+    }
+
+    if (typeof chatSdk !== 'undefined') {
+      safeInitChat();
+    } else {
+      window.addEventListener("chat-messenger-loaded", safeInitChat);
+      window.addEventListener("DOMContentLoaded", safeInitChat);
+      window.addEventListener("load", safeInitChat);
+      setTimeout(safeInitChat, 1000);
+      setTimeout(safeInitChat, 2000);
     }
   </script>
 </head>
 
 <body>
 
-  <div class="container">
-    <header>
-      <div class="badge-container">
-        <span class="badge-dot"></span>
-        <span>Sandbox Environment</span>
-      </div>
-      <h1>GECX Web Widget Test</h1>
-      <p class="subtitle">
-        This is a sandbox page for testing and validating the Minsoo Demo Agent directly in a web environment.
-      </p>
-    </header>
-
-    <div class="card">
-      <div class="card-title">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path
-            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z">
-          </path>
-          <circle cx="12" cy="12" r="3"></circle>
-        </svg>
-        Deployment Configuration
-      </div>
-
-      <div class="config-grid">
-        <div class="config-item">
-          <div class="config-label">Deployment Name</div>
-          <div class="config-value">
-            projects/1047996184557/locations/us/apps/1501f451-79bc-43c4-a418-43a31b7b3188/deployments/0329b185-baf8-4a11-83d5-781026ca6e71
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-          <div class="config-item">
-            <div class="config-label">Token Broker</div>
-            <div class="config-value" style="color: #2563EB; font-weight: 600;">Enabled (True)</div>
-          </div>
-          <div class="config-item">
-            <div class="config-label">reCAPTCHA</div>
-            <div class="config-value" style="color: #64748B;">Disabled (False)</div>
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-          <div class="config-item">
-            <div class="config-label">File Upload</div>
-            <div class="config-value" style="color: #059669; font-weight: 600;">Enabled</div>
-          </div>
-          <div class="config-item">
-            <div class="config-label">Audio Input</div>
-            <div class="config-value" style="color: #059669; font-weight: 600;">Enabled</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="instruction-box">
-        <div class="instruction-icon">💬</div>
-        <div class="instruction-text">
-          <h3>How to Start Testing</h3>
-          <p>Click the blue or speech bubble chat icon at the bottom right of the screen to activate the chat window with <strong>Ask Edi</strong>. File uploads and voice input are supported.</p>
-        </div>
-      </div>
+  <!-- Top Utility Bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <div>買って安心、ずっと満足。エディオン公式通販サイト</div>
+      <ul class="top-links">
+        <li><a href="https://www.edion.co.jp" target="_blank">コーポレートサイト</a></li>
+        <li><a href="https://search.edion.com/e_store/" target="_blank">店舗・チラシ検索</a></li>
+        <li><a href="https://www.edion.com/guide/gid_menu.html" target="_blank">お買い物ガイド</a></li>
+        <li><a href="https://faq.edion.com/" target="_blank">よくあるご質問</a></li>
+        <li><a href="https://www.edion.com/member/EPM00100.html" target="_blank">ログイン／新規会員登録</a></li>
+      </ul>
     </div>
   </div>
 
+  <!-- Main Header -->
+  <header>
+    <div class="header-main">
+      <!-- Logo -->
+      <a href="index.html" class="logo-area">
+        <div class="edion-logo-badge">EDION</div>
+        <div class="logo-text">
+          <span class="logo-title">エディオン ネットショップ</span>
+          <span class="logo-subtitle">EDION Online Store</span>
+        </div>
+      </a>
+
+      <!-- Search Input -->
+      <div class="search-container">
+        <input type="text" class="search-input" id="search-box" placeholder="何をお探しですか？ キーワード・型番・カテゴリーで検索" onkeydown="if(event.key==='Enter') sendQueryToAgent(this.value);">
+        <button class="search-btn" onclick="const q=document.getElementById('search-box').value; if(q) sendQueryToAgent(q);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          検索
+        </button>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <a href="javascript:;" onclick="openChatWidget();" class="header-action-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>AI相談</span>
+        </a>
+        <a href="https://www.edion.com/member/EPM03100.html" target="_blank" class="header-action-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span>お気に入り</span>
+        </a>
+        <a href="https://www.edion.com/order/EPO00100.html" target="_blank" class="header-action-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span>カート</span>
+          <span class="cart-badge">0</span>
+        </a>
+        <a href="https://www.edion.com/member/EPM01001.html" target="_blank" class="header-action-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>マイページ</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Category Navigation -->
+    <nav class="category-nav">
+      <div class="category-nav-inner">
+        <a href="https://www.edion.com/category_list.html" class="nav-item">☰ カテゴリーから探す</a>
+        <a href="javascript:sendQueryToAgent('冷蔵庫');" class="nav-item">冷蔵庫・洗濯機・家事</a>
+        <a href="javascript:sendQueryToAgent('エアコン');" class="nav-item">エアコン・季節家電</a>
+        <a href="javascript:sendQueryToAgent('テレビ');" class="nav-item">テレビ・レコーダー</a>
+        <a href="javascript:sendQueryToAgent('パソコン');" class="nav-item">パソコン・スマホ</a>
+        <a href="javascript:sendQueryToAgent('オーブンレンジ');" class="nav-item">キッチン・調理家電</a>
+        <a href="https://www.edion.com/eangle" target="_blank" class="nav-item">e angle (PB商品)</a>
+        <a href="https://reform.edion.jp" target="_blank" class="nav-item">エディオンリフォーム</a>
+        <a href="javascript:;" class="nav-item highlight">★ WEB限定セール</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-wrapper">
+
+    <!-- AI Concierge Hero Banner -->
+    <section class="ai-hero-banner">
+      <div class="ai-badge">✨ EDION AI Shopping Concierge</div>
+      <h1 class="ai-hero-title">エディオン AIアシスタント「Ask Edi」</h1>
+      <p class="ai-hero-desc">
+        お引越し、お部屋の間取り、ご家族構成やご予算に合わせた最適な家電選びをAIコンシェルジュがトータルサポートします。自然な言葉でお気軽にご相談ください。
+      </p>
+
+      <div class="prompt-chips-title">
+        <span>💡 おすすめの質問例（クリックでAIに相談）:</span>
+      </div>
+      <div class="prompt-chips">
+        <button class="prompt-chip" onclick="sendQueryToAgent('20坪ほどの家に引っ越しをします。冷蔵庫をお勧めします。');">
+          ❄️ 20坪ほどの家に引っ越しをします。冷蔵庫をお勧めします。
+        </button>
+        <button class="prompt-chip" onclick="sendQueryToAgent('1番目と2番目の冷蔵庫を比較してください');">
+          ⚖️ 1番目と2番目の冷蔵庫を比較
+        </button>
+        <button class="prompt-chip" onclick="sendQueryToAgent('3〜4人家族におすすめのまとめ買いできる大容量冷蔵庫を教えて');">
+          🛒 3〜4人家族におすすめの大容量冷蔵庫
+        </button>
+        <button class="prompt-chip" onclick="sendQueryToAgent('省エネ性能が高く静音設計のスリムな冷蔵庫を比較したい');">
+          ⚡ 省エネ・静音設計スリム冷蔵庫を比較
+        </button>
+      </div>
+    </section>
+
+    <!-- Grid Content (Sidebar + Main Showcase) -->
+    <div class="content-grid">
+      <!-- Sidebar -->
+      <aside>
+        <div class="sidebar-card">
+          <div class="sidebar-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+            主要カテゴリー
+          </div>
+          <ul class="category-list">
+            <li><a href="javascript:sendQueryToAgent('冷蔵庫');">冷蔵庫・冷凍庫 <span>›</span></a></li>
+            <li><a href="javascript:sendQueryToAgent('洗濯機');">洗濯機・衣類乾燥機 <span>›</span></a></li>
+            <li><a href="javascript:sendQueryToAgent('エアコン');">エアコン・空気清浄機 <span>›</span></a></li>
+            <li><a href="javascript:sendQueryToAgent('テレビ');">4K有機EL・液晶テレビ <span>›</span></a></li>
+            <li><a href="javascript:sendQueryToAgent('掃除機');">掃除機・クリーナー <span>›</span></a></li>
+            <li><a href="javascript:sendQueryToAgent('電子レンジ');">電子レンジ・炊飯器 <span>›</span></a></li>
+            <li><a href="https://www.edion.com/eangle" target="_blank">オリジナルブランド e angle <span>›</span></a></li>
+            <li><a href="https://reform.edion.jp" target="_blank">リフォーム・太陽光発電 <span>›</span></a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Showcase -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+
+        <!-- Demonstration Guide Card -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">エディオンの安心・充実サービス</div>
+            <span style="font-size: 0.78rem; color: #64748B;">全国1,200店舗以上のネットワーク</span>
+          </div>
+
+          <div class="features-row">
+            <div class="feature-box">
+              <div class="feature-icon">🛡️</div>
+              <div>
+                <h4>長期無料修理保証</h4>
+                <p>対象商品に最長5年・10年の長期無料修理保証をご提供。</p>
+              </div>
+            </div>
+            <div class="feature-box">
+              <div class="feature-icon">🚚</div>
+              <div>
+                <h4>スピード配送・設置</h4>
+                <p>大型家電の搬入設置からリサイクル回収までプロが対応。</p>
+              </div>
+            </div>
+            <div class="feature-box">
+              <div class="feature-icon">💰</div>
+              <div>
+                <h4>エディオンポイント</h4>
+                <p>ネットショップでも店頭でもポイントが貯まる・使える。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deployment Environment Details -->
+        <div class="config-box">
+          <div>
+            <strong>GECX AI Agent 稼働中:</strong>
+            <span style="font-family: monospace; font-size: 0.75rem; margin-left: 6px; color: #1E40AF;">
+              projects/1047996184557/.../deployments/0329b185-baf8-4a11-83d5-781026ca6e71
+            </span>
+          </div>
+          <div class="config-status-badge">
+            <span class="status-dot"></span>
+            <span>Agent Online</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Floating Chat Tooltip CTA -->
+  <div class="chat-bubble-cta" onclick="openChatWidget();">
+    <span>💬 家電選びをAIコンシェルジュ「Ask Edi」に相談</span>
+  </div>
+
+  <!-- Footer -->
   <footer>
-    GECX Web Widget Test Runner © 2026
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="https://www.edion.co.jp/sitepolicy" target="_blank">サイトのご利用にあたって</a>
+        <a href="https://www.edion.co.jp/privacy" target="_blank">個人情報保護方針</a>
+        <a href="https://www.edion.com/guide/tokushoho.html" target="_blank">特定商取引法に基づく表示</a>
+        <a href="https://www.edion.co.jp" target="_blank">会社概要</a>
+        <a href="https://search.edion.com/e_store/" target="_blank">店舗情報</a>
+      </div>
+      <div>
+        Copyright © EDION Corporation. All rights reserved.
+      </div>
+    </div>
   </footer>
 
+  <!-- GECX Chat Messenger Component -->
   <chat-messenger url-allowlist="*" class="slide-over messenger-hidden" render-mode="slide-over">
     <chat-messenger-container chat-title="Ask Edi"
       chat-title-icon="https://gstatic.com/dialogflow-console/common/assets/ccai-favicons/conversational_agents.png"
