@@ -597,11 +597,6 @@
     chat-messenger:not(.messenger-hidden) {
       width: 400px !important;
       height: 640px !important;
-      pointer-events: auto !important;
-    }
-
-    chat-messenger.messenger-hidden {
-      pointer-events: none !important;
     }
 
     /* Floating Chat Trigger Tooltip */
@@ -620,21 +615,9 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      z-index: 100000;
+      z-index: 99998;
       cursor: pointer;
       animation: bounce 2s infinite;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      user-select: none;
-    }
-
-    .chat-bubble-cta:hover {
-      background: #F0F7FF;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0, 71, 157, 0.25);
-    }
-
-    body:has(chat-messenger:not(.messenger-hidden)) .chat-bubble-cta {
-      display: none !important;
     }
 
     .chat-bubble-cta::after {
@@ -663,60 +646,11 @@
 
   <!-- GECX Client Script -->
   <script>
-    // Ensure chat messenger starts closed (hidden) until triggered
-    let userOpenedChat = false;
-    if (typeof customElements !== 'undefined' && customElements.define) {
-      const origDefine = customElements.define.bind(customElements);
-      customElements.define = function(name, constructor, options) {
-        if (name === "chat-messenger") {
-          const origConnected = constructor.prototype.connectedCallback;
-          constructor.prototype.connectedCallback = function() {
-            if (!userOpenedChat) {
-              this.dc = true;
-            }
-            const res = origConnected ? origConnected.apply(this, arguments) : undefined;
-            if (!userOpenedChat) {
-              this.dc = true;
-            }
-            return res;
-          };
-        }
-        return origDefine(name, constructor, options);
-      };
-    }
-
-    // Cookie parser utility for GECX user personalization
-    function getCookie(name) {
-      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-      return match ? decodeURIComponent(match[2].trim()) : null;
-    }
-
-    // Extract user name from common cookie keys (e.g. username, user_name, edion_user_name, member_name)
-    function getUserNameFromCookie() {
-      return getCookie('username') || getCookie('user_name') || getCookie('edion_user_name') || getCookie('member_name');
-    }
-
-    // Sync username from cookie into GECX Chat Messenger session variables ({username})
-    function syncUserSessionVariables() {
-      const messenger = document.querySelector('chat-messenger');
-      const userName = getUserNameFromCookie();
-      if (userName) {
-        if (messenger && typeof messenger.setVariables === 'function') {
-          messenger.setVariables({ username: userName });
-        } else {
-          try {
-            sessionStorage.setItem('chat-messenger-variables', JSON.stringify({ username: userName }));
-          } catch (e) {}
-        }
-      }
-    }
-
     function initChat() {
-      syncUserSessionVariables();
       if (typeof chatSdk !== 'undefined') {
         chatSdk.registerContext(
           chatSdk.prebuilts.ces.createContext({
-            deploymentName: "projects/1047996184557/locations/us/apps/33a247bd-f518-41cf-9c08-488225975be2/deployments/32b55f1a-e8d1-4812-a151-a0e44957fead",
+            deploymentName: "projects/1047996184557/locations/us/apps/1501f451-79bc-43c4-a418-43a31b7b3188/deployments/0329b185-baf8-4a11-83d5-781026ca6e71",
             tokenBroker: {
               enableTokenBroker: true,
               enableRecaptcha: false
@@ -1290,42 +1224,6 @@
     // Helper function to programmatically type and send a query inside GECX Chat Messenger with debounce
     let lastQueryTime = 0;
     let lastQueryText = '';
-
-    // Track first-time chat opening to trigger personalized welcome greeting
-    let isFirstChatOpen = true;
-
-    function triggerInitialGreetingIfNeeded() {
-      const messenger = document.querySelector('chat-messenger');
-      if (!messenger) return;
-
-      syncUserSessionVariables();
-
-      // Check if any messages already exist in this session
-      const storedMsgs = sessionStorage.getItem('chat-messenger-messages');
-      if (storedMsgs && storedMsgs.length > 5) {
-        isFirstChatOpen = false;
-        return;
-      }
-      if (!isFirstChatOpen) return;
-      isFirstChatOpen = false;
-
-      const userName = getUserNameFromCookie();
-      const sendGreeting = () => {
-        if (typeof messenger.sendQuery === 'function') {
-          if (userName) {
-            messenger.sendQuery('私の名前は' + userName + 'です。');
-          } else {
-            messenger.sendQuery('こんにちは');
-          }
-        } else {
-          setTimeout(sendGreeting, 300);
-        }
-      };
-
-      // Give SDK context a brief moment to stabilize, then send greeting query
-      setTimeout(sendGreeting, 300);
-    }
-
     function sendQueryToAgent(text) {
       if (!text) return;
       const now = Date.now();
@@ -1336,14 +1234,9 @@
       lastQueryTime = now;
       lastQueryText = text;
 
-      // Prevent welcome intent from colliding with the user's explicit query
-      isFirstChatOpen = false;
-      syncUserSessionVariables();
-
-      openChatWidget(false);
-
       const messenger = document.querySelector('chat-messenger');
       if (messenger) {
+        messenger.classList.remove('messenger-hidden');
         if (typeof messenger.sendQuery === 'function') {
           messenger.sendQuery(text);
         } else {
@@ -1353,59 +1246,12 @@
       }
     }
 
-    function openChatWidget(triggerGreeting = true) {
-      userOpenedChat = true;
-      syncUserSessionVariables();
-
-      if (triggerGreeting) {
-        triggerInitialGreetingIfNeeded();
-      }
-
+    function openChatWidget() {
       const messenger = document.querySelector('chat-messenger');
       if (messenger) {
-        if (typeof messenger.slideIn === 'function') {
-          messenger.slideIn();
-        } else {
-          messenger.classList.remove('messenger-hidden');
-        }
-      }
-      const bubbleCta = document.querySelector('.chat-bubble-cta');
-      if (bubbleCta) {
-        bubbleCta.style.display = 'none';
+        messenger.classList.remove('messenger-hidden');
       }
     }
-
-    function closeChatWidget() {
-      const messenger = document.querySelector('chat-messenger');
-      if (messenger) {
-        if (typeof messenger.slideOut === 'function') {
-          messenger.slideOut();
-        } else {
-          messenger.classList.add('messenger-hidden');
-        }
-      }
-      const bubbleCta = document.querySelector('.chat-bubble-cta');
-      if (bubbleCta) {
-        bubbleCta.style.display = 'flex';
-      }
-    }
-
-    // Restore speech bubble CTA when chat messenger is closed
-    window.addEventListener("chat-messenger-close", () => {
-      const bubbleCta = document.querySelector('.chat-bubble-cta');
-      if (bubbleCta) {
-        bubbleCta.style.display = 'flex';
-      }
-    });
-
-    // Handle new session start (reset button clicked)
-    window.addEventListener("chat-messenger-start-new-session", () => {
-      isFirstChatOpen = true;
-      syncUserSessionVariables();
-      setTimeout(() => {
-        triggerInitialGreetingIfNeeded();
-      }, 500);
-    });
 
     let chatInitialized = false;
     function safeInitChat() {
@@ -1419,13 +1265,7 @@
     if (typeof chatSdk !== 'undefined') {
       safeInitChat();
     } else {
-      window.addEventListener("chat-messenger-loaded", () => {
-        const messenger = document.querySelector('chat-messenger');
-        if (messenger && !userOpenedChat && typeof messenger.slideOut === 'function') {
-          messenger.slideOut();
-        }
-        safeInitChat();
-      });
+      window.addEventListener("chat-messenger-loaded", safeInitChat);
       window.addEventListener("DOMContentLoaded", safeInitChat);
       window.addEventListener("load", safeInitChat);
       setTimeout(safeInitChat, 1000);
@@ -1601,7 +1441,7 @@
           <div>
             <strong>GECX AI Agent 稼働中:</strong>
             <span style="font-family: monospace; font-size: 0.75rem; margin-left: 6px; color: #1E40AF;">
-              projects/1047996184557/.../deployments/32b55f1a-e8d1-4812-a151-a0e44957fead
+              projects/1047996184557/.../deployments/0329b185-baf8-4a11-83d5-781026ca6e71
             </span>
           </div>
           <div class="config-status-badge">
