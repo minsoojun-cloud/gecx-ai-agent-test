@@ -20,16 +20,31 @@ GECX AI Agent가 브라우저 쿠키에서 유저 이름을 읽어 맞춤 인사
    ```
 3. 테스트용 유저 쿠키를 설정합니다:
    ```javascript
-   // 로그인 유저 쿠키 설정 (일본어/한글 깨짐 방지 encodeURIComponent 적용)
+   // 1) 사용자 이름 쿠키 (일본어/한글 깨짐 방지 encodeURIComponent 적용)
    document.cookie = "username=" + encodeURIComponent("田中") + "; path=/";
+
+   // 2) GECX 식별자 쿠키 (visitor_id, user_id)
+   const gecxData = JSON.stringify({
+     visitor_id: "ga_99665815-eae7-4e51-a3f6-443aac554b2d",
+     user_id: "minsoo"
+   });
+   document.cookie = "gecx_cookie=" + encodeURIComponent(gecxData) + "; path=/";
    ```
-4. 설정 확인:
+4. 쿠키를 GECX 세션 변수로 동기화 및 확인:
    ```javascript
-   document.cookie
+   // 1) 쿠키 값을 GECX 변수에 즉시 반영
+   syncUserSessionVariables();
+
+   // 2) 바인딩된 세션 변수 확인 (JSON 문자열 출력)
+   sessionStorage.getItem("chat-messenger-variables");
+
+   // 3) GECX SDK 인메모리 변수 직접 확인
+   document.querySelector("chat-messenger").presenter.getVariables();
    ```
 5. 쿠키 삭제 (비회원/게스트 테스트 시):
    ```javascript
    document.cookie = "username=; Max-Age=0; path=/";
+   document.cookie = "gecx_cookie=; Max-Age=0; path=/";
    ```
 
 ### 방법 2. Chrome DevTools [Application] 탭에서 설정 (GUI)

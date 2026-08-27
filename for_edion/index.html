@@ -3,8 +3,10 @@
 
 <head>
   <script>
-    sessionStorage.clear();
-    localStorage.clear();
+    try {
+      sessionStorage.clear();
+      localStorage.clear();
+    } catch (e) {}
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -696,20 +698,65 @@
       return getCookie('username') || getCookie('user_name') || getCookie('edion_user_name') || getCookie('member_name');
     }
 
-    // Sync username from cookie into GECX Chat Messenger session variables ({username})
-    function syncUserSessionVariables() {
-      const messenger = document.querySelector('chat-messenger');
-      const userName = getUserNameFromCookie();
-      if (userName) {
-        if (messenger && typeof messenger.setVariables === 'function') {
-          messenger.setVariables({ username: userName });
-        } else {
-          try {
-            sessionStorage.setItem('chat-messenger-variables', JSON.stringify({ username: userName }));
-          } catch (e) {}
+    // Parse JSON payload from gecx_cookie (or gecx_cooke) to extract visitor_id and user_id
+    function getGecxCookieData() {
+      const raw = getCookie('gecx_cookie') || getCookie('gecx_cooke');
+      if (!raw) return null;
+      try {
+        const jsonStr = decodeURIComponent(raw);
+        return JSON.parse(jsonStr);
+      } catch (e) {
+        try {
+          return JSON.parse(raw);
+        } catch (err) {
+          console.warn("gecx_cookie parsing error:", raw, err);
+          return null;
         }
       }
     }
+
+    // Sync username, visitor_id, and user_id from cookies into GECX Chat Messenger session variables
+    function syncUserSessionVariables() {
+      const messenger = document.querySelector('chat-messenger');
+      const variables = {};
+
+      // 1. username
+      const userName = getUserNameFromCookie();
+      if (userName) {
+        variables.username = userName;
+      }
+
+      // 2. gecx_cookie (visitor_id, user_id)
+      const gecxData = getGecxCookieData();
+      if (gecxData && typeof gecxData === 'object') {
+        if (gecxData.visitor_id) {
+          variables.visitor_id = String(gecxData.visitor_id);
+        }
+        const userId = gecxData.user_id || gecxData.userid;
+        if (userId) {
+          variables.user_id = String(userId);
+        }
+      }
+
+      // Set variables if any exist
+      if (Object.keys(variables).length > 0) {
+        // 1. Always mirror to sessionStorage for inspection and persistence
+        try {
+          const existing = JSON.parse(sessionStorage.getItem('chat-messenger-variables') || '{}');
+          sessionStorage.setItem('chat-messenger-variables', JSON.stringify({ ...existing, ...variables }));
+        } catch (e) {}
+
+        // 2. Inject into GECX Chat Messenger SDK (in-memory)
+        if (messenger) {
+          if (typeof messenger.setVariables === 'function') {
+            messenger.setVariables(variables);
+          } else if (messenger.presenter && typeof messenger.presenter.setVariables === 'function') {
+            messenger.presenter.setVariables(variables);
+          }
+        }
+      }
+    }
+    window.syncUserSessionVariables = syncUserSessionVariables;
 
     function initChat() {
       syncUserSessionVariables();
@@ -1301,7 +1348,10 @@
       syncUserSessionVariables();
 
       // Check if any messages already exist in this session
-      const storedMsgs = sessionStorage.getItem('chat-messenger-messages');
+      let storedMsgs = null;
+      try {
+        storedMsgs = sessionStorage.getItem('chat-messenger-messages');
+      } catch (e) {}
       if (storedMsgs && storedMsgs.length > 5) {
         isFirstChatOpen = false;
         return;
