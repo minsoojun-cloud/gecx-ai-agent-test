@@ -1,0 +1,3144 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <script>
+    try {
+      sessionStorage.clear();
+      localStorage.clear();
+    } catch (e) {}
+  </script>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ニトリネット【公式】 家具・インテリア通販 - お、ねだん以上。</title>
+
+  <!-- Google Fonts: Noto Sans JP -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- GECX Chat Messenger SDK & Themes -->
+  <script defer src="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/chat-messenger.js"></script>
+  <link rel="stylesheet" href="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/themes/chat-messenger-default.css">
+  <link rel="stylesheet" href="https://www.gstatic.com/chat-messenger/sdk/prod/v1.16/themes/chat-messenger-layout.css">
+
+  <style>
+    :root {
+      color-scheme: light;
+      --nitori-teal: #009E96;
+      --nitori-teal-dark: #007D76;
+      --nitori-teal-light: #E6F6F5;
+      --nitori-teal-ultralight: #F2FAF9;
+      --nitori-orange: #FF6600;
+      --nitori-red: #E60012;
+      --nitori-text-main: #222222;
+      --nitori-text-sub: #666666;
+      --nitori-text-light: #999999;
+      --nitori-border: #E0E0E0;
+      --nitori-border-light: #F0F0F0;
+      --nitori-bg: #FFFFFF;
+      --nitori-bg-gray: #F7F8F9;
+      --nitori-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+      --nitori-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --nitori-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+      --font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--nitori-bg-gray);
+      color: var(--nitori-text-main);
+      font-family: var(--font-family);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    a:hover {
+      color: var(--nitori-teal);
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Top Utility Header */
+    .top-utility-bar {
+      background-color: #FAFAFA;
+      border-bottom: 1px solid var(--nitori-border-light);
+      font-size: 11px;
+      color: var(--nitori-text-sub);
+    }
+
+    .top-utility-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+    }
+
+    .top-slogan {
+      font-weight: 500;
+      color: var(--nitori-text-main);
+    }
+
+    .top-utility-links {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .top-utility-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main Header */
+    header {
+      background-color: var(--nitori-bg);
+      border-bottom: 1px solid var(--nitori-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--nitori-shadow-sm);
+    }
+
+    .header-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 24px;
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .nitori-logo-badge {
+      background-color: var(--nitori-teal);
+      color: #FFFFFF;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nitori-brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nitori-catchcopy {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--nitori-teal-dark);
+      letter-spacing: 0.5px;
+      line-height: 1.1;
+    }
+
+    .nitori-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--nitori-text-main);
+      line-height: 1.2;
+    }
+
+    /* Search Bar */
+    .header-search {
+      flex: 1;
+      max-width: 580px;
+      display: flex;
+      position: relative;
+    }
+
+    .search-category-select {
+      background-color: #F0F2F5;
+      border: 2px solid var(--nitori-teal);
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      padding: 0 10px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--nitori-text-main);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .search-input-box {
+      flex: 1;
+      position: relative;
+      display: flex;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 40px;
+      padding: 0 14px;
+      border: 2px solid var(--nitori-teal);
+      border-left: 1px solid var(--nitori-border);
+      border-right: none;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      background-color: #FFF;
+    }
+
+    .search-submit-btn {
+      width: 52px;
+      background-color: var(--nitori-teal);
+      border: 2px solid var(--nitori-teal);
+      border-radius: 0 4px 4px 0;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .search-submit-btn:hover {
+      background-color: var(--nitori-teal-dark);
+    }
+
+    .search-submit-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    /* Header Nav Actions */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      font-size: 11px;
+      color: var(--nitori-text-main);
+      position: relative;
+      padding: 4px 6px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+
+    .action-btn:hover {
+      background-color: var(--nitori-teal-light);
+      color: var(--nitori-teal);
+    }
+
+    .action-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .badge-count {
+      position: absolute;
+      top: 0;
+      right: 4px;
+      background-color: var(--nitori-red);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 10px;
+      line-height: 1.2;
+    }
+
+    /* Global Navigation */
+    .global-nav {
+      background-color: var(--nitori-teal);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .nav-item a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      color: #FFFFFF;
+      transition: background 0.15s;
+    }
+
+    .nav-item a:hover {
+      background-color: var(--nitori-teal-dark);
+      color: #FFFFFF;
+    }
+
+    .nav-item.highlight a {
+      background-color: #007D76;
+    }
+
+    /* Notice Campaign Bar */
+    .notice-bar {
+      background-color: #FFF3CD;
+      border-bottom: 1px solid #FFEBAA;
+      font-size: 12px;
+      color: #856404;
+      text-align: center;
+      padding: 8px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .notice-tag {
+      background-color: var(--nitori-orange);
+      color: white;
+      font-weight: 700;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    /* Main Layout */
+    main {
+      flex: 1;
+      padding: 24px 0 48px;
+    }
+
+    /* Hero Banner & AI Assistant Highlight */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-main-banner {
+      background: linear-gradient(135deg, #008880 0%, #009E96 50%, #20B2AA 100%);
+      border-radius: 8px;
+      padding: 36px 32px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--nitori-shadow-md);
+    }
+
+    .hero-main-banner::after {
+      content: "";
+      position: absolute;
+      right: -20px;
+      bottom: -40px;
+      width: 220px;
+      height: 220px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-sub-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      display: inline-block;
+      align-self: flex-start;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .hero-main-title {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .hero-desc {
+      font-size: 14px;
+      opacity: 0.95;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .hero-cta-btn {
+      background-color: #FFFFFF;
+      color: var(--nitori-teal-dark);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 24px;
+      border-radius: 24px;
+      align-self: flex-start;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .hero-cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      color: var(--nitori-teal-dark);
+    }
+
+    /* AI Concierge Box */
+    .ai-concierge-card {
+      background: #FFFFFF;
+      border: 2px solid var(--nitori-teal);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--nitori-shadow-md);
+      position: relative;
+    }
+
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background-color: var(--nitori-teal-light);
+      color: var(--nitori-teal-dark);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      align-self: flex-start;
+    }
+
+    .ai-card-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--nitori-text-main);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .ai-card-desc {
+      font-size: 12px;
+      color: var(--nitori-text-sub);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .ai-chip-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .ai-chip-btn {
+      background-color: var(--nitori-bg-gray);
+      border: 1px solid var(--nitori-border);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--nitori-text-main);
+      text-align: left;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ai-chip-btn:hover {
+      background-color: var(--nitori-teal-light);
+      border-color: var(--nitori-teal);
+      color: var(--nitori-teal-dark);
+    }
+
+    .ai-chip-btn span {
+      color: var(--nitori-teal);
+      font-weight: 700;
+    }
+
+    .ai-start-chat-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--nitori-teal) 0%, var(--nitori-teal-dark) 100%);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 2px 6px rgba(0, 158, 150, 0.3);
+      transition: opacity 0.15s;
+    }
+
+    .ai-start-chat-btn:hover {
+      opacity: 0.92;
+    }
+
+    /* Category Quick Grid */
+    .section-title-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--nitori-teal);
+      padding-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--nitori-text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-more-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--nitori-teal);
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .category-card {
+      background-color: var(--nitori-bg);
+      border: 1px solid var(--nitori-border);
+      border-radius: 6px;
+      padding: 16px 10px;
+      text-align: center;
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .category-card:hover {
+      border-color: var(--nitori-teal);
+      box-shadow: var(--nitori-shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .category-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: var(--nitori-teal-light);
+      color: var(--nitori-teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .category-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    .category-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--nitori-text-main);
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+
+    .product-card {
+      background-color: var(--nitori-bg);
+      border: 1px solid var(--nitori-border);
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .product-card:hover {
+      box-shadow: var(--nitori-shadow-md);
+      border-color: var(--nitori-teal);
+      transform: translateY(-2px);
+    }
+
+    .product-badge-ribbon {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background-color: var(--nitori-red);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      z-index: 2;
+    }
+
+    .product-badge-ribbon.popular {
+      background-color: var(--nitori-orange);
+    }
+
+    .product-img-box {
+      width: 100%;
+      height: 180px;
+      background-color: #F8F9FA;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .product-img-box img {
+      transform: scale(1.04);
+    }
+
+    .product-info {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .product-category-tag {
+      font-size: 11px;
+      color: var(--nitori-text-light);
+      margin-bottom: 4px;
+    }
+
+    .product-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--nitori-text-main);
+      line-height: 1.4;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      height: 36px;
+    }
+
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--nitori-text-sub);
+      margin-bottom: 8px;
+    }
+
+    .stars {
+      color: #FFA500;
+      font-size: 12px;
+      letter-spacing: -1px;
+    }
+
+    .product-price-box {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .product-price {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--nitori-red);
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .product-tax {
+      font-size: 11px;
+      color: var(--nitori-text-sub);
+    }
+
+    .product-point {
+      font-size: 11px;
+      color: var(--nitori-teal-dark);
+      font-weight: 600;
+    }
+
+    .product-ask-ai-btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 6px 0;
+      border: 1px solid var(--nitori-teal);
+      color: var(--nitori-teal);
+      background-color: var(--nitori-teal-ultralight);
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .product-ask-ai-btn:hover {
+      background-color: var(--nitori-teal);
+      color: white;
+    }
+
+    /* Services Banner */
+    .services-banner {
+      background-color: var(--nitori-bg);
+      border: 1px solid var(--nitori-border);
+      border-radius: 8px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .services-banner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .service-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .service-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background-color: var(--nitori-teal-light);
+      color: var(--nitori-teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .service-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+
+    .service-text-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--nitori-text-main);
+      margin-bottom: 2px;
+    }
+
+    .service-text-desc {
+      font-size: 11px;
+      color: var(--nitori-text-sub);
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333333;
+      color: #FFFFFF;
+      font-size: 12px;
+      padding-top: 40px;
+      margin-top: auto;
+    }
+
+    .footer-links-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid #444444;
+    }
+
+    @media (max-width: 768px) {
+      .footer-links-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .footer-col-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 14px;
+      border-left: 3px solid var(--nitori-teal);
+      padding-left: 8px;
+    }
+
+    .footer-col-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-col-list a {
+      color: #CCCCCC;
+      font-size: 12px;
+    }
+
+    .footer-col-list a:hover {
+      color: #FFFFFF;
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      background-color: #222222;
+      padding: 18px 0;
+      text-align: center;
+      color: #999999;
+      font-size: 11px;
+    }
+
+    /* Floating AI Launcher */
+    .floating-ai-launcher {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      background: linear-gradient(135deg, #009E96 0%, #007D76 100%);
+      color: #FFFFFF;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 6px 20px rgba(0, 158, 150, 0.4);
+      border-radius: 30px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .floating-ai-launcher:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 24px rgba(0, 158, 150, 0.5);
+    }
+
+    .ai-sparkle-icon {
+      width: 20px;
+      height: 20px;
+      fill: #FFF;
+      animation: pulse-sparkle 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse-sparkle {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.15); opacity: 0.85; }
+    }
+
+    body.chat-open .floating-ai-launcher {
+      display: none !important;
+    }
+
+    /* Chat Messenger Styling */
+    chat-messenger {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10000;
+      --chat-messenger-font-family: var(--font-family);
+      --chat-messenger-accent-color: var(--nitori-teal);
+      --chat-messenger-container-bg: #FFFFFF;
+      --chat-messenger-bubble-bg-bot: #F0FAF9;
+      --chat-messenger-bubble-bg-user: #E6F6F5;
+      --chat-messenger-bubble-color-bot: #222222;
+      --chat-messenger-bubble-color-user: #007D76;
+    }
+
+    body:not(.chat-open) chat-messenger {
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    body.chat-open chat-messenger {
+      display: block !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      z-index: 99999 !important;
+    }
+  </style>
+
+  <!-- GECX Client Logic -->
+  <script>
+    let userOpenedChat = false;
+    let hasSentInitialGreeting = false;
+
+    // Cookie parser utility
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? decodeURIComponent(match[2].trim()) : null;
+    }
+
+    // Parse JSON payload from gecx_cookie (or gecx_cooke)
+    function getGecxCookieData() {
+      const raw = getCookie('gecx_cookie') || getCookie('gecx_cooke');
+      if (!raw) return null;
+      try {
+        const jsonStr = decodeURIComponent(raw);
+        return JSON.parse(jsonStr);
+      } catch (e) {
+        try {
+          return JSON.parse(raw);
+        } catch (err) {
+          console.warn("gecx_cookie parsing error:", raw, err);
+          return null;
+        }
+      }
+    }
+
+    // Extract user name from common cookie keys
+    function getUserNameFromCookie() {
+      const directName = getCookie('username') || getCookie('user_name') || getCookie('nitori_user_name') || getCookie('member_name') || getCookie('user');
+      if (directName) return directName;
+      const gecx = getGecxCookieData();
+      if (gecx && (gecx.username || gecx.user_name || gecx.name)) {
+        return gecx.username || gecx.user_name || gecx.name;
+      }
+      return null;
+    }
+
+    // Sync username, visitor_id, and user_id into session & update UI
+    function syncUserSessionVariables() {
+      const messenger = document.querySelector('chat-messenger');
+      const variables = {};
+
+      const userName = getUserNameFromCookie();
+      if (userName) {
+        variables.username = userName;
+        const userDisplayEl = document.getElementById('header-user-name');
+        if (userDisplayEl) {
+          userDisplayEl.textContent = userName + ' 様';
+        }
+      } else {
+        const userDisplayEl = document.getElementById('header-user-name');
+        if (userDisplayEl) {
+          userDisplayEl.textContent = 'ログイン';
+        }
+      }
+
+      const gecxData = getGecxCookieData();
+      if (gecxData && typeof gecxData === 'object') {
+        if (gecxData.visitor_id) {
+          variables.visitor_id = String(gecxData.visitor_id);
+        }
+        const userId = gecxData.user_id || gecxData.userid;
+        if (userId) {
+          variables.user_id = String(userId);
+        }
+      }
+
+      if (Object.keys(variables).length > 0) {
+        try {
+          const existing = JSON.parse(sessionStorage.getItem('chat-messenger-variables') || '{}');
+          sessionStorage.setItem('chat-messenger-variables', JSON.stringify({ ...existing, ...variables }));
+        } catch (e) {}
+
+        if (messenger) {
+          if (typeof messenger.setVariables === 'function') {
+            messenger.setVariables(variables);
+          } else if (messenger.presenter && typeof messenger.presenter.setVariables === 'function') {
+            messenger.presenter.setVariables(variables);
+          }
+        }
+      }
+    }
+    window.syncUserSessionVariables = syncUserSessionVariables;
+
+    // Helper to prompt test user cookie
+    function promptSetUser() {
+      const current = getUserNameFromCookie() || '';
+      const newName = prompt('ユーザー名を入力してください（空欄でログアウト）:', current);
+      if (newName !== null) {
+        if (newName.trim()) {
+          document.cookie = 'user_name=' + encodeURIComponent(newName.trim()) + '; path=/; max-age=86400';
+          document.cookie = 'username=' + encodeURIComponent(newName.trim()) + '; path=/; max-age=86400';
+        } else {
+          document.cookie = 'user_name=; path=/; max-age=0';
+          document.cookie = 'username=; path=/; max-age=0';
+        }
+        location.reload();
+      }
+    }
+    window.promptSetUser = promptSetUser;
+
+    const NITORI_N_ICON = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' width='48' height='48'><rect width='48' height='48' rx='8' fill='%23009E96'/><text x='50%' y='54%' font-family='sans-serif' font-weight='900' font-size='30' fill='%23FFFFFF' text-anchor='middle' dominant-baseline='middle'>N</text></svg>";
+
+    function replaceChatIcons() {
+      function queryAllShadow(selector, root = document) {
+        const results = [];
+        function traverse(node) {
+          if (!node) return;
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            if (node.matches && node.matches(selector)) {
+              results.push(node);
+            }
+            if (node.shadowRoot) {
+              traverse(node.shadowRoot);
+            }
+          }
+          for (const child of node.childNodes) {
+            traverse(child);
+          }
+        }
+        traverse(root);
+        return results;
+      }
+
+      const imgTargets = queryAllShadow('img[src*="googleg"], img[src*="google"], [slot="titlebar-icon"], .titlebar-icon, .chat-title-icon, #titlebar-title img, chat-messenger-titlebar img');
+      imgTargets.forEach(img => {
+        if (img && img.src !== NITORI_N_ICON) {
+          img.src = NITORI_N_ICON;
+          img.style.borderRadius = "4px";
+        }
+      });
+    }
+
+    
+        // --- NITORI CUSTOM WIDGET PARSER & RENDERER ---
+    const NITORI_WIDGET_CSS = `
+    .nitori-custom-widget {
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+      box-sizing: border-box !important;
+      margin-top: 10px !important;
+      margin-bottom: 6px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    .nitori-custom-widget * {
+      box-sizing: border-box !important;
+    }
+    .nitori-widget-carousel {
+      display: flex !important;
+      gap: 12px !important;
+      overflow-x: auto !important;
+      padding: 6px 4px 14px 4px !important;
+      scroll-snap-type: x mandatory !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: thin !important;
+    }
+    .nitori-widget-carousel::-webkit-scrollbar {
+      height: 6px !important;
+    }
+    .nitori-widget-carousel::-webkit-scrollbar-thumb {
+      background: #009E96 !important;
+      border-radius: 4px !important;
+    }
+    .nitori-widget-card {
+      min-width: 195px !important;
+      max-width: 205px !important;
+      flex-shrink: 0 !important;
+      background: #FFFFFF !important;
+      border: 1px solid #E0E0E0 !important;
+      border-radius: 8px !important;
+      overflow: hidden !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+      scroll-snap-align: start !important;
+      transition: transform 0.15s, border-color 0.15s !important;
+    }
+    .nitori-widget-card:hover {
+      transform: translateY(-2px) !important;
+      border-color: #009E96 !important;
+      box-shadow: 0 4px 12px rgba(0, 158, 150, 0.18) !important;
+    }
+    .nitori-widget-img-wrap {
+      width: 100% !important;
+      height: 130px !important;
+      background: #F8F9FA !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+    }
+    .nitori-widget-img-wrap img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
+    .nitori-widget-body {
+      padding: 10px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      flex: 1 !important;
+      justify-content: space-between !important;
+      text-align: left !important;
+    }
+    .nitori-widget-sub {
+      font-size: 10px !important;
+      color: #888888 !important;
+      margin-bottom: 3px !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+    .nitori-widget-title {
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      color: #222222 !important;
+      line-height: 1.35 !important;
+      height: 32px !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+      margin-bottom: 6px !important;
+    }
+    .nitori-widget-price {
+      font-size: 14px !important;
+      font-weight: 800 !important;
+      color: #E60012 !important;
+      margin-bottom: 8px !important;
+    }
+    .nitori-widget-actions {
+      display: flex !important;
+      gap: 6px !important;
+    }
+    .nitori-widget-btn {
+      padding: 6px 4px !important;
+      border-radius: 4px !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      text-align: center !important;
+      cursor: pointer !important;
+      border: none !important;
+      text-decoration: none !important;
+      transition: all 0.15s !important;
+      flex: 1 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    .nitori-widget-btn.primary {
+      background: #009E96 !important;
+      color: #FFFFFF !important;
+    }
+    .nitori-widget-btn.primary:hover {
+      background: #007D76 !important;
+    }
+    .nitori-widget-btn.secondary {
+      background: #E6F6F5 !important;
+      color: #007D76 !important;
+      border: 1px solid #009E96 !important;
+    }
+
+    .nitori-carousel-wrapper {
+      position: relative !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .nitori-carousel-nav-btn {
+      position: absolute !important;
+      top: 45% !important;
+      transform: translateY(-50%) !important;
+      width: 36px !important;
+      height: 36px !important;
+      background: #FFFFFF !important;
+      color: #009E96 !important;
+      border: 1.5px solid #009E96 !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22) !important;
+      z-index: 15 !important;
+      transition: all 0.18s ease-in-out !important;
+      outline: none !important;
+      padding: 0 !important;
+    }
+    .nitori-carousel-nav-btn:hover {
+      background: #009E96 !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px rgba(0, 158, 150, 0.45) !important;
+      transform: translateY(-50%) scale(1.1) !important;
+    }
+    .nitori-carousel-nav-btn:active {
+      transform: translateY(-50%) scale(0.95) !important;
+    }
+    .nitori-carousel-nav-btn.prev {
+      left: -6px !important;
+    }
+    .nitori-carousel-nav-btn.next {
+      right: -6px !important;
+    }
+    .nitori-carousel-nav-btn svg {
+      width: 22px !important;
+      height: 22px !important;
+      fill: currentColor !important;
+    }
+
+    .nitori-widget-btn.secondary:hover {
+      background: #009E96 !important;
+      color: #FFFFFF !important;
+    }
+    /* Comparison Widget */
+    .nitori-compare-card {
+      background: #FFFFFF !important;
+      border: 2px solid #009E96 !important;
+      border-radius: 8px !important;
+      padding: 12px !important;
+      overflow: hidden !important;
+      text-align: left !important;
+    }
+    .nitori-compare-title {
+      font-size: 14px !important;
+      font-weight: 800 !important;
+      color: #007D76 !important;
+      margin-bottom: 10px !important;
+    }
+    .nitori-compare-table-wrap {
+      overflow-x: auto !important;
+      max-width: 100% !important;
+    }
+    .nitori-compare-table {
+      width: 100% !important;
+      border-collapse: collapse !important;
+      font-size: 11px !important;
+      text-align: center !important;
+    }
+    .nitori-compare-table th, .nitori-compare-table td {
+      border: 1px solid #E0E0E0 !important;
+      padding: 8px 6px !important;
+      vertical-align: top !important;
+    }
+    .nitori-compare-label-th, .nitori-compare-label {
+      background: #F8F9FA !important;
+      font-weight: 700 !important;
+      color: #444444 !important;
+      min-width: 80px !important;
+      text-align: left !important;
+    }
+    .nitori-compare-th {
+      min-width: 130px !important;
+    }
+    .nitori-compare-img {
+      width: 65px !important;
+      height: 65px !important;
+      object-fit: cover !important;
+      border-radius: 4px !important;
+      margin-bottom: 4px !important;
+    }
+    .nitori-compare-p-title {
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      line-height: 1.3 !important;
+      height: 30px !important;
+      overflow: hidden !important;
+      margin-bottom: 4px !important;
+    }
+    .nitori-compare-p-price {
+      font-size: 12px !important;
+      font-weight: 800 !important;
+      color: #E60012 !important;
+      margin-bottom: 4px !important;
+    }
+    .nitori-compare-p-rating {
+      font-size: 10px !important;
+      color: #FFA500 !important;
+      margin-bottom: 4px !important;
+    }
+    .nitori-compare-view-link {
+      font-size: 10px !important;
+      font-weight: 700 !important;
+      color: #009E96 !important;
+      text-decoration: underline !important;
+    }
+    /* Detail Widget */
+    .nitori-detail-card {
+      background: #FFFFFF !important;
+      border: 1px solid #009E96 !important;
+      border-radius: 8px !important;
+      padding: 12px !important;
+      text-align: left !important;
+    }
+    .nitori-detail-top {
+      display: flex !important;
+      gap: 12px !important;
+      align-items: flex-start !important;
+    }
+    .nitori-detail-img {
+      width: 100px !important;
+      height: 100px !important;
+      object-fit: cover !important;
+      border-radius: 6px !important;
+      flex-shrink: 0 !important;
+    }
+    .nitori-detail-info {
+      flex: 1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 4px !important;
+    }
+    .nitori-detail-title {
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      color: #222222 !important;
+      line-height: 1.35 !important;
+    }
+    .nitori-detail-rating {
+      font-size: 11px !important;
+      color: #FFA500 !important;
+    }
+    /* Order History & Action Widget */
+    .nitori-order-history-card {
+      background: #FFFFFF !important;
+      border: 1px solid #009E96 !important;
+      border-radius: 10px !important;
+      padding: 12px 14px !important;
+      text-align: left !important;
+      box-shadow: 0 2px 8px rgba(0, 158, 150, 0.08) !important;
+      margin: 0 !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
+    }
+    .nitori-order-header {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      border-bottom: 1px solid #ECECEC !important;
+      padding-bottom: 8px !important;
+      margin-bottom: 10px !important;
+    }
+    .nitori-order-id {
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      color: #222222 !important;
+    }
+    .nitori-order-badge {
+      background: #E6F6F5 !important;
+      color: #007D76 !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      padding: 3px 8px !important;
+      border-radius: 4px !important;
+    }
+    .nitori-order-date-amount {
+      font-size: 12px !important;
+      color: #666666 !important;
+      margin-bottom: 10px !important;
+      display: flex !important;
+      justify-content: space-between !important;
+    }
+    .nitori-order-item-list {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 8px !important;
+      margin-bottom: 10px !important;
+    }
+    .nitori-order-item-row {
+      display: flex !important;
+      gap: 10px !important;
+      align-items: center !important;
+      background: #F8FBFB !important;
+      padding: 8px 10px !important;
+      border-radius: 6px !important;
+      border: 1px solid #E5EFEF !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
+    }
+    .nitori-order-item-img {
+      width: 52px !important;
+      height: 52px !important;
+      object-fit: cover !important;
+      border-radius: 4px !important;
+      flex-shrink: 0 !important;
+      background: #FFFFFF !important;
+      border: 1px solid #EFEFEF !important;
+    }
+    .nitori-order-item-info {
+      flex: 1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 2px !important;
+      min-width: 0 !important;
+    }
+    .nitori-order-item-title {
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      color: #222222 !important;
+      line-height: 1.35 !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+    .nitori-order-item-opt {
+      font-size: 11px !important;
+      color: #777777 !important;
+    }
+    .nitori-order-item-price-qty {
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      color: #E60012 !important;
+    }
+    .nitori-order-actions {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 6px !important;
+      border-top: 1px dashed #E0E0E0 !important;
+      padding-top: 10px !important;
+      margin-top: 6px !important;
+    }
+    .nitori-order-btn {
+      width: 100% !important;
+      box-sizing: border-box !important;
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      padding: 9px 12px !important;
+      border-radius: 6px !important;
+      text-decoration: none !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      transition: all 0.15s !important;
+      border: 1px solid #009E96 !important;
+      text-align: center !important;
+    }
+    .nitori-order-btn.return {
+      background: #FF6600 !important;
+      color: #FFFFFF !important;
+      border-color: #FF6600 !important;
+      box-shadow: 0 2px 5px rgba(255, 102, 0, 0.25) !important;
+    }
+    .nitori-order-btn.return:hover {
+      background: #E05A00 !important;
+    }
+    .nitori-order-btn.inquiry {
+      background: #FFFFFF !important;
+      color: #007D76 !important;
+      border-color: #009E96 !important;
+    }
+    .nitori-order-btn.inquiry:hover {
+      background: #E6F6F5 !important;
+    }
+    .nitori-order-btn.tracking {
+      background: #F5F5F5 !important;
+      color: #444444 !important;
+      border-color: #D8D8D8 !important;
+    }
+    .nitori-order-btn.tracking:hover {
+      background: #EAEAEA !important;
+    }
+`;
+
+    function extractWidgetAndJson(rawText) {
+      if (!rawText) return null;
+      const widgetMarker = rawText.match(/\[widget:(product_list|product-comparison|product-detail|order_history_and_action|display_order_history|order_history)\]/);
+      if (!widgetMarker) return null;
+
+      const type = widgetMarker[1];
+      const markerIndex = widgetMarker.index;
+      const textBefore = rawText.substring(0, markerIndex).trim();
+      const rest = rawText.substring(markerIndex + widgetMarker[0].length).trim();
+
+      // 1. Try standard JSON substring extraction
+      const firstBrace = rest.indexOf('{');
+      const lastBrace = rest.lastIndexOf('}');
+      if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+        const jsonSubstring = rest.substring(firstBrace, lastBrace + 1);
+        try {
+          const data = JSON.parse(jsonSubstring);
+          return { type, textBefore, data };
+        } catch (e) {
+          try {
+            const cleaned = jsonSubstring.replace(/,\s*([\]}])/g, '$1');
+            const data = JSON.parse(cleaned);
+            return { type, textBefore, data };
+          } catch (err) {}
+        }
+      }
+
+      // 2. Fallback resilient regex extraction
+      if (type === 'product_list') {
+        const items = [];
+        const prodBlocks = rest.match(/\{[^{}]*"productId"[^{}]*\}/g) || rest.split(/\},\s*\{/);
+        for (const b of prodBlocks) {
+          const pId = b.match(/"productId"\s*:\s*"([^"]+)"/);
+          const pTitle = b.match(/"title"\s*:\s*"([^"]+)"/);
+          const pSub = b.match(/"subtitle"\s*:\s*"([^"]+)"/);
+          const pPrice = b.match(/"price"\s*:\s*"([^"]+)"/);
+          const pUri = b.match(/"uri"\s*:\s*"([^"]+)"/);
+          const pImgs = b.match(/"(https?:\/\/[^"]+\.(?:jpg|jpeg|png|webp)[^"]*)"/g);
+          const cleanImgs = pImgs ? pImgs.map(s => s.replace(/"/g, '')) : [];
+
+          if (pId && pTitle) {
+            items.append ? items.append({}) : items.push({
+              productId: pId[1],
+              title: pTitle[1],
+              subtitle: pSub ? pSub[1] : '',
+              price: pPrice ? pPrice[1] : '',
+              uri: pUri ? pUri[1] : '',
+              imageUris: cleanImgs
+            });
+          }
+        }
+        if (items.length > 0) {
+          return { type, textBefore, data: { productDetails: items } };
+        }
+      }
+
+      return null;
+    }
+
+    function renderProductListWidget(data) {
+      const container = document.createElement('div');
+      container.className = 'nitori-custom-widget nitori-product-list-widget';
+      const products = data.productDetails || [];
+      if (products.length === 0) return container;
+
+      let cardsHtml = '';
+      products.forEach((p) => {
+        const imgUrl = (p.imageUris && p.imageUris.length > 0) ? p.imageUris[0] : 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&auto=format&fit=crop&q=80';
+        const formattedPrice = p.price ? ('¥' + Number(p.price).toLocaleString() + ' (税込)') : '';
+        const title = p.title || '';
+        const subtitle = p.subtitle || '';
+        const uri = p.uri || `https://www.nitori-net.jp/ec/product/${p.productId}/`;
+
+        cardsHtml += `
+          <div class="nitori-widget-card">
+            <div class="nitori-widget-img-wrap">
+              <img src="${imgUrl}" alt="${title}" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&auto=format&fit=crop&q=80'" />
+            </div>
+            <div class="nitori-widget-body">
+              ${subtitle ? `<div class="nitori-widget-sub" title="${subtitle}">${subtitle}</div>` : ''}
+              <div class="nitori-widget-title" title="${title}">${title}</div>
+              <div class="nitori-widget-price">${formattedPrice}</div>
+              <div class="nitori-widget-actions">
+                <a href="${uri}" target="_blank" class="nitori-widget-btn primary">商品ページへ</a>
+                <button type="button" class="nitori-widget-btn secondary" onclick="window.sendQueryToChat('商品番号 ${p.productId} の詳細を教えて');">詳細を聞く</button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      const prevSvg = `<svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>`;
+      const nextSvg = `<svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>`;
+
+      container.innerHTML = `
+        <div class="nitori-carousel-wrapper">
+          <button type="button" class="nitori-carousel-nav-btn prev" aria-label="前へ" onclick="this.parentElement.querySelector('.nitori-widget-carousel').scrollBy({ left: -220, behavior: 'smooth' });">${prevSvg}</button>
+          <div class="nitori-widget-carousel">${cardsHtml}</div>
+          <button type="button" class="nitori-carousel-nav-btn next" aria-label="次へ" onclick="this.parentElement.querySelector('.nitori-widget-carousel').scrollBy({ left: 220, behavior: 'smooth' });">${nextSvg}</button>
+        </div>
+      `;
+      return container;
+    }
+
+    function renderProductComparisonWidget(data) {
+      const container = document.createElement('div');
+      container.className = 'nitori-custom-widget nitori-comparison-widget';
+
+      const title = data.title || 'ニトリ 商品比較';
+      const products = data.productDetails || [];
+      const features = data.features || [];
+      if (products.length === 0) return container;
+
+      let headersHtml = '';
+      products.forEach((p) => {
+        const imgUrl = (p.imageUris && p.imageUris.length > 0) ? p.imageUris[0] : 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&auto=format&fit=crop&q=80';
+        const formattedPrice = p.price ? ('¥' + Number(p.price).toLocaleString() + ' (税込)') : '';
+        const ratingHtml = p.rating ? `★ ${p.rating}` : '';
+        const uri = p.uri || `https://www.nitori-net.jp/ec/product/${p.productId}/`;
+
+        headersHtml += `
+          <th class="nitori-compare-th">
+            <div class="nitori-compare-header-item">
+              <img src="${imgUrl}" alt="${p.title}" class="nitori-compare-img" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&auto=format&fit=crop&q=80'" />
+              <div class="nitori-compare-p-title" title="${p.title}">${p.title}</div>
+              <div class="nitori-compare-p-price">${formattedPrice}</div>
+              ${ratingHtml ? `<div class="nitori-compare-p-rating">${ratingHtml}</div>` : ''}
+              <a href="${uri}" target="_blank" class="nitori-compare-view-link">商品詳細</a>
+            </div>
+          </th>
+        `;
+      });
+
+      let rowsHtml = '';
+      features.forEach((f) => {
+        let cellsHtml = '';
+        const specs = f.productSpecs || [];
+        specs.forEach((s) => {
+          let val = s.text || (s.anchor ? s.anchor.displayText : '');
+          cellsHtml += `<td class="nitori-compare-td">${val || '-'}</td>`;
+        });
+
+        rowsHtml += `
+          <tr>
+            <td class="nitori-compare-label">${f.label || ''}</td>
+            ${cellsHtml}
+          </tr>
+        `;
+      });
+
+      container.innerHTML = `
+        <div class="nitori-compare-card">
+          <div class="nitori-compare-title">${title}</div>
+          <div class="nitori-compare-table-wrap">
+            <table class="nitori-compare-table">
+              <thead>
+                <tr>
+                  <th class="nitori-compare-label-th">項目</th>
+                  ${headersHtml}
+                </tr>
+              </thead>
+              <tbody>
+                ${rowsHtml}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+      return container;
+    }
+
+    function renderProductDetailWidget(data) {
+      const container = document.createElement('div');
+      container.className = 'nitori-custom-widget nitori-detail-widget';
+
+      const imgUrl = (data.imageUris && data.imageUris.length > 0) ? data.imageUris[0] : 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&auto=format&fit=crop&q=80';
+      const formattedPrice = data.price ? ('¥' + Number(data.price).toLocaleString() + ' (税込)') : '';
+      const uri = data.uri || `https://www.nitori-net.jp/ec/product/${data.productId}/`;
+
+      container.innerHTML = `
+        <div class="nitori-detail-card">
+          <div class="nitori-detail-top">
+            <img src="${imgUrl}" alt="${data.title || ''}" class="nitori-detail-img" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&auto=format&fit=crop&q=80'" />
+            <div class="nitori-detail-info">
+              ${data.subtitle ? `<div class="nitori-widget-sub">${data.subtitle}</div>` : ''}
+              <div class="nitori-detail-title">${data.title || ''}</div>
+              <div class="nitori-widget-price">${formattedPrice}</div>
+              ${data.rating ? `<div class="nitori-detail-rating">★ ${data.rating} ${data.review && data.review.count ? `(${data.review.count}件)` : ''}</div>` : ''}
+              <a href="${uri}" target="_blank" class="nitori-widget-btn primary" style="margin-top:8px;">ニトリネットで見る</a>
+            </div>
+          </div>
+        </div>
+      `;
+      return container;
+    }
+
+    function renderOrderHistoryWidget(rawData) {
+      const data = (rawData && rawData.orders) ? rawData : (rawData?.payload || rawData || {});
+      const container = document.createElement('div');
+      container.className = 'nitori-custom-widget nitori-order-history-widget';
+      const orders = data.orders || [];
+      if (orders.length === 0) {
+        container.innerHTML = `
+          <div class="nitori-order-history-card" style="text-align:center; padding:16px; color:#666;">
+            <div style="font-weight:700; font-size:13px; margin-bottom:4px; color:#333;">ご注文履歴はありません</div>
+            <div style="font-size:11px; color:#888;">直近のご注文履歴が見つかりませんでした。</div>
+          </div>
+        `;
+        return container;
+      }
+
+      let ordersHtml = '';
+      orders.forEach((ord) => {
+        let itemsHtml = '';
+        const items = ord.items || [];
+        items.forEach((item) => {
+          const imgUrl = item.imageUrl || 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&auto=format&fit=crop&q=80';
+          itemsHtml += `
+            <div class="nitori-order-item-row">
+              <img src="${imgUrl}" alt="${item.title || ''}" class="nitori-order-item-img" onerror="this.src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&auto=format&fit=crop&q=80'" />
+              <div class="nitori-order-item-info">
+                <div class="nitori-order-item-title">${item.title || ''}</div>
+                ${item.option ? `<div class="nitori-order-item-opt">${item.option}</div>` : ''}
+                <div class="nitori-order-item-price-qty">${item.price || ''} × ${item.quantity || 1}点</div>
+              </div>
+            </div>
+          `;
+        });
+
+        let actionsHtml = '';
+        const actions = ord.actions || [];
+        actions.forEach((act) => {
+          const actType = act.actionType || 'inquiry';
+          const label = act.label || '問い合わせ';
+          const uri = act.uri || '#';
+          if (actType === 'inquiry') {
+            actionsHtml += `<button type="button" class="nitori-order-btn inquiry" onclick="window.sendQueryToChat('注文番号 ${ord.orderId} について問い合わせたいです');">${label}</button>`;
+          } else {
+            actionsHtml += `<a href="${uri}" target="_blank" class="nitori-order-btn ${actType}">${label}</a>`;
+          }
+        });
+
+        ordersHtml += `
+          <div class="nitori-order-history-card">
+            <div class="nitori-order-header">
+              <span class="nitori-order-id">注文番号: ${ord.orderId || '-'}</span>
+              <span class="nitori-order-badge">${ord.orderStatus || '配達完了'}</span>
+            </div>
+            <div class="nitori-order-date-amount">
+              <span>注文日: ${ord.orderDate || '-'}</span>
+              <span>合計: <strong>${ord.totalAmount || ''}</strong></span>
+            </div>
+            <div class="nitori-order-item-list">${itemsHtml}</div>
+            ${actionsHtml ? `<div class="nitori-order-actions">${actionsHtml}</div>` : ''}
+          </div>
+        `;
+      });
+
+      container.innerHTML = ordersHtml;
+      return container;
+    }
+
+    window.sendQueryToChat = function(query) {
+      openChatWithMessage(query);
+    };
+
+    function handleChatInputIME(root) {
+      const userInputs = root.querySelectorAll ? root.querySelectorAll('chat-messenger-user-input') : [];
+      userInputs.forEach((userInput) => {
+        const shadow = userInput.shadowRoot;
+        if (!shadow) return;
+
+        const textarea = shadow.querySelector('textarea');
+        if (textarea && !textarea.dataset.nitoriImeHandled) {
+          textarea.dataset.nitoriImeHandled = "true";
+
+          let isComposing = false;
+          textarea.addEventListener('compositionstart', () => {
+            isComposing = true;
+          });
+
+          textarea.addEventListener('compositionend', () => {
+            isComposing = false;
+          });
+
+          textarea.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              // Block Enter during Japanese IME Kanji/Hiragana conversion
+              if (isComposing || e.isComposing || e.keyCode === 229) {
+                e.stopPropagation();
+              }
+            }
+          }, true);
+        }
+      });
+    }
+
+    function handleChatResponseReceived(event) {
+      const detail = event ? event.detail : null;
+      if (!detail) return;
+
+      console.log("[NITORI] handleChatResponseReceived event fired!", detail);
+
+      const items = [];
+      const visited = new Set();
+
+      function getSafeKey(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+          hash = ((hash << 5) - hash) + str.charCodeAt(i);
+          hash |= 0;
+        }
+        return 'pay_' + Math.abs(hash);
+      }
+
+      function addPayload(p, summary, id) {
+        if (!p || typeof p !== 'object') return;
+        const key = id ? ('pay_' + String(id).replace(/[^a-zA-Z0-9_-]/g, '_')) : getSafeKey(JSON.stringify(p));
+        if (visited.has(key)) return;
+        visited.add(key);
+
+        const data = (p && p.orders) ? p : ((p.payload && p.payload.orders) ? p.payload : ((p.customTemplate && p.customTemplate.orders) ? p.customTemplate : p));
+        if (data && (data.orders || data.productDetails || data.features || p.type === 'custom_template' || p.name?.includes('customTemplates'))) {
+          items.push({
+            payload: data,
+            summary: summary || p.summary || data.summary || '',
+            id: key
+          });
+        }
+      }
+
+      function scanObj(obj) {
+        if (!obj || typeof obj !== 'object') return;
+
+        // 1. Check customTemplate
+        if (obj.customTemplate) {
+          addPayload(obj.customTemplate, obj.summary || '', obj.customTemplate.name || obj.id);
+        }
+
+        // 2. Check toolCalls array
+        if (Array.isArray(obj.toolCalls)) {
+          obj.toolCalls.forEach(tc => {
+            if (tc && tc.args) {
+              addPayload(tc.args.payload || tc.args.customTemplate || tc.args, tc.args.summary, tc.id);
+            }
+          });
+        }
+
+        // 3. Check toolCall singular
+        if (obj.toolCall && obj.toolCall.args) {
+          addPayload(obj.toolCall.args.payload || obj.toolCall.args.customTemplate || obj.toolCall.args, obj.toolCall.args.summary, obj.toolCall.id);
+        }
+
+        // 4. Check toolResponse
+        if (obj.toolResponse && obj.toolResponse.response) {
+          const resp = obj.toolResponse.response;
+          addPayload(resp.payload || resp.customTemplate || resp, resp.summary, obj.toolResponse.id);
+        }
+
+        // 5. Check direct payload
+        if (obj.payload && typeof obj.payload === 'object') {
+          addPayload(obj.payload, obj.summary || '', obj.id);
+        }
+
+        // 6. Check orders directly
+        if (Array.isArray(obj.orders)) {
+          addPayload(obj, obj.summary || '', obj.id || obj.name);
+        }
+
+        // 7. Check chunks array
+        if (Array.isArray(obj.chunks)) {
+          obj.chunks.forEach(c => scanObj(c));
+        }
+
+        // 8. Check outputs array
+        if (Array.isArray(obj.outputs)) {
+          obj.outputs.forEach(o => scanObj(o));
+        }
+
+        // 9. Check messages array
+        if (Array.isArray(obj.messages)) {
+          obj.messages.forEach(m => scanObj(m));
+        }
+      }
+
+      // Check raw first, fallback to data, then detail
+      if (detail.raw) {
+        scanObj(detail.raw);
+      }
+      if (items.length === 0 && detail.data) {
+        scanObj(detail.data);
+      }
+      if (items.length === 0 && detail.messages) {
+        scanObj(detail.messages);
+      }
+
+      console.log("[NITORI] Extracted items:", items);
+      if (items.length === 0) return;
+
+      function findTargetContainer() {
+        function deepFindAll(selector, root = document) {
+          const results = [];
+          function traverse(node) {
+            if (!node) return;
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              if (node.matches && node.matches(selector)) results.push(node);
+              if (node.shadowRoot) traverse(node.shadowRoot);
+            }
+            for (const child of node.childNodes) traverse(child);
+          }
+          traverse(root);
+          return results;
+        }
+
+        const msgLists = deepFindAll('chat-messenger-message-list, chat-message-list');
+        for (let i = 0; i < msgLists.length; i++) {
+          const ml = msgLists[i];
+          if (ml.shadowRoot) {
+            const inner = ml.shadowRoot.querySelector('.content') || ml.shadowRoot.querySelector('.message-list-wrapper') || ml.shadowRoot;
+            return { container: inner, shadowRoot: ml.shadowRoot };
+          }
+        }
+        return { container: null, shadowRoot: null };
+      }
+
+      function mountItems(retryCount = 0) {
+        const { container, shadowRoot } = findTargetContainer();
+        if (!container || !shadowRoot) {
+          if (retryCount < 25) {
+            setTimeout(() => mountItems(retryCount + 1), 100);
+          }
+          return;
+        }
+
+        if (shadowRoot instanceof ShadowRoot && !shadowRoot.querySelector('#nitori-widget-styles')) {
+          const styleEl = document.createElement('style');
+          styleEl.id = 'nitori-widget-styles';
+          styleEl.textContent = NITORI_WIDGET_CSS;
+          shadowRoot.appendChild(styleEl);
+        }
+
+        function doScroll() {
+          const wrapper = shadowRoot ? shadowRoot.querySelector('.message-list-wrapper') : null;
+          const scrollEl = wrapper || container.parentElement || container;
+          if (scrollEl) {
+            scrollEl.scrollTop = scrollEl.scrollHeight;
+          }
+        }
+
+        items.forEach((item) => {
+          if (shadowRoot.querySelector(`[data-nitori-payload-id="${item.id}"]`)) {
+            doScroll();
+            return;
+          }
+
+          // Register in window cache so processCustomWidgets can maintain it
+          if (!window._nitoriPendingPayloads) window._nitoriPendingPayloads = [];
+          if (!window._nitoriPendingPayloads.some(p => p.id === item.id)) {
+            window._nitoriPendingPayloads.push(item);
+          }
+
+          const entryDiv = document.createElement('div');
+          entryDiv.className = 'entry bot nitori-injected-entry';
+          entryDiv.setAttribute('data-nitori-payload-id', item.id);
+          entryDiv.style.cssText = 'display:flex; flex-direction:column; align-self:flex-start; width:100%; max-width:100%; margin:4px 0 8px 0; box-sizing:border-box;';
+
+          const stackDiv = document.createElement('div');
+          stackDiv.className = 'message-stack single';
+          stackDiv.style.cssText = 'width:100%; box-sizing:border-box; display:flex; flex-direction:column; gap:8px;';
+
+          let widgetEl = null;
+          if (item.payload.orders) {
+            widgetEl = renderOrderHistoryWidget(item.payload);
+          } else if (item.payload.productDetails) {
+            widgetEl = renderProductListWidget(item.payload);
+          } else if (item.payload.features) {
+            widgetEl = renderProductComparisonWidget(item.payload);
+          }
+
+          if (widgetEl) {
+            if (item.summary) {
+              const textBubble = document.createElement('div');
+              textBubble.className = 'message bot-message markdown';
+              textBubble.style.cssText = 'background:#F0FAF9 !important; color:#222222 !important; border-radius:0px 16px 16px 16px !important; padding:10px 14px !important; font-size:13px !important; line-height:1.6 !important; width:fit-content !important; max-width:100% !important; box-sizing:border-box !important; margin-bottom:6px !important; border:none !important;';
+              textBubble.textContent = item.summary;
+              stackDiv.appendChild(textBubble);
+            }
+
+            stackDiv.appendChild(widgetEl);
+            entryDiv.appendChild(stackDiv);
+
+            // Clean up any empty bot entries from Dialogflow Messenger that have no content
+            const botEntries = container.querySelectorAll('.entry.bot:not(.nitori-injected-entry)');
+            botEntries.forEach(b => {
+              if (!b.textContent.trim() && !b.querySelector('.nitori-custom-widget')) {
+                b.style.display = 'none';
+              }
+            });
+
+            // Insert before temporary loading indicators if present
+            const tempEl = container.querySelector('.function-call, .loading, .spinner, df-scroll-to-bottom');
+            if (tempEl && tempEl.parentElement === container) {
+              container.insertBefore(entryDiv, tempEl);
+            } else {
+              container.appendChild(entryDiv);
+            }
+
+            setTimeout(doScroll, 40);
+            setTimeout(doScroll, 150);
+            setTimeout(doScroll, 400);
+          }
+        });
+      }
+
+      mountItems(0);
+    }
+
+    window.addEventListener("chat-messenger-response-received", handleChatResponseReceived);
+    document.addEventListener("chat-messenger-response-received", handleChatResponseReceived);
+
+    function processCustomWidgets() {
+      function traverseShadowRoots(root = document, callback) {
+        if (!root) return;
+        callback(root);
+        const children = root.querySelectorAll ? root.querySelectorAll('*') : [];
+        for (const child of children) {
+          if (child.shadowRoot) {
+            traverseShadowRoots(child.shadowRoot, callback);
+          }
+        }
+      }
+
+      traverseShadowRoots(document, (root) => {
+        // Handle input IME
+        handleChatInputIME(root);
+
+        // Ensure styling is present in shadow root
+        if (root instanceof ShadowRoot && !root.querySelector('#nitori-widget-styles')) {
+          const styleEl = document.createElement('style');
+          styleEl.id = 'nitori-widget-styles';
+          styleEl.textContent = NITORI_WIDGET_CSS;
+          root.appendChild(styleEl);
+        }
+
+        // Maintain pending payloads in message list if not present
+        if (root instanceof ShadowRoot && root.querySelector && root.querySelector('.content')) {
+          const content = root.querySelector('.content');
+          if (window._nitoriPendingPayloads && window._nitoriPendingPayloads.length > 0) {
+            window._nitoriPendingPayloads.forEach(item => {
+              if (!root.querySelector(`[data-nitori-payload-id="${item.id}"]`)) {
+                const entryDiv = document.createElement('div');
+                entryDiv.className = 'entry bot nitori-injected-entry';
+                entryDiv.setAttribute('data-nitori-payload-id', item.id);
+                entryDiv.style.cssText = 'display:flex; flex-direction:column; align-self:flex-start; width:100%; max-width:100%; margin:4px 0 8px 0; box-sizing:border-box;';
+
+                const stackDiv = document.createElement('div');
+                stackDiv.className = 'message-stack single';
+                stackDiv.style.cssText = 'width:100%; box-sizing:border-box; display:flex; flex-direction:column; gap:8px;';
+
+                let widgetEl = null;
+                if (item.payload.orders) widgetEl = renderOrderHistoryWidget(item.payload);
+                else if (item.payload.productDetails) widgetEl = renderProductListWidget(item.payload);
+                else if (item.payload.features) widgetEl = renderProductComparisonWidget(item.payload);
+
+                if (widgetEl) {
+                  if (item.summary) {
+                    const textBubble = document.createElement('div');
+                    textBubble.className = 'message bot-message markdown';
+                    textBubble.style.cssText = 'background:#F0FAF9 !important; color:#222222 !important; border-radius:0px 16px 16px 16px !important; padding:10px 14px !important; font-size:13px !important; line-height:1.6 !important; width:fit-content !important; max-width:100% !important; box-sizing:border-box !important; margin-bottom:6px !important; border:none !important;';
+                    textBubble.textContent = item.summary;
+                    stackDiv.appendChild(textBubble);
+                  }
+                  stackDiv.appendChild(widgetEl);
+                  entryDiv.appendChild(stackDiv);
+
+                  const tempEl = content.querySelector('.function-call, .loading, .spinner, df-scroll-to-bottom');
+                  if (tempEl && tempEl.parentElement === content) {
+                    content.insertBefore(entryDiv, tempEl);
+                  } else {
+                    content.appendChild(entryDiv);
+                  }
+                }
+              }
+            });
+          }
+        }
+
+        // 1. Find elements with raw widget text markers
+        const allElements = root.querySelectorAll ? root.querySelectorAll('*') : [];
+        allElements.forEach((el) => {
+          if (el.tagName === 'STYLE' || el.tagName === 'SCRIPT' || el.tagName === 'TEXTAREA') return;
+          if (el.dataset && el.dataset.nitoriWidgetDone) return;
+          if (el.querySelector && el.querySelector('.nitori-custom-widget')) return;
+
+          const text = el.textContent || '';
+          if (text.includes('[widget:') && (text.includes('product_list') || text.includes('product-comparison') || text.includes('product-detail') || text.includes('order_history') || text.includes('display_order_history'))) {
+            const hasChildMatch = Array.from(el.children || []).some(child => (child.textContent || '').includes('[widget:'));
+            if (hasChildMatch) return;
+
+            const parsed = extractWidgetAndJson(text);
+            if (parsed) {
+              el.dataset.nitoriWidgetDone = "true";
+              let widgetEl = null;
+              if (parsed.type === 'product_list') {
+                widgetEl = renderProductListWidget(parsed.data);
+              } else if (parsed.type === 'product-comparison') {
+                widgetEl = renderProductComparisonWidget(parsed.data);
+              } else if (parsed.type === 'product-detail') {
+                widgetEl = renderProductDetailWidget(parsed.data);
+              } else if (parsed.type === 'order_history_and_action' || parsed.type === 'display_order_history' || parsed.type === 'order_history') {
+                widgetEl = renderOrderHistoryWidget(parsed.data);
+              }
+
+              if (widgetEl) {
+                const bubbleParent = el.closest('chat-bubble, .chat-bubble, chat-message, .message-content, [class*="bubble"], chat-markdown') || el;
+                const formattedHtml = parsed.textBefore
+                  .split('\n')
+                  .map(line => line.trim())
+                  .filter(line => line.length > 0)
+                  .map(line => `<p style="margin:0 0 8px 0; line-height:1.6;">${line}</p>`)
+                  .join('');
+
+                if (bubbleParent && bubbleParent !== el) {
+                  bubbleParent.dataset.nitoriWidgetDone = "true";
+                  bubbleParent.innerHTML = formattedHtml;
+                  bubbleParent.appendChild(widgetEl);
+                } else {
+                  el.innerHTML = formattedHtml;
+                  el.appendChild(widgetEl);
+                }
+              }
+            }
+          }
+        });
+
+        // 2. Find custom-payload / custom-template DOM elements
+        const customElements = root.querySelectorAll ? root.querySelectorAll('chat-custom-template, chat-custom-payload, [type="custom_template"], chat-message-custom, .custom-payload') : [];
+        customElements.forEach((cEl) => {
+          if (cEl.dataset && cEl.dataset.nitoriWidgetDone) return;
+          if (cEl.querySelector && cEl.querySelector('.nitori-custom-widget')) return;
+
+          let payload = cEl.payload || cEl._payload || cEl.data || cEl.__data || cEl.message?.payload;
+          if (!payload && cEl.getAttribute) {
+            const attrVal = cEl.getAttribute('payload') || cEl.getAttribute('data') || cEl.getAttribute('data-payload');
+            if (attrVal) {
+              try { payload = JSON.parse(attrVal); } catch (e) {}
+            }
+          }
+
+          if (payload) {
+            let widgetEl = null;
+            if (payload.orders) {
+              widgetEl = renderOrderHistoryWidget(payload);
+            } else if (payload.productDetails) {
+              widgetEl = renderProductListWidget(payload);
+            } else if (payload.features) {
+              widgetEl = renderProductComparisonWidget(payload);
+            }
+
+            if (widgetEl) {
+              cEl.dataset.nitoriWidgetDone = "true";
+              cEl.innerHTML = '';
+              if (payload.title) {
+                const titleP = document.createElement('p');
+                titleP.style.cssText = 'margin:0 0 8px 0; line-height:1.6; font-size:13px; font-weight:700; color:#007D76;';
+                titleP.textContent = payload.title;
+                cEl.appendChild(titleP);
+              }
+              cEl.appendChild(widgetEl);
+            }
+          }
+        });
+      });
+    }
+
+    setInterval(processCustomWidgets, 200);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        if (document.body) {
+          const observer = new MutationObserver(() => {
+            processCustomWidgets();
+          });
+          observer.observe(document.body, { childList: true, subtree: true });
+        }
+      });
+    } else if (document.body) {
+      const observer = new MutationObserver(() => {
+        processCustomWidgets();
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    function initChat() {
+      syncUserSessionVariables();
+      const messenger = document.querySelector('chat-messenger');
+      if (messenger) {
+        messenger.addEventListener("chat-messenger-response-received", handleChatResponseReceived);
+      }
+      if (typeof chatSdk !== 'undefined') {
+        chatSdk.registerContext(
+          chatSdk.prebuilts.ces.createContext({
+            deploymentName: "projects/183415672859/locations/us/apps/2544e177-b2e5-4f4e-8095-df30ac959c32/deployments/9d45db95-e9c9-49b1-b39a-ddbb07133031",
+            tokenBroker: {
+              enableTokenBroker: true,
+              enableRecaptcha: false
+            }
+          }),
+        );
+        console.log("Nitori AI Assistant SDK context registered!");
+      }
+      setInterval(replaceChatIcons, 300);
+    }
+
+    function sendInitialGreeting(messenger) {
+      if (hasSentInitialGreeting) return;
+
+      let storedMsgs = null;
+      try {
+        storedMsgs = sessionStorage.getItem('chat-messenger-messages');
+      } catch (e) {}
+
+      const isNewSession = !storedMsgs || storedMsgs === '[]' || JSON.parse(storedMsgs || '[]').length === 0;
+      if (!isNewSession) return;
+
+      hasSentInitialGreeting = true;
+      syncUserSessionVariables();
+      const userName = getUserNameFromCookie();
+      const greetingQuery = userName ? ('私の名前は' + userName + 'です。') : 'こんにちは';
+
+      let attempts = 0;
+      function trySend() {
+        attempts++;
+        if (messenger && typeof messenger.sendQuery === 'function') {
+          messenger.sendQuery(greetingQuery);
+        } else if (attempts < 25) {
+          setTimeout(trySend, 300);
+        }
+      }
+      setTimeout(trySend, 800);
+    }
+
+    function openChatWidget() {
+      userOpenedChat = true;
+      document.body.classList.add('chat-open');
+      const messenger = document.querySelector('chat-messenger');
+      if (messenger) {
+        if (typeof messenger.slideIn === 'function') {
+          messenger.slideIn();
+        }
+        if (typeof messenger.openDialog === 'function') {
+          messenger.openDialog();
+        }
+        sendInitialGreeting(messenger);
+      }
+    }
+
+    function openChatWithMessage(text) {
+      userOpenedChat = true;
+      hasSentInitialGreeting = true;
+      document.body.classList.add('chat-open');
+      const messenger = document.querySelector('chat-messenger');
+      if (messenger) {
+        if (typeof messenger.slideIn === 'function') {
+          messenger.slideIn();
+        }
+        if (typeof messenger.openDialog === 'function') {
+          messenger.openDialog();
+        }
+        syncUserSessionVariables();
+        let attempts = 0;
+        function trySend() {
+          attempts++;
+          if (messenger && typeof messenger.sendQuery === 'function') {
+            messenger.sendQuery(text);
+          } else if (attempts < 25) {
+            setTimeout(trySend, 300);
+          }
+        }
+        setTimeout(trySend, 400);
+      }
+    }
+
+    function closeChatWidget() {
+      const messenger = document.querySelector('chat-messenger');
+      if (messenger) {
+        if (typeof messenger.slideOut === 'function') {
+          messenger.slideOut();
+        }
+        if (typeof messenger.closeDialog === 'function') {
+          messenger.closeDialog();
+        }
+      }
+      document.body.classList.remove('chat-open');
+    }
+
+    window.addEventListener("chat-messenger-close", () => {
+      closeChatWidget();
+    });
+
+    window.addEventListener("chat-messenger-start-new-session", () => {
+      hasSentInitialGreeting = false;
+      syncUserSessionVariables();
+      const messenger = document.querySelector('chat-messenger');
+      if (messenger) {
+        setTimeout(() => {
+          sendInitialGreeting(messenger);
+        }, 300);
+      }
+    });
+
+    if (document.readyState === 'loading') {
+      window.addEventListener("chat-messenger-loaded", initChat);
+    } else {
+      initChat();
+    }
+  </script>
+<style id="nitori-widget-styles">
+    .nitori-custom-widget {
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      box-sizing: border-box;
+      margin-top: 12px;
+      margin-bottom: 8px;
+      width: 100%;
+      max-width: 100%;
+    }
+    .nitori-custom-widget * {
+      box-sizing: border-box;
+    }
+    .nitori-widget-carousel {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 6px 4px 14px 4px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .nitori-widget-carousel::-webkit-scrollbar {
+      height: 6px;
+    }
+    .nitori-widget-carousel::-webkit-scrollbar-thumb {
+      background: #009E96;
+      border-radius: 4px;
+    }
+    .nitori-widget-card {
+      min-width: 195px;
+      max-width: 205px;
+      flex-shrink: 0;
+      background: #FFFFFF;
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      scroll-snap-align: start;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .nitori-widget-card:hover {
+      transform: translateY(-2px);
+      border-color: #009E96;
+      box-shadow: 0 4px 12px rgba(0, 158, 150, 0.18);
+    }
+    .nitori-widget-img-wrap {
+      width: 100%;
+      height: 130px;
+      background: #F8F9FA;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .nitori-widget-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .nitori-widget-body {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      text-align: left;
+    }
+    .nitori-widget-sub {
+      font-size: 10px;
+      color: #888888;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .nitori-widget-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #222222;
+      line-height: 1.35;
+      height: 32px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .nitori-widget-price {
+      font-size: 14px;
+      font-weight: 800;
+      color: #E60012;
+      margin-bottom: 8px;
+    }
+    .nitori-widget-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .nitori-widget-btn {
+      padding: 6px 4px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: all 0.15s;
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nitori-widget-btn.primary {
+      background: #009E96;
+      color: #FFFFFF !important;
+    }
+    .nitori-widget-btn.primary:hover {
+      background: #007D76;
+    }
+    .nitori-widget-btn.secondary {
+      background: #E6F6F5;
+      color: #007D76 !important;
+      border: 1px solid #009E96;
+    }
+
+    .nitori-carousel-wrapper {
+      position: relative !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .nitori-carousel-nav-btn {
+      position: absolute !important;
+      top: 45% !important;
+      transform: translateY(-50%) !important;
+      width: 36px !important;
+      height: 36px !important;
+      background: #FFFFFF !important;
+      color: #009E96 !important;
+      border: 1.5px solid #009E96 !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22) !important;
+      z-index: 15 !important;
+      transition: all 0.18s ease-in-out !important;
+      outline: none !important;
+      padding: 0 !important;
+    }
+    .nitori-carousel-nav-btn:hover {
+      background: #009E96 !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px rgba(0, 158, 150, 0.45) !important;
+      transform: translateY(-50%) scale(1.1) !important;
+    }
+    .nitori-carousel-nav-btn:active {
+      transform: translateY(-50%) scale(0.95) !important;
+    }
+    .nitori-carousel-nav-btn.prev {
+      left: -6px !important;
+    }
+    .nitori-carousel-nav-btn.next {
+      right: -6px !important;
+    }
+    .nitori-carousel-nav-btn svg {
+      width: 22px !important;
+      height: 22px !important;
+      fill: currentColor !important;
+    }
+
+    .nitori-widget-btn.secondary:hover {
+      background: #009E96;
+      color: #FFFFFF !important;
+    }
+    /* Comparison Widget */
+    .nitori-compare-card {
+      background: #FFFFFF;
+      border: 2px solid #009E96;
+      border-radius: 8px;
+      padding: 12px;
+      overflow: hidden;
+      text-align: left;
+    }
+    .nitori-compare-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #007D76;
+      margin-bottom: 10px;
+    }
+    .nitori-compare-table-wrap {
+      overflow-x: auto;
+      max-width: 100%;
+    }
+    .nitori-compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      text-align: center;
+    }
+    .nitori-compare-table th, .nitori-compare-table td {
+      border: 1px solid #E0E0E0;
+      padding: 8px 6px;
+      vertical-align: top;
+    }
+    .nitori-compare-label-th, .nitori-compare-label {
+      background: #F8F9FA;
+      font-weight: 700;
+      color: #444444;
+      min-width: 80px;
+      text-align: left;
+    }
+    .nitori-compare-th {
+      min-width: 130px;
+    }
+    .nitori-compare-img {
+      width: 65px;
+      height: 65px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 4px;
+    }
+    .nitori-compare-p-title {
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.3;
+      height: 30px;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+    .nitori-compare-p-price {
+      font-size: 12px;
+      font-weight: 800;
+      color: #E60012;
+      margin-bottom: 4px;
+    }
+    .nitori-compare-p-rating {
+      font-size: 10px;
+      color: #FFA500;
+      margin-bottom: 4px;
+    }
+    .nitori-compare-view-link {
+      font-size: 10px;
+      font-weight: 700;
+      color: #009E96;
+      text-decoration: underline;
+    }
+    /* Detail Widget */
+    .nitori-detail-card {
+      background: #FFFFFF;
+      border: 1px solid #009E96;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: left;
+    }
+    .nitori-detail-top {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .nitori-detail-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .nitori-detail-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .nitori-detail-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #222222;
+      line-height: 1.35;
+    }
+    .nitori-detail-rating {
+      font-size: 11px;
+      color: #FFA500;
+    }
+</style>
+</head>
+
+<body>
+
+  <!-- Top Utility Bar -->
+  <div class="top-utility-bar">
+    <div class="container top-utility-inner">
+      <div class="top-slogan">お、ねだん以上。ニトリ 公式通販 ニトリネット</div>
+      <div class="top-utility-links">
+        <a href="javascript:void(0);">店舗検索・営業時間</a>
+        <a href="javascript:void(0);">ご利用ガイド</a>
+        <a href="javascript:void(0);">お客様サポート</a>
+        <a href="javascript:void(0);">法人のお客様</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <header>
+    <div class="container header-main">
+      <!-- Nitori Brand Logo -->
+      <a href="index.html" class="logo-box">
+        <div class="nitori-logo-badge">NITORI</div>
+        <div class="nitori-brand-text">
+          <span class="nitori-catchcopy">お、ねだん以上。</span>
+          <span class="nitori-title">ニトリネット</span>
+        </div>
+      </a>
+
+      <!-- Search Bar -->
+      <div class="header-search">
+        <select class="search-category-select" title="カテゴリ選択">
+          <option value="all">すべての商品</option>
+          <option value="sofa">ソファ・座椅子</option>
+          <option value="bed">ベッド・寝具</option>
+          <option value="table">テーブル・机</option>
+          <option value="storage">収納・本棚</option>
+          <option value="kitchen">キッチン用品</option>
+          <option value="curtain">カーテン・ラグ</option>
+        </select>
+        <div class="search-input-box">
+          <input type="text" class="search-input" id="search-keyword" placeholder="キーワード・商品番号で検索 (例: 伸長式テーブル, 2人掛けソファ)" />
+          <button type="button" class="search-submit-btn" onclick="const kw = document.getElementById('search-keyword').value; if(kw) openChatWithMessage(kw + ' を探して');" title="検索">
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <a href="javascript:void(0);" class="action-btn" id="header-user-btn" onclick="promptSetUser();" title="ログイン・ユーザー変更">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          <span id="header-user-name">ログイン</span>
+        </a>
+        <a href="javascript:void(0);" class="action-btn" title="お気に入り">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <span>お気に入り</span>
+          <span class="badge-count">3</span>
+        </a>
+        <a href="javascript:void(0);" class="action-btn" title="カート">
+          <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          <span>カート</span>
+          <span class="badge-count">1</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Global Navigation -->
+    <nav class="global-nav">
+      <div class="container">
+        <ul class="nav-list">
+          <li class="nav-item highlight"><a href="javascript:void(0);">カテゴリから探す</a></li>
+          <li class="nav-item"><a href="javascript:void(0);">家具・インテリア</a></li>
+          <li class="nav-item"><a href="javascript:void(0);">寝具・ベッド</a></li>
+          <li class="nav-item"><a href="javascript:void(0);">キッチン・食器</a></li>
+          <li class="nav-item"><a href="javascript:void(0);">収納・整理用品</a></li>
+          <li class="nav-item"><a href="javascript:void(0);">カーテン・ラグ</a></li>
+          <li class="nav-item"><a href="javascript:void(0);">おすすめランキング</a></li>
+          <li class="nav-item"><a href="javascript:void(0);">特集・セール</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Notice Campaign Bar -->
+  <div class="notice-bar">
+    <span class="notice-tag">お知らせ</span>
+    <span>【店舗受け取りなら送料無料】ネットで注文、お近くのニトリ店舗で手数料なしで受け取れます。</span>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+
+      <!-- Hero Banner & AI Shopping Card -->
+      <section class="hero-grid">
+        <!-- Main Promo Banner -->
+        <div class="hero-main-banner">
+          <span class="hero-sub-title">2026 SPRING COLLECTION</span>
+          <h1 class="hero-main-title">新生活を彩る、<br>快適インテリア特集</h1>
+          <p class="hero-desc">一人暮らしからファミリーまで、間取りやライフスタイルに合わせた理想のお部屋づくりを「お、ねだん以上。」の品質で応援します。</p>
+          <button class="hero-cta-btn" onclick="openChatWithMessage('新生活におすすめの家具やコーディネートを教えて');">特集アイテムを見る</button>
+        </div>
+
+        <!-- AI Concierge Assistant Card -->
+        <div class="ai-concierge-card">
+          <div>
+            <div class="ai-badge">
+              <svg style="width: 14px; height: 14px; fill: currentColor;" viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg>
+              <span>AI ショッピング相談</span>
+            </div>
+            <h2 class="ai-card-title">ニトリ AIコンシェルジュ</h2>
+            <p class="ai-card-desc">お部屋の広さや予算、お好みのテイストに合わせた商品をAIが対話形式でご提案します。</p>
+            <div class="ai-chip-list">
+              <button class="ai-chip-btn" onclick="openChatWithMessage('6畳のお部屋にぴったりのベッドと収納付きデスクを提案して');">
+                「6畳向けベッドとデスク」<span>→</span>
+              </button>
+              <button class="ai-chip-btn" onclick="openChatWithMessage('傷や汚れに強い2人掛けソファのおすすめは？');">
+                「耐久性の高い2人掛けソファ」<span>→</span>
+              </button>
+              <button class="ai-chip-btn" onclick="openChatWithMessage('伸長式のダイニングテーブルセットを探して');">
+                「伸長式ダイニングテーブル」<span>→</span>
+              </button>
+            </div>
+          </div>
+          <button class="ai-start-chat-btn" onclick="openChatWidget();">
+            <svg style="width: 18px; height: 18px; fill: currentColor;" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+            <span>AIコンシェルジュに相談する</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Popular Categories Grid -->
+      <section>
+        <div class="section-title-wrap">
+          <h2 class="section-title">人気カテゴリから探す</h2>
+          <a href="javascript:void(0);" class="section-more-link">カテゴリ一覧へ ＞</a>
+        </div>
+        <div class="category-grid">
+          <a href="javascript:openChatWithMessage('ソファ・座椅子のおすすめ商品を見せて');" class="category-card">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 10V7c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v3c-1.1 0-2 .9-2 2v5h2v2h2v-2h12v2h2v-2h2v-5c0-1.1-.9-2-2-2zm-14-3h12v3H6V7zm14 8H4v-3c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v3z"/></svg>
+            </div>
+            <span class="category-name">ソファ・座椅子</span>
+          </a>
+          <a href="javascript:openChatWithMessage('ベッドやマットレスのおすすめ商品を見せて');" class="category-card">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24"><path d="M19 7h-8v8H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4zm1 8h-7V9h7v6z"/></svg>
+            </div>
+            <span class="category-name">ベッド・寝具</span>
+          </a>
+          <a href="javascript:openChatWithMessage('ダイニングテーブルやデスクを探して');" class="category-card">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v2h20V6c0-1.1-.9-2-2-2zm-1 6H5v10h2v-8h10v8h2V10z"/></svg>
+            </div>
+            <span class="category-name">テーブル・デスク</span>
+          </a>
+          <a href="javascript:openChatWithMessage('収納家具やカラーボックス、チェストを探して');" class="category-card">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 8H6V5h12v6zm0 8H6v-6h12v6z"/></svg>
+            </div>
+            <span class="category-name">収納・ラック</span>
+          </a>
+          <a href="javascript:openChatWithMessage('キッチン用品やフライパン、食器のおすすめは？');" class="category-card">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+            </div>
+            <span class="category-name">キッチン・食器</span>
+          </a>
+          <a href="javascript:openChatWithMessage('遮光カーテンやラグ・カーペットを探して');" class="category-card">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 18H5V4h14v16z"/></svg>
+            </div>
+            <span class="category-name">カーテン・ラグ</span>
+          </a>
+          <a href="javascript:openChatWithMessage('デスクワーク向けのチェア・オフィスチェアを探して');" class="category-card">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24"><path d="M7 11v2h10v-2H7zm5-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+            </div>
+            <span class="category-name">ワークチェア</span>
+          </a>
+          <a href="javascript:openChatWithMessage('生活雑貨やバス・トイレ用品を見せて');" class="category-card">
+            <div class="category-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            </div>
+            <span class="category-name">生活雑貨</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Featured / Recommended Products Grid -->
+      <section>
+        <div class="section-title-wrap">
+          <h2 class="section-title">おすすめアイテム</h2>
+          <a href="javascript:void(0);" class="section-more-link">ランキングをもっと見る ＞</a>
+        </div>
+
+        <div class="product-grid">
+          <!-- Item 1 -->
+          <div class="product-card">
+            <span class="product-badge-ribbon popular">人気 No.1</span>
+            <div class="product-img-box">
+              <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&auto=format&fit=crop&q=80" alt="2人掛け布張りソファ" />
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="product-category-tag">ソファ・リビング</div>
+                <h3 class="product-name">傷・汚れに強い合成皮革 2人掛けソファ (Nシールド)</h3>
+                <div class="product-rating">
+                  <span class="stars">★★★★★</span>
+                  <span>4.6 (128件)</span>
+                </div>
+              </div>
+              <div>
+                <div class="product-price-box">
+                  <span class="product-price">¥39,900</span>
+                  <span class="product-tax">(税込)</span>
+                </div>
+                <div class="product-point">362 pt還元 (送料無料)</div>
+                <button class="product-ask-ai-btn" onclick="openChatWithMessage('商品「2人掛けソファ Nシールド」のサイズや耐久性について詳しく教えて');">
+                  AIにこの商品の詳細を聞く
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="product-card">
+            <span class="product-badge-ribbon">新生活応援</span>
+            <div class="product-img-box">
+              <img src="https://images.unsplash.com/photo-1530629013299-6cb10d168419?w=500&auto=format&fit=crop&q=80" alt="伸長式ダイニングテーブル" />
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="product-category-tag">テーブル・ダイニング</div>
+                <h3 class="product-name">伸長式ダイニングテーブル4点セット (ロピア2/PVC)</h3>
+                <div class="product-rating">
+                  <span class="stars">★★★★☆</span>
+                  <span>4.4 (86件)</span>
+                </div>
+              </div>
+              <div>
+                <div class="product-price-box">
+                  <span class="product-price">¥49,990</span>
+                  <span class="product-tax">(税込)</span>
+                </div>
+                <div class="product-point">454 pt還元 (店舗受取可)</div>
+                <button class="product-ask-ai-btn" onclick="openChatWithMessage('商品「伸長式ダイニングテーブル4点セット」の組み立てやサイズ感を教えて');">
+                  AIにこの商品の詳細を聞く
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="product-card">
+            <span class="product-badge-ribbon popular">定番人気</span>
+            <div class="product-img-box">
+              <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500&auto=format&fit=crop&q=80" alt="収納付きシングルベッド" />
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="product-category-tag">ベッド・寝具</div>
+                <h3 class="product-name">引出し付きシングルベッドフレーム (ジオ2/コンセント付)</h3>
+                <div class="product-rating">
+                  <span class="stars">★★★★★</span>
+                  <span>4.7 (215件)</span>
+                </div>
+              </div>
+              <div>
+                <div class="product-price-box">
+                  <span class="product-price">¥24,900</span>
+                  <span class="product-tax">(税込)</span>
+                </div>
+                <div class="product-point">226 pt還元 (送料無料)</div>
+                <button class="product-ask-ai-btn" onclick="openChatWithMessage('商品「引出し付きシングルベッドフレーム」に合うマットレスのおすすめは？');">
+                  AIにこの商品の詳細を聞く
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="product-card">
+            <div class="product-img-box">
+              <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&auto=format&fit=crop&q=80" alt="つながるハイバック座椅子" />
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="product-category-tag">座椅子・リビング</div>
+                <h3 class="product-name">首までしっかり支える つながるハイバック座椅子</h3>
+                <div class="product-rating">
+                  <span class="stars">★★★★☆</span>
+                  <span>4.5 (142件)</span>
+                </div>
+              </div>
+              <div>
+                <div class="product-price-box">
+                  <span class="product-price">¥9,990</span>
+                  <span class="product-tax">(税込)</span>
+                </div>
+                <div class="product-point">90 pt還元</div>
+                <button class="product-ask-ai-btn" onclick="openChatWithMessage('商品「つながるハイバック座椅子」の座り心地やリクライニング段数を教えて');">
+                  AIにこの商品の詳細を聞く
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="product-card">
+            <div class="product-img-box">
+              <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=500&auto=format&fit=crop&q=80" alt="突っ張り壁面収納ラック" />
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="product-category-tag">収納・本棚</div>
+                <h3 class="product-name">突っ張り壁面収納シェルフ (カエサル 80cm幅)</h3>
+                <div class="product-rating">
+                  <span class="stars">★★★★★</span>
+                  <span>4.8 (94件)</span>
+                </div>
+              </div>
+              <div>
+                <div class="product-price-box">
+                  <span class="product-price">¥14,900</span>
+                  <span class="product-tax">(税込)</span>
+                </div>
+                <div class="product-point">135 pt還元</div>
+                <button class="product-ask-ai-btn" onclick="openChatWithMessage('商品「突っ張り壁面収納シェルフ」の設置方法と耐荷重を教えて');">
+                  AIにこの商品の詳細を聞く
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="product-card">
+            <div class="product-img-box">
+              <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=500&auto=format&fit=crop&q=80" alt="遮光遮熱カーテン" />
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="product-category-tag">カーテン・インテリア</div>
+                <h3 class="product-name">遮光1級・遮熱・防炎カーテン 2枚組 (ノーブル3)</h3>
+                <div class="product-rating">
+                  <span class="stars">★★★★★</span>
+                  <span>4.6 (178件)</span>
+                </div>
+              </div>
+              <div>
+                <div class="product-price-box">
+                  <span class="product-price">¥5,990</span>
+                  <span class="product-tax">(税込)</span>
+                </div>
+                <div class="product-point">54 pt還元</div>
+                <button class="product-ask-ai-btn" onclick="openChatWithMessage('商品「遮光1級カーテン」のサイズ展開とカラーバリエーションを教えて');">
+                  AIにこの商品の詳細を聞く
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 7 -->
+          <div class="product-card">
+            <div class="product-img-box">
+              <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=500&auto=format&fit=crop&q=80" alt="ホテルスタイル枕" />
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="product-category-tag">寝具・まくら</div>
+                <h3 class="product-name">ホテルスタイルまくら スタンダード (Nホテル)</h3>
+                <div class="product-rating">
+                  <span class="stars">★★★★★</span>
+                  <span>4.7 (310件)</span>
+                </div>
+              </div>
+              <div>
+                <div class="product-price-box">
+                  <span class="product-price">¥1,990</span>
+                  <span class="product-tax">(税込)</span>
+                </div>
+                <div class="product-point">18 pt還元</div>
+                <button class="product-ask-ai-btn" onclick="openChatWithMessage('商品「ホテルスタイルまくら」の洗濯方法と高さを教えて');">
+                  AIにこの商品の詳細を聞く
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 8 -->
+          <div class="product-card">
+            <div class="product-img-box">
+              <img src="https://images.unsplash.com/photo-1580481077195-c3a821a58875?w=500&auto=format&fit=crop&q=80" alt="ワークチェア" />
+            </div>
+            <div class="product-info">
+              <div>
+                <div class="product-category-tag">机・チェア</div>
+                <h3 class="product-name">リクライニングワークチェア (フォリスト フットレスト付)</h3>
+                <div class="product-rating">
+                  <span class="stars">★★★★☆</span>
+                  <span>4.5 (102件)</span>
+                </div>
+              </div>
+              <div>
+                <div class="product-price-box">
+                  <span class="product-price">¥29,990</span>
+                  <span class="product-tax">(税込)</span>
+                </div>
+                <div class="product-point">272 pt還元 (送料無料)</div>
+                <button class="product-ask-ai-btn" onclick="openChatWithMessage('商品「リクライニングワークチェア フォリスト」の腰痛対策や調整機能を教えて');">
+                  AIにこの商品の詳細を聞く
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services & Benefits Banner -->
+      <section class="services-banner">
+        <div class="service-item">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+          </div>
+          <div>
+            <div class="service-text-title">店舗受取で送料無料</div>
+            <div class="service-text-desc">お近くのニトリ店舗で受取可能</div>
+          </div>
+        </div>
+
+        <div class="service-item">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          </div>
+          <div>
+            <div class="service-text-title">安心の品質保証</div>
+            <div class="service-text-desc">家具は1年・5年保証付き</div>
+          </div>
+        </div>
+
+        <div class="service-item">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.13H14.3c-.05-.77-.56-1.6-2.22-1.6-1.54 0-2.3.74-2.3 1.48 0 .73.49 1.38 2.5 1.88 2.55.63 4.35 1.63 4.35 3.8 0 1.6-1.12 2.91-3.22 3.45z"/></svg>
+          </div>
+          <div>
+            <div class="service-text-title">ニトリポイントが貯まる</div>
+            <div class="service-text-desc">お買い物でポイント還元</div>
+          </div>
+        </div>
+
+        <div class="service-item">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V18z"/></svg>
+          </div>
+          <div>
+            <div class="service-text-title">大型家具の配送・組立</div>
+            <div class="service-text-desc">お部屋への設置もおまかせ</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links-grid">
+        <div>
+          <h4 class="footer-col-title">お買い物ガイド</h4>
+          <ul class="footer-col-list">
+            <li><a href="javascript:void(0);">お届け・配送料について</a></li>
+            <li><a href="javascript:void(0);">お支払い方法について</a></li>
+            <li><a href="javascript:void(0);">店舗受け取りサービス</a></li>
+            <li><a href="javascript:void(0);">返品・交換について</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-col-title">サポート・店舗</h4>
+          <ul class="footer-col-list">
+            <li><a href="javascript:void(0);">店舗検索・営業時間</a></li>
+            <li><a href="javascript:void(0);">よくあるご質問 (FAQ)</a></li>
+            <li><a href="javascript:void(0);">お問い合わせ窓口</a></li>
+            <li><a href="javascript:void(0);">リコール・重要なお知らせ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-col-title">ニトリのサービス</h4>
+          <ul class="footer-col-list">
+            <li><a href="javascript:openChatWidget();">ニトリ AIコンシェルジュ</a></li>
+            <li><a href="javascript:void(0);">家具の引き取りサービス</a></li>
+            <li><a href="javascript:void(0);">カーテン採寸・取付サービス</a></li>
+            <li><a href="javascript:void(0);">リフォーム・法人向け窓口</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-col-title">企業情報・規約</h4>
+          <ul class="footer-col-list">
+            <li><a href="javascript:void(0);">会社概要 (株式会社ニトリ)</a></li>
+            <li><a href="javascript:void(0);">プライバシーポリシー</a></li>
+            <li><a href="javascript:void(0);">特定商取引法に基づく表記</a></li>
+            <li><a href="javascript:void(0);">利用規約</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        © 2026 NITORI Co., Ltd. All Rights Reserved. - Powered by Vertex AI Commerce & GECX
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating AI Assistant Button -->
+  <div class="floating-ai-launcher" onclick="openChatWidget();" title="AIショッピングアドバイザーに相談">
+    <svg class="ai-sparkle-icon" viewBox="0 0 24 24">
+      <path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
+    </svg>
+    <span>ニトリ AIに相談する</span>
+  </div>
+
+  <!-- GECX Chat Messenger Web Component -->
+  <chat-messenger url-allowlist="*" class="slide-over messenger-hidden" render-mode="slide-over">
+    <chat-messenger-container chat-title="ニトリ AIコンシェルジュ"
+      chat-title-icon="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' width='48' height='48'><rect width='48' height='48' rx='8' fill='%23009E96'/><text x='50%' y='54%' font-family='sans-serif' font-weight='900' font-size='30' fill='%23FFFFFF' text-anchor='middle' dominant-baseline='middle'>N</text></svg>"
+      enable-file-upload enable-audio-input>
+      <chat-reset-session-button slot="titlebar-actions" title-text="新しい相談を開始"></chat-reset-session-button>
+      <chat-toggle-dialog-button slot="titlebar-actions" title-text-expanded="折りたたむ" title-text-collapsed="展開"></chat-toggle-dialog-button>
+      <chat-messenger-close-button slot="titlebar-actions" title-text="閉じる"></chat-messenger-close-button>
+    </chat-messenger-container>
+  </chat-messenger>
+
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "e68a719b-81cb-4304-9392-6d5a1cc0667a",
+  "displayName": "product-search-tool",
+  "mcpToolset": {
+    "serverAddress": "https://mcp-commerce-183415672859.us-central1.run.app/mcp",
+    "apiAuthentication": {
+      "serviceAgentIdTokenAuthConfig": {
+      }
+    }
+  },
+  "executionType": "SYNCHRONOUS"
+}

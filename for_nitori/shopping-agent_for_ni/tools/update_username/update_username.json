@@ -1,0 +1,10 @@
+{
+  "name": "db87a229-d166-4a67-81d8-2b346b13c765",
+  "pythonFunction": {
+    "name": "update_username",
+    "pythonCode": "tools/update_username/python_function/python_code.py",
+    "description": "Updates the current user\u0027s name"
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "update_username"
+}

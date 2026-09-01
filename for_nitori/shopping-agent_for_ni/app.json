@@ -1,0 +1,76 @@
+{
+  "name": "2544e177-b2e5-4f4e-8095-df30ac959c32",
+  "displayName": "shopping-agent_for_ni",
+  "rootAgent": "Root agent",
+  "audioProcessingConfig": {
+    "synthesizeSpeechConfigs": {
+      "ja-JP": {
+        "voice": "ja-JP-Chirp3-HD-Achird",
+        "speakingRate": 1.0
+      }
+    }
+  },
+  "loggingSettings": {
+    "redactionConfig": {
+    },
+    "audioRecordingConfig": {
+    },
+    "bigqueryExportSettings": {
+      "enabled": true,
+      "project": "$env_var",
+      "dataset": "$env_var"
+    },
+    "cloudLoggingSettings": {
+      "enableCloudLogging": true
+    },
+    "conversationLoggingSettings": {
+      "retentionWindow": "31536000s"
+    },
+    "metricAnalysisSettings": {
+    },
+    "unredactedBigqueryExportSettings": {
+    }
+  },
+  "guardrails": ["Default Safety Guardrail", "Default Prompt Guardrail"],
+  "modelSettings": {
+    "model": "gemini-3.5-flash",
+    "temperature": 1.0
+  },
+  "variableDeclarations": [{
+    "name": "user_id",
+    "schema": {
+      "type": "STRING"
+    }
+  }, {
+    "name": "username",
+    "schema": {
+      "type": "STRING"
+    }
+  }, {
+    "name": "visitor_id",
+    "schema": {
+      "type": "STRING"
+    }
+  }],
+  "languageSettings": {
+    "defaultLanguageCode": "ja-JP"
+  },
+  "defaultChannelProfile": {
+    "disableDtmf": false,
+    "disableBargeInControl": false,
+    "noiseSuppressionLevel": ""
+  },
+  "timeZoneSettings": {
+    "timeZone": "America/Los_Angeles"
+  },
+  "toolExecutionMode": "PARALLEL",
+  "errorHandlingSettings": {
+    "errorHandlingStrategy": "FALLBACK_RESPONSE",
+    "fallbackResponseConfig": {
+      "maxFallbackAttempts": 1
+    },
+    "endSessionConfig": {
+      "escalateSession": true
+    }
+  }
+}

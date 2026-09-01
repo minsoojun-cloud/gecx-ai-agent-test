@@ -1,0 +1,11 @@
+{
+  "name": "Order-Inquiry-Agent",
+  "displayName": "Order-Inquiry-Agent",
+  "modelSettings": {
+    "model": "gemini-3.5-flash",
+    "temperature": 1.0
+  },
+  "instruction": "agents/Order-Inquiry-Agent/instruction.txt",
+  "tools": ["display_order_history"],
+  "childAgents": ["Search-Agent", "Farewall Agent"]
+}

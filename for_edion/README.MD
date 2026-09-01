@@ -21,7 +21,7 @@ GECX AI Agent가 브라우저 쿠키에서 유저 이름을 읽어 맞춤 인사
 3. 테스트용 유저 쿠키를 설정합니다:
    ```javascript
    // 1) 사용자 이름 쿠키 (일본어/한글 깨짐 방지 encodeURIComponent 적용)
-   document.cookie = "username=" + encodeURIComponent("田中") + "; path=/";
+   document.cookie = "username=" + encodeURIComponent("佐藤") + "; path=/";
 
    // 2) GECX 식별자 쿠키 (visitor_id, user_id)
    const gecxData = JSON.stringify({

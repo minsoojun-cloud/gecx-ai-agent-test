@@ -1,0 +1,15 @@
+{
+  "name": "5355bd67-0b7e-46db-b06b-5e8444f33b2a",
+  "displayName": "Search-Agent",
+  "modelSettings": {
+    "model": "gemini-3.5-flash",
+    "temperature": 1.0
+  },
+  "instruction": "agents/Search-Agent/instruction.txt",
+  "tools": ["product-detail", "product_list"],
+  "childAgents": ["Product-Comparison-Agent"],
+  "toolsets": [{
+    "toolset": "product-search-tool",
+    "toolIds": ["get_product_details", "search_products"]
+  }]
+}

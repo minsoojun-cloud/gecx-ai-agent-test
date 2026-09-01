@@ -1,0 +1,11 @@
+{
+  "name": "abfde6b6-1df3-4ae6-998b-9126b89e7777",
+  "displayName": "Root agent",
+  "modelSettings": {
+    "model": "gemini-3.5-flash",
+    "temperature": 1.0
+  },
+  "instruction": "agents/Root_agent/instruction.txt",
+  "tools": ["update_username"],
+  "childAgents": ["Farewall Agent", "Search-Agent", "order_history_and_actions"]
+}

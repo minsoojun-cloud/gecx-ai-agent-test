@@ -1,0 +1,10 @@
+{
+  "name": "ffb2eb8d-682f-470c-befe-4b3cd57f7c3a",
+  "displayName": "Farewall Agent",
+  "modelSettings": {
+    "model": "gemini-3.5-flash",
+    "temperature": 1.0
+  },
+  "instruction": "agents/Farewall_Agent/instruction.txt",
+  "tools": ["end_session"]
+}

@@ -10,13 +10,13 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>エディオン公式通販 - 家電と暮らしのオンラインショップ | AIコンシェルジュ Ask Edi</title>
+  <title>Google ショッピング - スマートAI家電アドバイザー＆商品検索</title>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Google Sans / Roboto / Noto Sans JP -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
     rel="stylesheet">
 
   <!-- GECX Chat Messenger SDK & Themes -->
@@ -27,18 +27,22 @@
   <style>
     :root {
       color-scheme: light;
-      --edion-blue: #00479D;
-      --edion-blue-dark: #003370;
-      --edion-blue-light: #EBF3FB;
-      --edion-blue-hover: #0056bd;
-      --edion-red: #E60012;
-      --edion-yellow: #FFD200;
-      --bg-main: #F4F6F9;
-      --card-bg: #FFFFFF;
-      --text-main: #222222;
-      --text-sub: #666666;
-      --border-color: #E2E8F0;
-      --font-family: 'Noto Sans JP', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --google-blue: #1a73e8;
+      --google-blue-hover: #1557b0;
+      --google-blue-light: #e8f0fe;
+      --google-red: #ea4335;
+      --google-yellow: #fbbc04;
+      --google-green: #34a853;
+      --google-text-primary: #202124;
+      --google-text-secondary: #5f6368;
+      --google-border: #dadce0;
+      --google-border-hover: #bdc1c6;
+      --google-bg: #ffffff;
+      --google-bg-gray: #f8f9fa;
+      --google-bg-chip: #f1f3f4;
+      --google-shadow-sm: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+      --google-shadow-md: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
+      --font-family: 'Google Sans', 'Roboto', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     * {
@@ -48,191 +52,216 @@
     }
 
     body {
-      background-color: var(--bg-main);
-      color: var(--text-main);
+      background-color: var(--google-bg);
+      color: var(--google-text-primary);
       font-family: var(--font-family);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Top utility bar */
-    .top-bar {
-      background-color: #FAFAFA;
-      border-bottom: 1px solid #E5E7EB;
-      font-size: 0.75rem;
-      color: #666;
-      padding: 6px 0;
-    }
-
-    .top-bar-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .top-links {
-      display: flex;
-      gap: 16px;
-      list-style: none;
-    }
-
-    .top-links a {
-      color: #555;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .top-links a:hover {
-      color: var(--edion-blue);
-      text-decoration: underline;
-    }
-
-    /* Main Header */
+    /* Top Google Search Header */
     header {
-      background: #FFFFFF;
-      border-bottom: 2px solid var(--edion-blue);
+      background: var(--google-bg);
+      border-bottom: 1px solid var(--google-border);
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 8px rgba(0, 71, 157, 0.06);
     }
 
     .header-main {
-      max-width: 1200px;
+      max-width: 1440px;
       margin: 0 auto;
-      padding: 12px 16px;
+      padding: 12px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 24px;
     }
 
+    /* Google Shopping Brand Logo */
     .logo-area {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 6px;
       text-decoration: none;
+      user-select: none;
+      flex-shrink: 0;
     }
 
-    .edion-logo-badge {
-      background: var(--edion-blue);
-      color: #FFFFFF;
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      padding: 4px 14px;
-      border-radius: 6px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .google-logo-svg {
+      height: 30px;
+      width: auto;
+      display: block;
+    }
+
+    .shopping-sub-brand {
+      font-family: 'Google Sans', 'Noto Sans JP', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--google-text-secondary);
+      margin-left: 2px;
+      letter-spacing: -0.01em;
+    }
+
+    /* Google Pill Search Bar */
+    .search-wrapper {
+      flex: 1;
+      max-width: 692px;
       position: relative;
     }
 
-    .edion-logo-badge::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 8px;
-      height: 8px;
-      background-color: var(--edion-red);
-      border-top-left-radius: 4px;
-    }
-
-    .logo-text {
+    .search-box {
       display: flex;
-      flex-direction: column;
-    }
-
-    .logo-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--edion-blue);
-      line-height: 1.2;
-    }
-
-    .logo-subtitle {
-      font-size: 0.65rem;
-      color: #777;
-    }
-
-    /* Search Bar */
-    .search-container {
-      flex: 1;
-      max-width: 540px;
-      display: flex;
-      border: 2px solid var(--edion-blue);
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid var(--google-border);
       border-radius: 24px;
-      overflow: hidden;
-      background: #FFFFFF;
+      padding: 0 16px 0 14px;
+      height: 46px;
+      box-shadow: 0 1px 6px rgba(32,33,36,.12);
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .search-box:focus-within, .search-box:hover {
+      box-shadow: 0 1px 6px rgba(32,33,36,.28);
+      border-color: transparent;
+    }
+
+    .search-icon-left {
+      color: #9aa0a6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
     }
 
     .search-input {
       flex: 1;
       border: none;
       outline: none;
-      padding: 8px 16px;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
+      color: var(--google-text-primary);
       font-family: inherit;
+      background: transparent;
     }
 
-    .search-btn {
-      background: var(--edion-blue);
+    .search-input::placeholder {
+      color: #70757a;
+    }
+
+    .search-tools-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-left: 8px;
+    }
+
+    .search-action-btn {
+      background: transparent;
       border: none;
-      color: #FFFFFF;
-      padding: 0 20px;
+      outline: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 600;
-      font-size: 0.85rem;
+      padding: 4px;
+      border-radius: 50%;
+      color: var(--google-text-secondary);
+      transition: background 0.15s;
+    }
+
+    .search-action-btn:hover {
+      background: rgba(60,64,67,.08);
+    }
+
+    .search-submit-btn {
+      background: var(--google-blue);
+      border: none;
+      outline: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      color: #ffffff;
       transition: background 0.2s;
     }
 
-    .search-btn:hover {
-      background: var(--edion-blue-hover);
+    .search-submit-btn:hover {
+      background: var(--google-blue-hover);
     }
 
-    /* Header action buttons */
+    /* Header Right Actions */
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
+      flex-shrink: 0;
     }
 
-    .header-action-item {
+    .ai-assistant-btn {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      text-decoration: none;
-      color: #444;
-      font-size: 0.72rem;
+      gap: 8px;
+      background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
       font-weight: 500;
-      gap: 3px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(26,115,232,0.3);
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .ai-assistant-btn:hover {
+      background: linear-gradient(135deg, #1557b0 0%, #0d47a1 100%);
+      box-shadow: 0 2px 6px rgba(26,115,232,0.4);
+      transform: translateY(-1px);
+    }
+
+    .gemini-sparkle {
+      animation: sparkle 2.5s infinite alternate;
+    }
+
+    @keyframes sparkle {
+      0% { transform: scale(1) rotate(0deg); opacity: 0.9; }
+      100% { transform: scale(1.15) rotate(15deg); opacity: 1; }
+    }
+
+    .header-icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--google-text-secondary);
+      background: transparent;
+      border: none;
       cursor: pointer;
       position: relative;
+      transition: background 0.15s;
     }
 
-    .header-action-item svg {
-      color: var(--edion-blue);
-    }
-
-    .header-action-item:hover {
-      color: var(--edion-blue);
+    .header-icon-btn:hover {
+      background: rgba(60,64,67,.08);
+      color: var(--google-text-primary);
     }
 
     .cart-badge {
       position: absolute;
-      top: -4px;
+      top: 4px;
       right: 4px;
-      background: var(--edion-red);
-      color: #fff;
+      background: var(--google-red);
+      color: #ffffff;
       font-size: 0.65rem;
       font-weight: 700;
       width: 16px;
@@ -243,346 +272,656 @@
       justify-content: center;
     }
 
-    /* Category Navigation */
-    .category-nav {
-      background: var(--edion-blue);
-      color: #FFFFFF;
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #1a73e8;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
 
-    .category-nav-inner {
-      max-width: 1200px;
+    /* Google Navigation Tabs */
+    .google-nav-tabs {
+      border-bottom: 1px solid var(--google-border);
+      background: #ffffff;
+    }
+
+    .google-nav-inner {
+      max-width: 1440px;
       margin: 0 auto;
+      padding: 0 24px;
       display: flex;
+      align-items: center;
+      gap: 24px;
       overflow-x: auto;
       scrollbar-width: none;
     }
 
-    .nav-item {
-      padding: 10px 16px;
-      color: #FFFFFF;
+    .google-tab {
+      padding: 12px 4px;
+      color: var(--google-text-secondary);
       text-decoration: none;
-      font-size: 0.82rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      position: relative;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s;
+    }
+
+    .google-tab:hover {
+      color: var(--google-text-primary);
+    }
+
+    .google-tab.active {
+      color: var(--google-blue);
+      border-bottom: 3px solid var(--google-blue);
       font-weight: 600;
+    }
+
+    /* Horizontal Category Filter Pills */
+    .category-pills-bar {
+      background: #ffffff;
+      border-bottom: 1px solid #f1f3f4;
+      padding: 8px 0;
+    }
+
+    .category-pills-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .filter-pill {
+      background: #ffffff;
+      border: 1px solid var(--google-border);
+      border-radius: 18px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--google-text-primary);
+      text-decoration: none;
+      cursor: pointer;
       white-space: nowrap;
       display: flex;
       align-items: center;
       gap: 6px;
-      border-right: 1px solid rgba(255, 255, 255, 0.15);
-      transition: background 0.2s;
+      transition: all 0.15s;
     }
 
-    .nav-item:hover {
-      background: rgba(255, 255, 255, 0.12);
+    .filter-pill:hover {
+      background: var(--google-bg-chip);
+      border-color: var(--google-border-hover);
     }
 
-    .nav-item.highlight {
-      background: var(--edion-red);
-    }
-
-    /* Main Container */
-    .main-wrapper {
-      max-width: 1200px;
-      width: 100%;
-      margin: 20px auto 40px;
-      padding: 0 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    /* AI Hero Banner Section */
-    .ai-hero-banner {
-      background: linear-gradient(135deg, #00479D 0%, #002B66 100%);
-      border-radius: 16px;
-      color: #FFFFFF;
-      padding: 32px 36px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 71, 157, 0.15);
-    }
-
-    .ai-hero-banner::before {
-      content: "";
-      position: absolute;
-      right: -60px;
-      bottom: -60px;
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, rgba(255, 210, 0, 0.18) 0%, rgba(255, 255, 255, 0) 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .ai-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--edion-yellow);
-      color: #003370;
-      font-size: 0.8rem;
-      font-weight: 800;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-    }
-
-    .ai-hero-title {
-      font-size: 1.75rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
-      line-height: 1.3;
-    }
-
-    .ai-hero-desc {
-      font-size: 0.92rem;
-      color: #E2E8F0;
-      max-width: 680px;
-      margin-bottom: 24px;
-      line-height: 1.6;
-    }
-
-    /* Prompt Chips Section */
-    .prompt-chips-title {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--edion-yellow);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .prompt-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .prompt-chip {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #FFFFFF;
-      padding: 8px 14px;
-      border-radius: 24px;
-      font-size: 0.82rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      backdrop-filter: blur(4px);
-    }
-
-    .prompt-chip:hover {
-      background: #FFFFFF;
-      color: var(--edion-blue);
-      border-color: #FFFFFF;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Content Grid */
-    .content-grid {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 24px;
-    }
-
-    @media (max-width: 900px) {
-      .content-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Sidebar */
-    .sidebar-card {
-      background: #FFFFFF;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .sidebar-title {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--edion-blue);
-      border-bottom: 2px solid var(--edion-blue);
-      padding-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .category-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .category-list li a {
-      color: #444;
-      font-size: 0.8rem;
-      text-decoration: none;
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 8px;
-      border-radius: 6px;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .category-list li a:hover {
-      background: var(--edion-blue-light);
-      color: var(--edion-blue);
+    .filter-pill.active {
+      background: var(--google-blue-light);
+      border-color: #aecbfa;
+      color: var(--google-blue);
       font-weight: 600;
     }
 
-    /* Section Cards */
-    .section-card {
-      background: #FFFFFF;
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 24px;
+    /* Main Container (Sidebar + Content) */
+    .main-container {
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 24px 60px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+      .filter-sidebar {
+        display: none;
+      }
+    }
+
+    /* Left Filter Sidebar */
+    .filter-sidebar {
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
 
-    .section-header {
+    .filter-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #F1F5F9;
       padding-bottom: 12px;
+      border-bottom: 1px solid var(--google-border);
     }
 
-    .section-title {
-      font-size: 1.15rem;
+    .filter-header-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--google-text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filter-reset-btn {
+      font-size: 0.8rem;
+      color: var(--google-blue);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-bottom: 1px solid #f1f3f4;
+      padding-bottom: 16px;
+    }
+
+    .filter-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--google-text-primary);
+    }
+
+    .filter-options-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-option-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: #3c4043;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .filter-option-item input[type="checkbox"],
+    .filter-option-item input[type="radio"] {
+      accent-color: var(--google-blue);
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+    }
+
+    .filter-count {
+      color: #70757a;
+      font-size: 0.75rem;
+      margin-left: auto;
+    }
+
+    /* Right Main Content Area */
+    .content-area {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      min-width: 0;
+    }
+
+    /* Google Gemini AI Shopping Concierge Hero Card */
+    .gemini-hero-card {
+      background: linear-gradient(135deg, #f8faff 0%, #edf2fc 100%);
+      border: 1px solid #d2e3fc;
+      border-radius: 16px;
+      padding: 24px 28px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(26,115,232,0.06);
+    }
+
+    .gemini-hero-card::before {
+      content: "";
+      position: absolute;
+      right: -30px;
+      top: -30px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(66, 133, 244, 0.15) 0%, rgba(219, 68, 85, 0.08) 50%, rgba(255, 255, 255, 0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .gemini-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1px solid #c2e7ff;
+      color: #0b57d0;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+
+    .gemini-title {
+      font-size: 1.45rem;
       font-weight: 700;
-      color: #1E293B;
+      color: var(--google-text-primary);
+      line-height: 1.35;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .section-title::before {
-      content: "";
-      width: 4px;
-      height: 18px;
-      background: var(--edion-blue);
-      border-radius: 2px;
+    .gemini-desc {
+      font-size: 0.9rem;
+      color: var(--google-text-secondary);
+      max-width: 760px;
+      margin-bottom: 18px;
+      line-height: 1.55;
     }
 
-    /* Features Grid */
-    .features-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-    }
-
-    .feature-box {
-      border: 1px solid #E2E8F0;
-      border-radius: 12px;
-      padding: 16px;
-      background: #FAFAFC;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
-    .feature-icon {
-      font-size: 1.5rem;
-    }
-
-    .feature-box h4 {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #0F172A;
-      margin-bottom: 4px;
-    }
-
-    .feature-box p {
-      font-size: 0.75rem;
-      color: #64748B;
-      line-height: 1.4;
-    }
-
-    /* Config / Status Box */
-    .config-box {
-      background: var(--edion-blue-light);
-      border: 1px solid #BFDBFE;
-      border-radius: 12px;
-      padding: 16px 20px;
+    .gemini-chips-title {
       font-size: 0.8rem;
-      color: #1E3A8A;
+      font-weight: 600;
+      color: #1a73e8;
+      margin-bottom: 8px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .config-status-badge {
-      display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: #FFFFFF;
-      color: #059669;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 20px;
-      border: 1px solid #A7F3D0;
     }
 
-    .status-dot {
+    .gemini-prompt-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .gemini-chip {
+      background: #ffffff;
+      border: 1px solid #dadce0;
+      color: var(--google-text-primary);
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 2px rgba(60,64,67,0.06);
+    }
+
+    .gemini-chip:hover {
+      background: #e8f0fe;
+      border-color: #1a73e8;
+      color: #1a73e8;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(26,115,232,0.15);
+    }
+
+    /* Results Header Bar */
+    .results-meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0 10px;
+      border-bottom: 1px solid var(--google-border);
+    }
+
+    .results-count {
+      font-size: 0.82rem;
+      color: var(--google-text-secondary);
+    }
+
+    .results-sort-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: var(--google-text-secondary);
+    }
+
+    .sort-select {
+      background: #ffffff;
+      border: 1px solid var(--google-border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.82rem;
+      color: var(--google-text-primary);
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Google Shopping Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    /* Google Shopping Product Card */
+    .product-card {
+      background: #ffffff;
+      border: 1px solid var(--google-border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      box-shadow: var(--google-shadow-md);
+      border-color: #bdc1c6;
+      transform: translateY(-2px);
+    }
+
+    .card-fav-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #e8eaed;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5f6368;
+      cursor: pointer;
+      z-index: 2;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .card-fav-btn:hover {
+      color: var(--google-red);
+      background: #ffffff;
+    }
+
+    .card-image-box {
+      width: 100%;
+      height: 170px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 8px;
+      margin-bottom: 12px;
+    }
+
+    .card-image-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.25s ease;
+    }
+
+    .product-card:hover .card-image-box img {
+      transform: scale(1.04);
+    }
+
+    .card-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .tag-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .tag-badge.google-pick {
+      background: #e8f0fe;
+      color: #1967d2;
+    }
+
+    .tag-badge.sale {
+      background: #fce8e6;
+      color: #c5221f;
+    }
+
+    .card-title {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--google-text-primary);
+      line-height: 1.35;
+      margin-bottom: 6px;
+      height: 2.7em;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      word-break: break-word;
+    }
+
+    .card-rating-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.78rem;
+      color: #70757a;
+      margin-bottom: 8px;
+    }
+
+    .rating-stars {
+      color: #e37400;
+      font-size: 0.85rem;
+    }
+
+    .card-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 6px;
+    }
+
+    .card-price {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--google-text-primary);
+    }
+
+    .card-original-price {
+      font-size: 0.78rem;
+      color: #70757a;
+      text-decoration: line-through;
+    }
+
+    .card-seller-info {
+      font-size: 0.75rem;
+      color: #3c4043;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-delivery-perk {
+      font-size: 0.74rem;
+      color: #137333;
+      font-weight: 500;
+      margin-top: 3px;
+    }
+
+    .card-action-bar {
+      margin-top: 12px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .card-btn-ask {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: var(--google-blue-light);
+      color: var(--google-blue);
+      border: 1px solid #d2e3fc;
+      border-radius: 18px;
+      padding: 6px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .card-btn-ask:hover {
+      background: #d2e3fc;
+      border-color: #aecbfa;
+    }
+
+    .card-btn-cart {
+      background: #f1f3f4;
+      border: 1px solid #e0e0e0;
+      border-radius: 18px;
+      padding: 6px 10px;
+      color: var(--google-text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .card-btn-cart:hover {
+      background: #e8eaed;
+      color: var(--google-text-primary);
+    }
+
+    /* Floating Gemini AI Assistant Launcher Button */
+    .floating-gemini-launcher {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: linear-gradient(135deg, #1a73e8 0%, #174ea6 100%);
+      color: #ffffff;
+      border: none;
+      outline: none;
+      border-radius: 28px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 16px rgba(26,115,232,0.35);
+      cursor: pointer;
+      z-index: 100000 !important;
+      pointer-events: auto !important;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+    }
+
+    .floating-gemini-launcher:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(26,115,232,0.45);
+      background: linear-gradient(135deg, #1557b0 0%, #0d47a1 100%);
+    }
+
+    .launcher-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .launcher-status-dot {
       width: 8px;
       height: 8px;
-      background-color: #10B981;
+      background: #34a853;
       border-radius: 50%;
-      animation: pulse 2s infinite;
+      border: 1.5px solid #ffffff;
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
+    }
+
+    body:has(chat-messenger:not(.messenger-hidden)) .floating-gemini-launcher {
+      display: none !important;
     }
 
     /* Footer */
     footer {
-      background: #1E293B;
-      color: #94A3B8;
-      font-size: 0.8rem;
-      padding: 36px 16px 24px;
+      background: #f2f2f2;
+      border-top: 1px solid #e4e4e4;
       margin-top: auto;
+      color: #70757a;
+      font-size: 0.82rem;
     }
 
-    .footer-inner {
-      max-width: 1200px;
+    .footer-top {
+      padding: 12px 24px;
+      border-bottom: 1px solid #dadce0;
+      max-width: 1440px;
       margin: 0 auto;
       display: flex;
-      flex-direction: column;
-      gap: 20px;
-      text-align: center;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-bottom {
+      padding: 14px 24px;
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
     }
 
     .footer-links {
       display: flex;
-      justify-content: center;
-      gap: 20px;
       flex-wrap: wrap;
+      gap: 20px;
     }
 
     .footer-links a {
-      color: #CBD5E1;
+      color: #70757a;
       text-decoration: none;
+      transition: color 0.15s;
     }
 
     .footer-links a:hover {
-      text-decoration: underline;
-      color: #FFFFFF;
+      color: #3c4043;
     }
 
-    /* GECX Messenger Layout Fixes */
+    /* GECX Messenger Layout Fixes & Overrides */
     chat-messenger {
       display: block !important;
       position: fixed !important;
@@ -590,10 +929,18 @@
       right: 20px !important;
       z-index: 99999 !important;
       overflow: visible !important;
-      --chat-messenger-internal-titlebar-icon-width: 55px;
-      --chat-messenger-internal-titlebar-icon-height: 20px;
-      --chat-messenger-titlebar-icon-width: 55px;
-      --chat-messenger-titlebar-icon-height: 20px;
+      --chat-messenger-font-family: 'Google Sans', 'Roboto', 'Noto Sans JP', sans-serif;
+      --chat-messenger-accent-color: #1a73e8;
+      --chat-messenger-container-bg: #ffffff;
+      --chat-messenger-bubble-bg-bot: #f1f3f4;
+      --chat-messenger-bubble-bg-user: #e8f0fe;
+      --chat-messenger-bubble-color-bot: #202124;
+      --chat-messenger-bubble-color-user: #174ea6;
+      --chat-messenger-internal-titlebar-icon-width: 24px;
+      --chat-messenger-internal-titlebar-icon-height: 24px;
+      --chat-messenger-titlebar-icon-width: 24px;
+      --chat-messenger-titlebar-icon-height: 24px;
+      --chat-messenger-titlebar-icon-aspect-ratio: 1 / 1;
     }
 
     chat-messenger:not(.messenger-hidden) {
@@ -604,66 +951,16 @@
 
     chat-messenger.messenger-hidden {
       pointer-events: none !important;
+      visibility: hidden !important;
     }
 
-    /* Floating Chat Trigger Tooltip */
-    .chat-bubble-cta {
-      position: fixed;
-      bottom: 95px;
-      right: 24px;
-      background: #FFFFFF;
-      color: var(--edion-blue);
-      border: 2px solid var(--edion-blue);
-      padding: 8px 14px;
-      border-radius: 20px;
-      box-shadow: 0 4px 14px rgba(0, 71, 157, 0.2);
-      font-size: 0.8rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      z-index: 100000;
-      cursor: pointer;
-      animation: bounce 2s infinite;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      user-select: none;
-    }
-
-    .chat-bubble-cta:hover {
-      background: #F0F7FF;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0, 71, 157, 0.25);
-    }
-
-    body:has(chat-messenger:not(.messenger-hidden)) .chat-bubble-cta {
-      display: none !important;
-    }
-
-    .chat-bubble-cta::after {
-      content: "";
-      position: absolute;
-      bottom: -6px;
-      right: 24px;
-      width: 10px;
-      height: 10px;
-      background: #FFFFFF;
-      border-right: 2px solid var(--edion-blue);
-      border-bottom: 2px solid var(--edion-blue);
-      transform: rotate(45deg);
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.2); opacity: 0.7; }
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
+    /* Ensure custom widget product list scroll behaves cleanly */
+    .custom-product-list::-webkit-scrollbar {
+      display: none;
     }
   </style>
 
-  <!-- GECX Client Script -->
+  <!-- GECX Client Logic -->
   <script>
     // Ensure chat messenger starts closed (hidden) until triggered
     let userOpenedChat = false;
@@ -724,6 +1021,10 @@
       const userName = getUserNameFromCookie();
       if (userName) {
         variables.username = userName;
+        const avatarEl = document.getElementById('user-avatar-initial');
+        if (avatarEl) {
+          avatarEl.textContent = userName.charAt(0);
+        }
       }
 
       // 2. gecx_cookie (visitor_id, user_id)
@@ -740,13 +1041,11 @@
 
       // Set variables if any exist
       if (Object.keys(variables).length > 0) {
-        // 1. Always mirror to sessionStorage for inspection and persistence
         try {
           const existing = JSON.parse(sessionStorage.getItem('chat-messenger-variables') || '{}');
           sessionStorage.setItem('chat-messenger-variables', JSON.stringify({ ...existing, ...variables }));
         } catch (e) {}
 
-        // 2. Inject into GECX Chat Messenger SDK (in-memory)
         if (messenger) {
           if (typeof messenger.setVariables === 'function') {
             messenger.setVariables(variables);
@@ -770,7 +1069,7 @@
             }
           }),
         );
-        console.log("EDION Ask Edi SDK context registered successfully!");
+        console.log("Google Shopping AI Assistant SDK context registered successfully!");
       }
 
       // Helper function to query all elements matching a selector inside shadow roots recursively
@@ -798,14 +1097,10 @@
 
       function cleanLLMJson(str) {
         if (!str) return '';
-        // Strip auto-linked <a> tags inserted by chat-messenger
         str = str.replace(/<a [^>]*>(https?:\/\/[^<]+)<\/a>/gi, '$1');
-        // Fix stray quotes after array closing bracket
         str = str.replace(/(\]|\]\s*)"\s*,/g, '],');
         str = str.replace(/(\]|\]\s*)"\s*\n/g, ']\n');
-        // Fix trailing commas before closing braces/brackets
         str = str.replace(/,\s*([\}\]])/g, '$1');
-        // Fix raw linebreaks inside quotes
         str = str.replace(/"([^"]*)"/g, (m, p1) => '"' + p1.replace(/[\r\n]+/g, '').trim() + '"');
         return str;
       }
@@ -817,8 +1112,8 @@
           const idMatch = itemStr.match(/"productId"\s*:\s*"([^"]+)"/);
           const titleMatch = itemStr.match(/"title"\s*:\s*"([^"]+)"/);
           const subMatch = itemStr.match(/"subtitle"\s*:\s*"([^"]+)"/);
-          const uriMatch = itemStr.match(/https?:\/\/www\.edion\.com[^\s"<>]+/i) || itemStr.match(/https?:\/\/[^\s"<>]+/i);
-          const imgMatch = itemStr.match(/https?:\/\/[^\s"<>]*\.(?:jpg|jpeg|png|webp|gif)/i);
+          const uriMatch = itemStr.match(/https?:\/\/[^\s"<>]+/i);
+          const imgMatch = itemStr.match(/https?:\/\/[^\s"<>]+\.(?:jpg|jpeg|png|webp|gif)/i);
           const priceMatch = itemStr.match(/"price"\s*:\s*"([^"]+)"/);
 
           if (idMatch || titleMatch) {
@@ -841,7 +1136,7 @@
         const titleMatch = rawStr.match(/"title"\s*:\s*"([^"]+)"/);
         const subMatch = rawStr.match(/"subtitle"\s*:\s*"([^"]+)"/);
         const descMatch = rawStr.match(/"description"\s*:\s*"([^"]+)"/);
-        const uriMatch = rawStr.match(/https?:\/\/www\.edion\.com[^\s"<>]+/i) || rawStr.match(/https?:\/\/[^\s"<>]+/i);
+        const uriMatch = rawStr.match(/https?:\/\/[^\s"<>]+/i);
         const priceMatch = rawStr.match(/"price"\s*:\s*"([^"]+)"/);
         const imgMatches = rawStr.match(/https?:\/\/[^\s"<>]+\.(?:jpg|jpeg|png|webp|gif)/gi) || [];
 
@@ -871,7 +1166,7 @@
 
       function createProductCardElement(item) {
         const card = document.createElement('df-product-detail-card');
-        card.style.cssText = 'display: inline-block !important; flex-shrink: 0; width: 140px; box-sizing: border-box; cursor: pointer;';
+        card.style.cssText = 'display: inline-block !important; flex-shrink: 0; width: 155px; box-sizing: border-box; cursor: pointer;';
         card.setAttribute('product-id', item.productId || '');
         card.setAttribute('title', item.title || '');
         card.setAttribute('subtitle', item.subtitle || item.description || '');
@@ -884,20 +1179,18 @@
           card.setAttribute('uri', item.uri);
         }
 
-        // Build a visual card element (DIV to prevent hash change and duplicate event trigger)
         const cardInner = document.createElement('div');
-        cardInner.style.cssText = 'display: flex; flex-direction: column; padding: 10px; border: 1px solid #e2e8f0; border-radius: 16px; background: #ffffff; text-decoration: none; color: #0f172a; box-shadow: 0 2px 6px rgba(0,0,0,0.04); width: 140px; box-sizing: border-box; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; user-select: none;';
+        cardInner.style.cssText = 'display: flex; flex-direction: column; padding: 10px; border: 1px solid #dadce0; border-radius: 12px; background: #ffffff; text-decoration: none; color: #202124; box-shadow: 0 1px 3px rgba(60,64,67,.12); width: 155px; box-sizing: border-box; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; user-select: none; font-family: "Google Sans", "Noto Sans JP", sans-serif;';
         
         cardInner.onmouseenter = () => {
           cardInner.style.transform = 'translateY(-2px)';
-          cardInner.style.boxShadow = '0 6px 12px rgba(0, 71, 157, 0.1)';
+          cardInner.style.boxShadow = '0 4px 10px rgba(60,64,67,.2)';
         };
         cardInner.onmouseleave = () => {
           cardInner.style.transform = 'none';
-          cardInner.style.boxShadow = '0 2px 6px rgba(0,0,0,0.04)';
+          cardInner.style.boxShadow = '0 1px 3px rgba(60,64,67,.12)';
         };
 
-        // Click handler sends single query to agent
         cardInner.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -906,10 +1199,10 @@
           }
         });
 
-        // 1. Top Image Box
+        // 1. Product Image
         const imgUrl = (item.imageUris && item.imageUris[0]) ? item.imageUris[0] : '';
         const imgContainer = document.createElement('div');
-        imgContainer.style.cssText = 'width: 100%; height: 110px; background: #ffffff; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9; padding: 4px;';
+        imgContainer.style.cssText = 'width: 100%; height: 110px; background: #ffffff; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f3f4; padding: 4px;';
 
         if (imgUrl) {
           const img = document.createElement('img');
@@ -922,20 +1215,20 @@
 
         // 2. Title
         const titleEl = document.createElement('div');
-        titleEl.style.cssText = 'font-weight: 600; font-size: 0.78rem; color: #0f172a; line-height: 1.35; margin-top: 8px; height: 2.7em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; word-break: break-word;';
+        titleEl.style.cssText = 'font-weight: 500; font-size: 0.8rem; color: #202124; line-height: 1.35; margin-top: 8px; height: 2.7em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; word-break: break-word;';
         titleEl.textContent = item.title || '';
         cardInner.appendChild(titleEl);
 
         // 3. Price
         const priceEl = document.createElement('div');
-        priceEl.style.cssText = 'font-weight: 700; font-size: 0.85rem; color: #E60012; margin-top: 6px;';
+        priceEl.style.cssText = 'font-weight: 700; font-size: 0.9rem; color: #202124; margin-top: 6px;';
         const numericPrice = Number(item.price);
         priceEl.textContent = isNaN(numericPrice) || numericPrice === 0 ? (item.price ? `${item.price}円` : '0円') : `${numericPrice.toLocaleString()}円`;
         cardInner.appendChild(priceEl);
 
-        // 4. "Add to cart" Button at bottom
+        // 4. Action Button
         const btn = document.createElement('div');
-        btn.style.cssText = 'display: flex; align-items: center; justify-content: center; gap: 4px; background: #f1f5f9; border-radius: 20px; padding: 6px 10px; color: #00479D; font-size: 0.75rem; margin-top: 8px; font-weight: 600;';
+        btn.style.cssText = 'display: flex; align-items: center; justify-content: center; gap: 4px; background: #e8f0fe; border-radius: 16px; padding: 5px 8px; color: #1a73e8; font-size: 0.72rem; margin-top: 8px; font-weight: 600;';
         btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> カートに入れる';
         cardInner.appendChild(btn);
 
@@ -968,12 +1261,12 @@
         if (data.uri) card.setAttribute('uri', data.uri);
 
         const widgetBox = document.createElement('div');
-        widgetBox.style.cssText = 'display: flex; flex-direction: column; padding: 20px; border: 1px solid #e2e8f0; border-radius: 20px; background: #ffffff; width: 100%; box-sizing: border-box; box-shadow: 0 4px 14px rgba(0,0,0,0.06); color: #0f172a; gap: 12px; margin-top: 6px;';
+        widgetBox.style.cssText = 'display: flex; flex-direction: column; padding: 18px; border: 1px solid #dadce0; border-radius: 16px; background: #ffffff; width: 100%; box-sizing: border-box; box-shadow: 0 2px 8px rgba(60,64,67,.1); color: #202124; gap: 12px; margin-top: 6px; font-family: "Google Sans", "Noto Sans JP", sans-serif;';
 
         // 1. Image Gallery
         if (images.length > 0 && images[0]) {
           const mainImgBox = document.createElement('div');
-          mainImgBox.style.cssText = 'width: 100%; height: 220px; background: #ffffff; border-radius: 16px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9; padding: 12px; box-sizing: border-box;';
+          mainImgBox.style.cssText = 'width: 100%; height: 210px; background: #ffffff; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f3f4; padding: 10px; box-sizing: border-box;';
 
           const mainImg = document.createElement('img');
           mainImg.src = images[0];
@@ -989,7 +1282,7 @@
 
             images.forEach((imgSrc, idx) => {
               const thumbBox = document.createElement('div');
-              thumbBox.style.cssText = `width: 48px; height: 48px; border-radius: 10px; background: #ffffff; border: ${idx === 0 ? '2px solid #00479D' : '1px solid #e2e8f0'}; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; overflow: hidden; padding: 2px; box-sizing: border-box;`;
+              thumbBox.style.cssText = `width: 48px; height: 48px; border-radius: 8px; background: #ffffff; border: ${idx === 0 ? '2px solid #1a73e8' : '1px solid #dadce0'}; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; overflow: hidden; padding: 2px; box-sizing: border-box;`;
 
               const thumbImg = document.createElement('img');
               thumbImg.src = imgSrc;
@@ -1002,8 +1295,8 @@
                   mainImg.src = imgSrc;
                   mainImg.style.opacity = '1';
                 }, 100);
-                Array.from(thumbRow.children).forEach(child => child.style.border = '1px solid #e2e8f0');
-                thumbBox.style.border = '2px solid #00479D';
+                Array.from(thumbRow.children).forEach(child => child.style.border = '1px solid #dadce0');
+                thumbBox.style.border = '2px solid #1a73e8';
               };
 
               thumbRow.appendChild(thumbBox);
@@ -1013,39 +1306,39 @@
         }
 
         // 2. Badge
-        const badgeText = data.badge || data.category || data.subtitle || 'エディオンおすすめ';
+        const badgeText = data.badge || data.category || data.subtitle || 'Google おすすめ商品';
         if (badgeText) {
           const badge = document.createElement('div');
-          badge.style.cssText = 'display: inline-block; align-self: flex-start; background: #00479D; color: #ffffff; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 4px;';
+          badge.style.cssText = 'display: inline-block; align-self: flex-start; background: #e8f0fe; color: #1a73e8; font-size: 0.72rem; font-weight: 600; padding: 3px 8px; border-radius: 12px;';
           badge.textContent = badgeText;
           widgetBox.appendChild(badge);
         }
 
         // 3. Title
         const titleEl = document.createElement('h3');
-        titleEl.style.cssText = 'font-size: 1.05rem; font-weight: 700; color: #0f172a; margin: 0; line-height: 1.4;';
+        titleEl.style.cssText = 'font-size: 1.05rem; font-weight: 600; color: #202124; margin: 0; line-height: 1.35;';
         titleEl.textContent = data.title || '';
         widgetBox.appendChild(titleEl);
 
         // 4. Description
         if (data.description || data.subtitle) {
           const descEl = document.createElement('p');
-          descEl.style.cssText = 'font-size: 0.82rem; color: #64748b; margin: 0; line-height: 1.45;';
+          descEl.style.cssText = 'font-size: 0.84rem; color: #5f6368; margin: 0; line-height: 1.45;';
           descEl.textContent = data.description || data.subtitle || '';
           widgetBox.appendChild(descEl);
         }
 
         // 5. Price
         const priceEl = document.createElement('div');
-        priceEl.style.cssText = 'font-size: 1.25rem; font-weight: 800; color: #E60012; margin-top: 2px;';
+        priceEl.style.cssText = 'font-size: 1.25rem; font-weight: 700; color: #202124; margin-top: 2px;';
         const numPrice = Number(data.price);
         priceEl.textContent = isNaN(numPrice) || numPrice === 0 ? (data.price ? `${data.price}円` : '') : `${numPrice.toLocaleString()}円`;
         widgetBox.appendChild(priceEl);
 
         // 6. Rating
         const ratingRow = document.createElement('div');
-        ratingRow.style.cssText = 'display: flex; align-items: center; gap: 4px; font-size: 0.8rem; color: #475569;';
-        ratingRow.innerHTML = '<span style="color: #f59e0b;">★</span> <strong>4.8</strong> <span style="color: #94a3b8;">(エディオン購入者レビュー)</span>';
+        ratingRow.style.cssText = 'display: flex; align-items: center; gap: 4px; font-size: 0.8rem; color: #5f6368;';
+        ratingRow.innerHTML = '<span style="color: #e37400;">★</span> <strong>4.8</strong> <span style="color: #70757a;">(購入者レビュー)</span>';
         widgetBox.appendChild(ratingRow);
 
         // 7. Actions row
@@ -1054,7 +1347,7 @@
 
         const cartBtn = document.createElement('button');
         cartBtn.type = 'button';
-        cartBtn.style.cssText = 'display: flex; align-items: center; gap: 6px; background: #00479D; color: #ffffff; border: none; border-radius: 20px; padding: 10px 18px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: background 0.2s;';
+        cartBtn.style.cssText = 'display: flex; align-items: center; gap: 6px; background: #1a73e8; color: #ffffff; border: none; border-radius: 20px; padding: 10px 18px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: background 0.2s;';
         cartBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> カートに入れる';
         actionsRow.appendChild(cartBtn);
 
@@ -1062,8 +1355,8 @@
           const detailLink = document.createElement('a');
           detailLink.href = data.uri;
           detailLink.target = '_blank';
-          detailLink.style.cssText = 'display: flex; align-items: center; gap: 4px; background: #f1f5f9; color: #0f172a; text-decoration: none; border-radius: 20px; padding: 10px 16px; font-size: 0.85rem; font-weight: 600;';
-          detailLink.innerHTML = '詳細ページを開く ↗';
+          detailLink.style.cssText = 'display: flex; align-items: center; gap: 4px; background: #f1f3f4; color: #202124; text-decoration: none; border-radius: 20px; padding: 10px 16px; font-size: 0.85rem; font-weight: 500;';
+          detailLink.innerHTML = '商品詳細を見る ↗';
           actionsRow.appendChild(detailLink);
         }
 
@@ -1074,10 +1367,11 @@
 
       // Client-side Widget Auto-Renderer
       setInterval(() => {
-        // Chat Titlebar Icon Size (55x20)
-        querySelectorAllShadow('#titlebar-title img, chat-messenger-titlebar img').forEach(img => {
-          img.style.setProperty('width', '55px', 'important');
-          img.style.setProperty('height', '20px', 'important');
+        // 0. Ensure Google logo in chat titlebar is strictly 1:1 aspect ratio
+        querySelectorAllShadow('#titlebar-title img, chat-messenger-titlebar img, .titlebar-icon, .chat-title-icon, [slot="titlebar-icon"], img[src*="googleg"]').forEach(img => {
+          img.style.setProperty('width', '24px', 'important');
+          img.style.setProperty('height', '24px', 'important');
+          img.style.setProperty('aspect-ratio', '1 / 1', 'important');
           img.style.setProperty('object-fit', 'contain', 'important');
         });
 
@@ -1088,7 +1382,7 @@
         querySelectorAllShadow('md-filled-button').forEach(el => {
           const icon = el.querySelector('md-icon');
           const hasCartIcon = icon && icon.textContent.trim() === 'shopping_cart';
-          const hasCartText = el.textContent.toLowerCase().includes('add to cart');
+          const hasCartText = el.textContent.toLowerCase().includes('add to cart') || el.textContent.includes('カート');
           if (hasCartIcon || hasCartText) {
             el.style.setProperty('display', 'none', 'important');
           }
@@ -1132,7 +1426,7 @@
                   const prevBtn = document.createElement('button');
                   prevBtn.innerHTML = '&#10094;';
                   prevBtn.type = 'button';
-                  prevBtn.style.cssText = 'position: absolute; left: -8px; top: 50%; transform: translateY(-50%); z-index: 15; width: 28px; height: 28px; border-radius: 50%; background: #ffffff; border: 1px solid #cbd5e1; box-shadow: 0 2px 5px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #00479D; font-size: 13px; font-weight: bold; outline: none;';
+                  prevBtn.style.cssText = 'position: absolute; left: -8px; top: 50%; transform: translateY(-50%); z-index: 15; width: 28px; height: 28px; border-radius: 50%; background: #ffffff; border: 1px solid #dadce0; box-shadow: 0 2px 6px rgba(60,64,67,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #1a73e8; font-size: 13px; font-weight: bold; outline: none;';
                   prevBtn.onclick = (e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -1142,7 +1436,7 @@
                   const nextBtn = document.createElement('button');
                   nextBtn.innerHTML = '&#10095;';
                   nextBtn.type = 'button';
-                  nextBtn.style.cssText = 'position: absolute; right: -8px; top: 50%; transform: translateY(-50%); z-index: 15; width: 28px; height: 28px; border-radius: 50%; background: #ffffff; border: 1px solid #cbd5e1; box-shadow: 0 2px 5px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #00479D; font-size: 13px; font-weight: bold; outline: none;';
+                  nextBtn.style.cssText = 'position: absolute; right: -8px; top: 50%; transform: translateY(-50%); z-index: 15; width: 28px; height: 28px; border-radius: 50%; background: #ffffff; border: 1px solid #dadce0; box-shadow: 0 2px 6px rgba(60,64,67,0.15); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #1a73e8; font-size: 13px; font-weight: bold; outline: none;';
                   nextBtn.onclick = (e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -1246,12 +1540,12 @@
 
                 const compareWrapper = document.createElement('div');
                 compareWrapper.className = 'custom-compare-products';
-                compareWrapper.style.cssText = 'display: flex; flex-direction: column; gap: 14px; margin-top: 10px; border: 1px solid #e2e8f0; padding: 16px; border-radius: 16px; background: #ffffff; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.05); box-sizing: border-box;';
+                compareWrapper.style.cssText = 'display: flex; flex-direction: column; gap: 14px; margin-top: 10px; border: 1px solid #dadce0; padding: 16px; border-radius: 16px; background: #ffffff; width: 100%; box-shadow: 0 2px 8px rgba(60,64,67,.08); box-sizing: border-box; font-family: "Google Sans", "Noto Sans JP", sans-serif;';
 
                 if (data.title) {
                   const titleEl = document.createElement('h4');
                   titleEl.textContent = data.title;
-                  titleEl.style.cssText = 'margin: 0 0 4px 0; font-size: 15px; font-weight: 700; color: #00479D;';
+                  titleEl.style.cssText = 'margin: 0 0 4px 0; font-size: 15px; font-weight: 600; color: #1a73e8;';
                   compareWrapper.appendChild(titleEl);
                 }
 
@@ -1273,7 +1567,7 @@
                 // 2. Features Comparison Table
                 if (data.features && Array.isArray(data.features) && data.features.length > 0) {
                   const tableContainer = document.createElement('div');
-                  tableContainer.style.cssText = 'overflow-x: auto; margin-top: 6px; border: 1px solid #e2e8f0; border-radius: 12px;';
+                  tableContainer.style.cssText = 'overflow-x: auto; margin-top: 6px; border: 1px solid #dadce0; border-radius: 12px;';
 
                   const table = document.createElement('table');
                   table.style.cssText = 'width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;';
@@ -1281,18 +1575,18 @@
                   const tbody = document.createElement('tbody');
                   data.features.forEach((feat, idx) => {
                     const tr = document.createElement('tr');
-                    tr.style.cssText = idx % 2 === 0 ? 'background-color: #f8fafc;' : 'background-color: #ffffff;';
-                    tr.style.borderBottom = '1px solid #f1f5f9';
+                    tr.style.cssText = idx % 2 === 0 ? 'background-color: #f8f9fa;' : 'background-color: #ffffff;';
+                    tr.style.borderBottom = '1px solid #f1f3f4';
 
                     const th = document.createElement('td');
-                    th.style.cssText = 'padding: 10px 12px; font-weight: 600; color: #334155; width: 25%; white-space: nowrap; vertical-align: top; border-right: 1px solid #f1f5f9;';
+                    th.style.cssText = 'padding: 10px 12px; font-weight: 600; color: #3c4043; width: 25%; white-space: nowrap; vertical-align: top; border-right: 1px solid #f1f3f4;';
                     th.textContent = feat.label || '';
                     tr.appendChild(th);
 
                     if (feat.productSpecs && Array.isArray(feat.productSpecs)) {
                       feat.productSpecs.forEach(spec => {
                         const td = document.createElement('td');
-                        td.style.cssText = 'padding: 10px 12px; color: #475569; vertical-align: top; line-height: 1.4;';
+                        td.style.cssText = 'padding: 10px 12px; color: #5f6368; vertical-align: top; line-height: 1.4;';
                         td.textContent = spec.text || spec.val || spec.value || '';
                         tr.appendChild(td);
                       });
@@ -1347,7 +1641,6 @@
 
       syncUserSessionVariables();
 
-      // Check if any messages already exist in this session
       let storedMsgs = null;
       try {
         storedMsgs = sessionStorage.getItem('chat-messenger-messages');
@@ -1372,7 +1665,6 @@
         }
       };
 
-      // Give SDK context a brief moment to stabilize, then send greeting query
       setTimeout(sendGreeting, 300);
     }
 
@@ -1386,7 +1678,6 @@
       lastQueryTime = now;
       lastQueryText = text;
 
-      // Prevent welcome intent from colliding with the user's explicit query
       isFirstChatOpen = false;
       syncUserSessionVariables();
 
@@ -1413,15 +1704,18 @@
 
       const messenger = document.querySelector('chat-messenger');
       if (messenger) {
+        messenger.classList.remove('messenger-hidden');
         if (typeof messenger.slideIn === 'function') {
           messenger.slideIn();
-        } else {
-          messenger.classList.remove('messenger-hidden');
+        }
+        const toggleBtn = messenger.querySelector('chat-toggle-dialog-button');
+        if (toggleBtn) {
+          try { toggleBtn.click(); } catch(e) {}
         }
       }
-      const bubbleCta = document.querySelector('.chat-bubble-cta');
-      if (bubbleCta) {
-        bubbleCta.style.display = 'none';
+      const launcher = document.querySelector('.floating-gemini-launcher');
+      if (launcher) {
+        launcher.style.display = 'none';
       }
     }
 
@@ -1434,21 +1728,19 @@
           messenger.classList.add('messenger-hidden');
         }
       }
-      const bubbleCta = document.querySelector('.chat-bubble-cta');
-      if (bubbleCta) {
-        bubbleCta.style.display = 'flex';
+      const launcher = document.querySelector('.floating-gemini-launcher');
+      if (launcher) {
+        launcher.style.display = 'flex';
       }
     }
 
-    // Restore speech bubble CTA when chat messenger is closed
     window.addEventListener("chat-messenger-close", () => {
-      const bubbleCta = document.querySelector('.chat-bubble-cta');
-      if (bubbleCta) {
-        bubbleCta.style.display = 'flex';
+      const launcher = document.querySelector('.floating-gemini-launcher');
+      if (launcher) {
+        launcher.style.display = 'flex';
       }
     });
 
-    // Handle new session start (reset button clicked)
     window.addEventListener("chat-messenger-start-new-session", () => {
       isFirstChatOpen = true;
       syncUserSessionVariables();
@@ -1486,215 +1778,611 @@
 
 <body>
 
-  <!-- Top Utility Bar -->
-  <div class="top-bar">
-    <div class="top-bar-inner">
-      <div>買って安心、ずっと満足。エディオン公式通販サイト</div>
-      <ul class="top-links">
-        <li><a href="https://www.edion.co.jp" target="_blank">コーポレートサイト</a></li>
-        <li><a href="https://search.edion.com/e_store/" target="_blank">店舗・チラシ検索</a></li>
-        <li><a href="https://www.edion.com/guide/gid_menu.html" target="_blank">お買い物ガイド</a></li>
-        <li><a href="https://faq.edion.com/" target="_blank">よくあるご質問</a></li>
-        <li><a href="https://www.edion.com/member/EPM00100.html" target="_blank">ログイン／新規会員登録</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Main Header -->
+  <!-- Google Shopping Main Header -->
   <header>
     <div class="header-main">
-      <!-- Logo -->
-      <a href="index.html" class="logo-area">
-        <div class="edion-logo-badge">EDION</div>
-        <div class="logo-text">
-          <span class="logo-title">エディオン ネットショップ</span>
-          <span class="logo-subtitle">EDION Online Store</span>
-        </div>
+      <!-- Logo: Google Shopping -->
+      <a href="index.html" class="logo-area" title="Google ショッピング ホーム">
+        <!-- Google Logo SVG -->
+        <svg class="google-logo-svg" viewBox="0 0 272 92" aria-label="Google">
+          <path fill="#4285F4" d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"/>
+          <path fill="#EA4335" d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"/>
+          <path fill="#4285F4" d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 8.16 11.18 8.16 7.29 0 11.83-4.51 11.83-12.92v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.44zm-8.82 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z"/>
+          <path fill="#FBBC05" d="M225 3v65h-9.5V3h9.5z"/>
+          <path fill="#34A853" d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.99 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.91-6.14zm-13.52-8.31l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z"/>
+          <path fill="#EA4335" d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.88.36 15.86 16.32.4 35.3.4c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.04 24.7 25.04 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49.07z"/>
+        </svg>
+        <span class="shopping-sub-brand">ショッピング</span>
       </a>
 
-      <!-- Search Input -->
-      <div class="search-container">
-        <input type="text" class="search-input" id="search-box" placeholder="何をお探しですか？ キーワード・型番・カテゴリーで検索" onkeydown="if(event.key==='Enter') sendQueryToAgent(this.value);">
-        <button class="search-btn" onclick="const q=document.getElementById('search-box').value; if(q) sendQueryToAgent(q);">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          検索
-        </button>
+      <!-- Search Input Container -->
+      <div class="search-wrapper">
+        <div class="search-box">
+          <div class="search-icon-left">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+          <input type="text" class="search-input" id="search-box"
+            placeholder="Google で商品を検索（例：20坪におすすめの冷蔵庫、省エネ洗濯機）"
+            onkeydown="if(event.key==='Enter') sendQueryToAgent(this.value);">
+          
+          <div class="search-tools-right">
+            <!-- Clear Button -->
+            <button class="search-action-btn" title="検索キーワードをクリア" onclick="document.getElementById('search-box').value='';">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+            <!-- Google Voice Search Icon -->
+            <button class="search-action-btn" title="音声で検索" onclick="openChatWidget();">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path fill="#4285F4" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                <path fill="#34A853" d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+              </svg>
+            </button>
+            <!-- Google Lens Search Icon -->
+            <button class="search-action-btn" title="画像で検索" onclick="openChatWidget();">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z" stroke="#4285F4" stroke-width="2"/>
+                <circle cx="12" cy="12" r="3.5" fill="#EA4335"/>
+                <circle cx="16.5" cy="7.5" r="1" fill="#34A853"/>
+              </svg>
+            </button>
+            <!-- Submit Search Button -->
+            <button class="search-submit-btn" title="検索" onclick="const q=document.getElementById('search-box').value; if(q) sendQueryToAgent(q);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Header Actions -->
       <div class="header-actions">
-        <a href="javascript:;" onclick="openChatWidget();" class="header-action-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          <span>AI相談</span>
-        </a>
-        <a href="https://www.edion.com/member/EPM03100.html" target="_blank" class="header-action-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          <span>お気に入り</span>
-        </a>
-        <a href="https://www.edion.com/order/EPO00100.html" target="_blank" class="header-action-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          <span>カート</span>
+        <!-- Gemini AI Assistant Button -->
+        <button type="button" onclick="openChatWidget();" class="ai-assistant-btn">
+          <svg class="gemini-sparkle" width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L14.39 8.26L20.65 10.65L14.39 13.04L12 19.3L9.61 13.04L3.35 10.65L9.61 8.26L12 2Z" fill="#FFD200"/>
+            <path d="M19 16L20.2 19.13L23.33 20.33L20.2 21.53L19 24.66L17.8 21.53L14.67 20.33L17.8 19.13L19 16Z" fill="#FFF"/>
+          </svg>
+          <span>AIショッピング相談</span>
+        </button>
+
+        <!-- Cart Button -->
+        <button class="header-icon-btn" title="ショッピングカート" onclick="openChatWidget();">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
           <span class="cart-badge">0</span>
-        </a>
-        <a href="https://www.edion.com/member/EPM01001.html" target="_blank" class="header-action-item">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span>マイページ</span>
-        </a>
+        </button>
+
+        <!-- Google Apps Waffle Icon -->
+        <button class="header-icon-btn" title="Google アプリ">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/>
+            <circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/>
+            <circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/>
+          </svg>
+        </button>
+
+        <!-- User Profile Avatar -->
+        <div class="user-avatar" id="user-avatar-initial" title="Google アカウント">
+          佐
+        </div>
       </div>
     </div>
 
-    <!-- Category Navigation -->
-    <nav class="category-nav">
-      <div class="category-nav-inner">
-        <a href="https://www.edion.com/category_list.html" class="nav-item">☰ カテゴリーから探す</a>
-        <a href="javascript:sendQueryToAgent('冷蔵庫');" class="nav-item">冷蔵庫・洗濯機・家事</a>
-        <a href="javascript:sendQueryToAgent('エアコン');" class="nav-item">エアコン・季節家電</a>
-        <a href="javascript:sendQueryToAgent('テレビ');" class="nav-item">テレビ・レコーダー</a>
-        <a href="javascript:sendQueryToAgent('パソコン');" class="nav-item">パソコン・スマホ</a>
-        <a href="javascript:sendQueryToAgent('オーブンレンジ');" class="nav-item">キッチン・調理家電</a>
-        <a href="https://www.edion.com/eangle" target="_blank" class="nav-item">e angle (PB商品)</a>
-        <a href="https://reform.edion.jp" target="_blank" class="nav-item">エディオンリフォーム</a>
-        <a href="javascript:;" class="nav-item highlight">★ WEB限定セール</a>
+    <!-- Google Navigation Tabs -->
+    <div class="google-nav-tabs">
+      <div class="google-nav-inner">
+        <a href="javascript:;" class="google-tab">すべて</a>
+        <a href="javascript:;" class="google-tab active">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          ショッピング
+        </a>
+        <a href="javascript:;" class="google-tab">画像</a>
+        <a href="javascript:;" class="google-tab">動画</a>
+        <a href="javascript:;" class="google-tab">ニュース</a>
+        <a href="javascript:;" class="google-tab">地図</a>
+        <a href="javascript:;" class="google-tab">書籍</a>
+        <a href="javascript:;" class="google-tab">ツール</a>
       </div>
-    </nav>
+    </div>
+
+    <!-- Category Filter Pills Carousel -->
+    <div class="category-pills-bar">
+      <div class="category-pills-inner">
+        <a href="javascript:;" class="filter-pill active">すべての家電</a>
+        <a href="javascript:sendQueryToAgent('冷蔵庫');" class="filter-pill">❄️ 冷蔵庫・冷凍庫</a>
+        <a href="javascript:sendQueryToAgent('洗濯機');" class="filter-pill">🧺 洗濯機・乾燥機</a>
+        <a href="javascript:sendQueryToAgent('エアコン');" class="filter-pill">❄️ エアコン・季節家電</a>
+        <a href="javascript:sendQueryToAgent('テレビ');" class="filter-pill">📺 4Kテレビ・レコーダー</a>
+        <a href="javascript:sendQueryToAgent('パソコン');" class="filter-pill">💻 パソコン・スマホ</a>
+        <a href="javascript:sendQueryToAgent('電子レンジ');" class="filter-pill">🍳 キッチン・調理家電</a>
+        <a href="javascript:sendQueryToAgent('掃除機');" class="filter-pill">🧹 掃除機・生活家電</a>
+        <a href="javascript:;" class="filter-pill">🏷️ 本日のタイムセール</a>
+      </div>
+    </div>
   </header>
 
-  <!-- Main Content Area -->
-  <main class="main-wrapper">
+  <!-- Main Container -->
+  <div class="main-container">
 
-    <!-- AI Concierge Hero Banner -->
-    <section class="ai-hero-banner">
-      <div class="ai-badge">✨ EDION AI Shopping Concierge</div>
-      <h1 class="ai-hero-title">エディオン AIアシスタント「Ask Edi」</h1>
-      <p class="ai-hero-desc">
-        お引越し、お部屋の間取り、ご家族構成やご予算に合わせた最適な家電選びをAIコンシェルジュがトータルサポートします。自然な言葉でお気軽にご相談ください。
-      </p>
-
-      <div class="prompt-chips-title">
-        <span>💡 おすすめの質問例（クリックでAIに相談）:</span>
+    <!-- Left Filter Sidebar -->
+    <aside class="filter-sidebar">
+      <div class="filter-header">
+        <span class="filter-header-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+          絞り込み
+        </span>
+        <button class="filter-reset-btn">すべてクリア</button>
       </div>
-      <div class="prompt-chips">
-        <button class="prompt-chip" onclick="sendQueryToAgent('20坪ほどの家に引っ越しをします。冷蔵庫をお勧めします。');">
-          ❄️ 20坪ほどの家に引っ越しをします。冷蔵庫をお勧めします。
-        </button>
-        <button class="prompt-chip" onclick="sendQueryToAgent('1番目と2番目の冷蔵庫を比較してください');">
-          ⚖️ 1番目と2番目の冷蔵庫を比較
-        </button>
-        <button class="prompt-chip" onclick="sendQueryToAgent('3〜4人家族におすすめのまとめ買いできる大容量冷蔵庫を教えて');">
-          🛒 3〜4人家族におすすめの大容量冷蔵庫
-        </button>
-        <button class="prompt-chip" onclick="sendQueryToAgent('省エネ性能が高く静音設計のスリムな冷蔵庫を比較したい');">
-          ⚡ 省エネ・静音設計スリム冷蔵庫を比較
-        </button>
+
+      <!-- Delivery / Perks -->
+      <div class="filter-group">
+        <span class="filter-title">配送・特典</span>
+        <ul class="filter-options-list">
+          <li class="filter-option-item">
+            <input type="checkbox" id="f-free-ship" checked>
+            <label for="f-free-ship">送料無料</label>
+            <span class="filter-count">1,240</span>
+          </li>
+          <li class="filter-option-item">
+            <input type="checkbox" id="f-fast-ship">
+            <label for="f-fast-ship">スピード搬入設置</label>
+            <span class="filter-count">850</span>
+          </li>
+          <li class="filter-option-item">
+            <input type="checkbox" id="f-sale">
+            <label for="f-sale">セール・特別価格</label>
+            <span class="filter-count">342</span>
+          </li>
+        </ul>
       </div>
-    </section>
 
-    <!-- Grid Content (Sidebar + Main Showcase) -->
-    <div class="content-grid">
-      <!-- Sidebar -->
-      <aside>
-        <div class="sidebar-card">
-          <div class="sidebar-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
-            主要カテゴリー
-          </div>
-          <ul class="category-list">
-            <li><a href="javascript:sendQueryToAgent('冷蔵庫');">冷蔵庫・冷凍庫 <span>›</span></a></li>
-            <li><a href="javascript:sendQueryToAgent('洗濯機');">洗濯機・衣類乾燥機 <span>›</span></a></li>
-            <li><a href="javascript:sendQueryToAgent('エアコン');">エアコン・空気清浄機 <span>›</span></a></li>
-            <li><a href="javascript:sendQueryToAgent('テレビ');">4K有機EL・液晶テレビ <span>›</span></a></li>
-            <li><a href="javascript:sendQueryToAgent('掃除機');">掃除機・クリーナー <span>›</span></a></li>
-            <li><a href="javascript:sendQueryToAgent('電子レンジ');">電子レンジ・炊飯器 <span>›</span></a></li>
-            <li><a href="https://www.edion.com/eangle" target="_blank">オリジナルブランド e angle <span>›</span></a></li>
-            <li><a href="https://reform.edion.jp" target="_blank">リフォーム・太陽光発電 <span>›</span></a></li>
-          </ul>
+      <!-- Categories -->
+      <div class="filter-group">
+        <span class="filter-title">家電カテゴリー</span>
+        <ul class="filter-options-list">
+          <li class="filter-option-item" onclick="sendQueryToAgent('冷蔵庫');">
+            <input type="radio" name="cat" id="c-ref" checked>
+            <label for="c-ref">冷蔵庫・冷凍庫</label>
+            <span class="filter-count">482</span>
+          </li>
+          <li class="filter-option-item" onclick="sendQueryToAgent('洗濯機');">
+            <input type="radio" name="cat" id="c-wash">
+            <label for="c-wash">洗濯機・衣類乾燥機</label>
+            <span class="filter-count">320</span>
+          </li>
+          <li class="filter-option-item" onclick="sendQueryToAgent('エアコン');">
+            <input type="radio" name="cat" id="c-air">
+            <label for="c-air">エアコン・季節家電</label>
+            <span class="filter-count">210</span>
+          </li>
+          <li class="filter-option-item" onclick="sendQueryToAgent('テレビ');">
+            <input type="radio" name="cat" id="c-tv">
+            <label for="c-tv">4Kテレビ・オーディオ</label>
+            <span class="filter-count">195</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Price Range -->
+      <div class="filter-group">
+        <span class="filter-title">価格帯</span>
+        <ul class="filter-options-list">
+          <li class="filter-option-item">
+            <input type="radio" name="price" id="p-all" checked>
+            <label for="p-all">指定なし</label>
+          </li>
+          <li class="filter-option-item">
+            <input type="radio" name="price" id="p-1">
+            <label for="p-1">5万円未満</label>
+          </li>
+          <li class="filter-option-item">
+            <input type="radio" name="price" id="p-2">
+            <label for="p-2">5万円〜15万円</label>
+          </li>
+          <li class="filter-option-item">
+            <input type="radio" name="price" id="p-3">
+            <label for="p-3">15万円以上</label>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Brand -->
+      <div class="filter-group">
+        <span class="filter-title">主要メーカー・ブランド</span>
+        <ul class="filter-options-list">
+          <li class="filter-option-item">
+            <input type="checkbox" id="b-haier" checked>
+            <label for="b-haier">ハイアール (Haier)</label>
+          </li>
+          <li class="filter-option-item">
+            <input type="checkbox" id="b-mitsubishi" checked>
+            <label for="b-mitsubishi">三菱電機 (Mitsubishi)</label>
+          </li>
+          <li class="filter-option-item">
+            <input type="checkbox" id="b-panasonic">
+            <label for="b-panasonic">パナソニック (Panasonic)</label>
+          </li>
+          <li class="filter-option-item">
+            <input type="checkbox" id="b-sharp">
+            <label for="b-sharp">シャープ (Sharp)</label>
+          </li>
+          <li class="filter-option-item">
+            <input type="checkbox" id="b-hitachi">
+            <label for="b-hitachi">日立 (Hitachi)</label>
+          </li>
+          <li class="filter-option-item">
+            <input type="checkbox" id="b-eangle">
+            <label for="b-eangle">e angle (エディオンPB)</label>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Rating -->
+      <div class="filter-group">
+        <span class="filter-title">カスタマー評価</span>
+        <ul class="filter-options-list">
+          <li class="filter-option-item">
+            <input type="radio" name="rating" id="r-4" checked>
+            <label for="r-4">★ 4.0以上</label>
+          </li>
+          <li class="filter-option-item">
+            <input type="radio" name="rating" id="r-3">
+            <label for="r-3">★ 3.0以上</label>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Merchants -->
+      <div class="filter-group">
+        <span class="filter-title">公式販売元</span>
+        <ul class="filter-options-list">
+          <li class="filter-option-item">
+            <input type="checkbox" id="m-edion" checked>
+            <label for="m-edion">エディオン公式ネットショップ</label>
+          </li>
+          <li class="filter-option-item">
+            <input type="checkbox" id="m-google">
+            <label for="m-google">Google ストア</label>
+          </li>
+          <li class="filter-option-item">
+            <input type="checkbox" id="m-verified">
+            <label for="m-verified">認定販売店</label>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content-area">
+
+      <!-- Google Gemini AI Shopping Concierge Hero Card -->
+      <section class="gemini-hero-card">
+        <div class="gemini-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L14.39 8.26L20.65 10.65L14.39 13.04L12 19.3L9.61 13.04L3.35 10.65L9.61 8.26L12 2Z" fill="#1a73e8"/>
+          </svg>
+          Google Shopping AI · Powered by Gemini & Vertex AI
         </div>
-      </aside>
+        <h1 class="gemini-title">
+          Google ショッピング AIアシスタントにご相談ください
+        </h1>
+        <p class="gemini-desc">
+          お引越し先の広さや間取り、ご家族構成、ご予算やこだわり機能を自然な言葉でお伝えいただくだけで、AIコンシェルジュが最適な家電選びやスペック比較をトータルサポートします。
+        </p>
 
-      <!-- Main Showcase -->
-      <div style="display: flex; flex-direction: column; gap: 24px;">
-
-        <!-- Demonstration Guide Card -->
-        <div class="section-card">
-          <div class="section-header">
-            <div class="section-title">エディオンの安心・充実サービス</div>
-            <span style="font-size: 0.78rem; color: #64748B;">全国1,200店舗以上のネットワーク</span>
-          </div>
-
-          <div class="features-row">
-            <div class="feature-box">
-              <div class="feature-icon">🛡️</div>
-              <div>
-                <h4>長期無料修理保証</h4>
-                <p>対象商品に最長5年・10年の長期無料修理保証をご提供。</p>
-              </div>
-            </div>
-            <div class="feature-box">
-              <div class="feature-icon">🚚</div>
-              <div>
-                <h4>スピード配送・設置</h4>
-                <p>大型家電の搬入設置からリサイクル回収までプロが対応。</p>
-              </div>
-            </div>
-            <div class="feature-box">
-              <div class="feature-icon">💰</div>
-              <div>
-                <h4>エディオンポイント</h4>
-                <p>ネットショップでも店頭でもポイントが貯まる・使える。</p>
-              </div>
-            </div>
-          </div>
+        <div class="gemini-chips-title">
+          <span>💡 おすすめの質問例（クリックでAI相談を開始）:</span>
         </div>
-
-        <!-- Deployment Environment Details -->
-        <div class="config-box">
-          <div>
-            <strong>GECX AI Agent 稼働中:</strong>
-            <span style="font-family: monospace; font-size: 0.75rem; margin-left: 6px; color: #1E40AF;">
-              projects/1047996184557/.../deployments/32b55f1a-e8d1-4812-a151-a0e44957fead
-            </span>
-          </div>
-          <div class="config-status-badge">
-            <span class="status-dot"></span>
-            <span>Agent Online</span>
-          </div>
+        <div class="gemini-prompt-chips">
+          <button class="gemini-chip" onclick="sendQueryToAgent('20坪ほどの家に引っ越しをします。冷蔵庫をお勧めします。');">
+            ❄️ 20坪ほどの家に引っ越しをします。冷蔵庫をお勧めします
+          </button>
+          <button class="gemini-chip" onclick="sendQueryToAgent('1番目と2番目の冷蔵庫を比較してください');">
+            ⚖️ 1番目と2番目の冷蔵庫のスペックと価格を比較
+          </button>
+          <button class="gemini-chip" onclick="sendQueryToAgent('3〜4人家族におすすめのまとめ買いできる大容量冷蔵庫を教えて');">
+            🛒 3〜4人家族におすすめの大容量冷蔵庫を教えて
+          </button>
+          <button class="gemini-chip" onclick="sendQueryToAgent('省エネ性能が高く静音設計のスリムな冷蔵庫を比較したい');">
+            ⚡ 省エネ性能が高く静音設計のスリムな冷蔵庫を比較
+          </button>
         </div>
+      </section>
+
+      <!-- Results Meta Bar -->
+      <div class="results-meta-bar">
+        <span class="results-count">検索結果 約 <strong>1,480</strong> 件（0.28秒）</span>
+        <div class="results-sort-controls">
+          <span>並び替え:</span>
+          <select class="sort-select">
+            <option>おすすめ順</option>
+            <option>価格の安い順</option>
+            <option>価格の高い順</option>
+            <option>評価の高い順</option>
+            <option>新着順</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Google Shopping Product Grid -->
+      <div class="product-grid">
+
+        <!-- Product 1: Haier CORU 406L -->
+        <article class="product-card" onclick="sendQueryToAgent('Show details for product 00081900756');">
+          <button class="card-fav-btn" title="お気に入りに追加" onclick="event.stopPropagation();">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="card-image-box">
+            <img src="https://www.edion.com/ito/product/3995/04571526733995/300x300/4571526733995_1.jpg" alt="ハイアール 406L 4ドア冷蔵庫" loading="lazy">
+          </div>
+          <div class="card-badge-row">
+            <span class="tag-badge google-pick">Google おすすめ</span>
+            <span class="tag-badge sale">タイムセール</span>
+          </div>
+          <h2 class="card-title">ハイアール 【フレンチドア】406L 4ドア冷蔵庫 CORU フロスティミストグレー (JR-GX41E5-H)</h2>
+          <div class="card-rating-row">
+            <span class="rating-stars">★★★★★</span>
+            <span>4.8</span>
+            <span>(142)</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">¥139,800</span>
+            <span class="card-original-price">¥158,000</span>
+          </div>
+          <div class="card-seller-info">
+            <span>エディオン公式ネットショップ</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#1a73e8"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" fill="none"/></svg>
+          </div>
+          <div class="card-delivery-perk">送料無料 · リサイクル回収対応</div>
+          <div class="card-action-bar">
+            <button class="card-btn-ask" onclick="event.stopPropagation(); sendQueryToAgent('00081900756 ハイアール冷蔵庫の特徴とおすすめポイントを教えて');">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg>
+              AI相談
+            </button>
+            <button class="card-btn-cart" onclick="event.stopPropagation(); alert('カートに追加しました。');">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Product 2: Mitsubishi CX 330L -->
+        <article class="product-card" onclick="sendQueryToAgent('Show details for product 00081426782');">
+          <button class="card-fav-btn" title="お気に入りに追加" onclick="event.stopPropagation();">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="card-image-box">
+            <img src="https://www.edion.com/ito/product/3995/04571526733995/300x300/4571526733995_2.jpg" alt="三菱 330L 3ドア冷蔵庫" loading="lazy">
+          </div>
+          <div class="card-badge-row">
+            <span class="tag-badge google-pick">人気モデル</span>
+          </div>
+          <h2 class="card-title">三菱電機 330L 3ドアノンフロン冷蔵庫 CXシリーズ マットチャコール (MR-CX33J-H)</h2>
+          <div class="card-rating-row">
+            <span class="rating-stars">★★★★★</span>
+            <span>4.7</span>
+            <span>(98)</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">¥129,800</span>
+          </div>
+          <div class="card-seller-info">
+            <span>エディオン公式ネットショップ</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#1a73e8"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" fill="none"/></svg>
+          </div>
+          <div class="card-delivery-perk">送料無料 · 翌日出荷対応</div>
+          <div class="card-action-bar">
+            <button class="card-btn-ask" onclick="event.stopPropagation(); sendQueryToAgent('00081426782 三菱冷蔵庫の特徴やサイズを教えて');">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg>
+              AI相談
+            </button>
+            <button class="card-btn-cart" onclick="event.stopPropagation(); alert('カートに追加しました。');">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Product 3: Panasonic 500L Premium -->
+        <article class="product-card" onclick="sendQueryToAgent('パナソニック 500L冷蔵庫のIoT機能と省エネ性能を教えて');">
+          <button class="card-fav-btn" title="お気に入りに追加" onclick="event.stopPropagation();">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="card-image-box">
+            <img src="https://www.edion.com/ito/product/3995/04571526733995/300x300/4571526733995_3.jpg" alt="パナソニック 500L 6ドア冷蔵庫" loading="lazy">
+          </div>
+          <div class="card-badge-row">
+            <span class="tag-badge google-pick">プレミアム</span>
+          </div>
+          <h2 class="card-title">パナソニック 500L 6ドアプレミアム冷蔵庫 ECONAVI＆ナノイーX搭載 (NR-F509HPX)</h2>
+          <div class="card-rating-row">
+            <span class="rating-stars">★★★★★</span>
+            <span>4.9</span>
+            <span>(215)</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">¥248,000</span>
+            <span class="card-original-price">¥278,000</span>
+          </div>
+          <div class="card-seller-info">
+            <span>エディオン公式ネットショップ</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#1a73e8"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" fill="none"/></svg>
+          </div>
+          <div class="card-delivery-perk">送料無料 · 専門スタッフ搬入設置</div>
+          <div class="card-action-bar">
+            <button class="card-btn-ask" onclick="event.stopPropagation(); sendQueryToAgent('パナソニック 500L冷蔵庫のIoT機能と省エネ性能を教えて');">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg>
+              AI相談
+            </button>
+            <button class="card-btn-cart" onclick="event.stopPropagation(); alert('カートに追加しました。');">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Product 4: Sharp Plasmacluster -->
+        <article class="product-card" onclick="sendQueryToAgent('シャープ 両開きどっちもドア冷蔵庫の特徴を教えて');">
+          <button class="card-fav-btn" title="お気に入りに追加" onclick="event.stopPropagation();">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="card-image-box">
+            <img src="https://www.edion.com/ito/product/3995/04571526733995/300x300/4571526733995_4.jpg" alt="シャープ 457L 5ドア冷蔵庫" loading="lazy">
+          </div>
+          <div class="card-badge-row">
+            <span class="tag-badge google-pick">両開きドア</span>
+          </div>
+          <h2 class="card-title">シャープ 457L プラズマクラスター 両開き 5ドア冷蔵庫 (SJ-MW46J)</h2>
+          <div class="card-rating-row">
+            <span class="rating-stars">★★★★★</span>
+            <span>4.8</span>
+            <span>(184)</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">¥178,000</span>
+          </div>
+          <div class="card-seller-info">
+            <span>エディオン公式ネットショップ</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#1a73e8"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" fill="none"/></svg>
+          </div>
+          <div class="card-delivery-perk">送料無料 · 5年長期無料修理保証</div>
+          <div class="card-action-bar">
+            <button class="card-btn-ask" onclick="event.stopPropagation(); sendQueryToAgent('シャープ 両開きどっちもドア冷蔵庫の特徴を教えて');">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg>
+              AI相談
+            </button>
+            <button class="card-btn-cart" onclick="event.stopPropagation(); alert('カートに追加しました。');">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Product 5: Hitachi Vacuum Chamber 540L -->
+        <article class="product-card" onclick="sendQueryToAgent('日立冷蔵庫の鮮度保持機能と真空チルドについて教えて');">
+          <button class="card-fav-btn" title="お気に入りに追加" onclick="event.stopPropagation();">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="card-image-box">
+            <img src="https://www.edion.com/ito/product/3995/04571526733995/300x300/4571526733995_5.jpg" alt="日立 540L 6ドア冷蔵庫" loading="lazy">
+          </div>
+          <div class="card-badge-row">
+            <span class="tag-badge google-pick">真空チルド</span>
+          </div>
+          <h2 class="card-title">日立 540L 真空チルド まんなか野菜室 大容量6ドア冷蔵庫 (R-HW54R)</h2>
+          <div class="card-rating-row">
+            <span class="rating-stars">★★★★★</span>
+            <span>4.9</span>
+            <span>(310)</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">¥219,800</span>
+          </div>
+          <div class="card-seller-info">
+            <span>エディオン公式ネットショップ</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#1a73e8"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" fill="none"/></svg>
+          </div>
+          <div class="card-delivery-perk">送料無料 · 10年長期無料修理保証</div>
+          <div class="card-action-bar">
+            <button class="card-btn-ask" onclick="event.stopPropagation(); sendQueryToAgent('日立冷蔵庫の鮮度保持機能と真空チルドについて教えて');">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg>
+              AI相談
+            </button>
+            <button class="card-btn-cart" onclick="event.stopPropagation(); alert('カートに追加しました。');">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Product 6: e angle Retro 149L -->
+        <article class="product-card" onclick="sendQueryToAgent('一人暮らし向けのおしゃれで静かな小型冷蔵庫を教えて');">
+          <button class="card-fav-btn" title="お気に入りに追加" onclick="event.stopPropagation();">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="card-image-box">
+            <img src="https://www.edion.com/ito/product/3995/04571526733995/300x300/4571526733995_1.jpg" alt="e angle レトロ冷蔵庫" loading="lazy">
+          </div>
+          <div class="card-badge-row">
+            <span class="tag-badge google-pick">一人暮らしに人気</span>
+          </div>
+          <h2 class="card-title">e angle select 149L 2ドア レトロデザイン冷蔵庫 (ANGLE-R15)</h2>
+          <div class="card-rating-row">
+            <span class="rating-stars">★★★★☆</span>
+            <span>4.6</span>
+            <span>(76)</span>
+          </div>
+          <div class="card-price-row">
+            <span class="card-price">¥49,800</span>
+          </div>
+          <div class="card-seller-info">
+            <span>エディオンPB公式ストア</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#1a73e8"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" fill="none"/></svg>
+          </div>
+          <div class="card-delivery-perk">送料無料 · ワンルーム・静音設計</div>
+          <div class="card-action-bar">
+            <button class="card-btn-ask" onclick="event.stopPropagation(); sendQueryToAgent('一人暮らし向けのおしゃれで静かな小型冷蔵庫を教えて');">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg>
+              AI相談
+            </button>
+            <button class="card-btn-cart" onclick="event.stopPropagation(); alert('カートに追加しました。');">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            </button>
+          </div>
+        </article>
 
       </div>
-    </div>
 
-  </main>
-
-  <!-- Floating Chat Tooltip CTA -->
-  <div class="chat-bubble-cta" onclick="openChatWidget();">
-    <span>💬 家電選びをAIコンシェルジュ「Ask Edi」に相談</span>
+    </main>
   </div>
 
-  <!-- Footer -->
+  <!-- Floating Gemini AI Assistant Launcher FAB -->
+  <button type="button" class="floating-gemini-launcher" onclick="openChatWidget();" title="Google Shopping AI アシスタントを開く">
+    <svg class="gemini-sparkle" width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L14.39 8.26L20.65 10.65L14.39 13.04L12 19.3L9.61 13.04L3.35 10.65L9.61 8.26L12 2Z" fill="#FFD200"/>
+      <path d="M19 16L20.2 19.13L23.33 20.33L20.2 21.53L19 24.66L17.8 21.53L14.67 20.33L17.8 19.13L19 16Z" fill="#FFF"/>
+    </svg>
+    <span class="launcher-title">Google Shopping AI</span>
+    <span class="launcher-status-dot"></span>
+  </button>
+
+  <!-- Google Minimalist Footer -->
   <footer>
-    <div class="footer-inner">
+    <div class="footer-top">
+      <span>日本</span>
+      <span>·</span>
+      <span>位置情報に基づく</span>
+      <span>·</span>
+      <a href="javascript:;" style="color: #1a73e8; text-decoration: none;">地域を更新</a>
+    </div>
+    <div class="footer-bottom">
       <div class="footer-links">
-        <a href="https://www.edion.co.jp/sitepolicy" target="_blank">サイトのご利用にあたって</a>
-        <a href="https://www.edion.co.jp/privacy" target="_blank">個人情報保護方針</a>
-        <a href="https://www.edion.com/guide/tokushoho.html" target="_blank">特定商取引法に基づく表示</a>
-        <a href="https://www.edion.co.jp" target="_blank">会社概要</a>
-        <a href="https://search.edion.com/e_store/" target="_blank">店舗情報</a>
+        <a href="https://about.google/" target="_blank">Google について</a>
+        <a href="https://ads.google.com/" target="_blank">広告</a>
+        <a href="https://www.google.com/services/" target="_blank">ビジネス ソリューション</a>
+        <a href="javascript:openChatWidget();">Google Shopping AI の仕組み</a>
+        <a href="https://policies.google.com/privacy" target="_blank">プライバシー</a>
+        <a href="https://policies.google.com/terms" target="_blank">利用規約</a>
+        <a href="javascript:;" onclick="openChatWidget();">フィードバックを送信</a>
       </div>
       <div>
-        Copyright © EDION Corporation. All rights reserved.
+        © 2026 Google LLC - Powered by Vertex AI Commerce & GECX
       </div>
     </div>
   </footer>
 
-  <!-- GECX Chat Messenger Component -->
+  <!-- GECX Chat Messenger Web Component -->
   <chat-messenger url-allowlist="*" class="slide-over messenger-hidden" render-mode="slide-over">
-    <chat-messenger-container chat-title="Ask Edi"
-      chat-title-icon="https://www.edion.com/excludes/fo/p/edion/img/cmn/logo/logo_edion.gif"
+    <chat-messenger-container chat-title="Google Shopping AI"
+      chat-title-icon="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png"
       enable-file-upload enable-audio-input>
-      <chat-reset-session-button slot="titlebar-actions" title-text="Start new chat"></chat-reset-session-button>
-      <chat-toggle-dialog-button slot="titlebar-actions" title-text-expanded="Collapse"
-        title-text-collapsed="Expand"></chat-toggle-dialog-button>
-      <chat-messenger-close-button slot="titlebar-actions" title-text="Close"></chat-messenger-close-button>
+      <chat-reset-session-button slot="titlebar-actions" title-text="新しいチャットを開始"></chat-reset-session-button>
+      <chat-toggle-dialog-button slot="titlebar-actions" title-text-expanded="折りたたむ"
+        title-text-collapsed="展開"></chat-toggle-dialog-button>
+      <chat-messenger-close-button slot="titlebar-actions" title-text="閉じる"></chat-messenger-close-button>
     </chat-messenger-container>
   </chat-messenger>
 

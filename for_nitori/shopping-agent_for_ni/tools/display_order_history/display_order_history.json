@@ -1,0 +1,108 @@
+{
+  "name": "display_order_history",
+  "displayName": "display_order_history",
+  "widgetTool": {
+    "name": "display_order_history",
+    "widgetType": "CUSTOM",
+    "parameters": {
+      "type": "OBJECT",
+      "properties": {
+        "title": {
+          "type": "STRING",
+          "description": "Headline of the widget (e.g., 'ご注文履歴・返品／お問い合わせ')."
+        },
+        "orders": {
+          "type": "ARRAY",
+          "description": "List of recent orders placed by the user.",
+          "items": {
+            "type": "OBJECT",
+            "properties": {
+              "orderId": {
+                "type": "STRING",
+                "description": "Unique identifier for the order (e.g., 'ORD-20260301-1029')."
+              },
+              "orderDate": {
+                "type": "STRING",
+                "description": "Date when the order was placed (e.g., '2026-03-01')."
+              },
+              "orderStatus": {
+                "type": "STRING",
+                "description": "Current delivery/order status (e.g., '配達完了', '配送中', '注文確定', '返品手続中')."
+              },
+              "totalAmount": {
+                "type": "STRING",
+                "description": "Total payment amount for this order (e.g., '¥15,800 (税込)')."
+              },
+              "items": {
+                "type": "ARRAY",
+                "description": "List of product items included in this order.",
+                "items": {
+                  "type": "OBJECT",
+                  "properties": {
+                    "productId": {
+                      "type": "STRING",
+                      "description": "Unique product code or SKU ID."
+                    },
+                    "title": {
+                      "type": "STRING",
+                      "description": "Product name or title."
+                    },
+                    "imageUrl": {
+                      "type": "STRING",
+                      "description": "Direct URL of the product image thumbnail."
+                    },
+                    "quantity": {
+                      "type": "INTEGER",
+                      "description": "Purchased quantity of the item."
+                    },
+                    "price": {
+                      "type": "STRING",
+                      "description": "Price of the product (e.g., '¥3,990')."
+                    },
+                    "option": {
+                      "type": "STRING",
+                      "description": "Product option details."
+                    },
+                    "isReturnEligible": {
+                      "type": "BOOLEAN",
+                      "description": "Whether this item is currently eligible for return or exchange."
+                    },
+                    "returnStatus": {
+                      "type": "STRING",
+                      "description": "Status regarding returns (e.g., '返品可能', '返品受付中', '返品完了', '返品対象外')."
+                    }
+                  },
+                  "required": ["productId", "title", "price", "quantity"]
+                }
+              },
+              "actions": {
+                "type": "ARRAY",
+                "description": "Available action buttons for this order.",
+                "items": {
+                  "type": "OBJECT",
+                  "properties": {
+                    "actionType": {
+                      "type": "STRING",
+                      "description": "Type of action: 'return', 'inquiry', 'tracking'."
+                    },
+                    "label": {
+                      "type": "STRING",
+                      "description": "Display text for the button."
+                    },
+                    "uri": {
+                      "type": "STRING",
+                      "description": "Target web URL."
+                    }
+                  },
+                  "required": ["actionType", "label"]
+                }
+              }
+            },
+            "required": ["orderId", "orderDate", "orderStatus", "items"]
+          }
+        }
+      },
+      "required": ["orders"]
+    }
+  }
+}

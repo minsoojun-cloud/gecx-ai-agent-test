@@ -1,0 +1,10 @@
+fastmcp
+mcp>=1.2.0
+uvicorn>=0.30.0
+google-cloud-retail
+google-cloud-discoveryengine
+google-auth
+google-auth-oauthlib
+langchain-google-vertexai
+langchain-google-genai
+langchain-mcp-adapters

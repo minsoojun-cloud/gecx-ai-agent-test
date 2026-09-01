@@ -1,0 +1,10 @@
+{
+  "app": {
+    "loggingSettings": {
+      "bigqueryExportSettings": {
+        "project": "ai-commerce-search-ni-osaka",
+        "dataset": "aics_dataset_US"
+      }
+    }
+  }
+}
