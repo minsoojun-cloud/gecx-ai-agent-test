@@ -976,8 +976,24 @@
       return null;
     }
 
+    // Ensure dummy cookies exist for easy editing in DevTools Application > Cookies
+    function ensureDummyCookies() {
+      if (!getCookie('username') && !getCookie('user_name')) {
+        document.cookie = 'username=' + encodeURIComponent('田中太郎') + '; path=/; max-age=86400';
+      }
+      if (!getCookie('gecx_cookie')) {
+        const dummyGecx = JSON.stringify({
+          username: '田中太郎',
+          user_id: 'U10001',
+          visitor_id: 'V10001'
+        });
+        document.cookie = 'gecx_cookie=' + encodeURIComponent(dummyGecx) + '; path=/; max-age=86400';
+      }
+    }
+
     // Sync username, visitor_id, and user_id into session & update UI
     function syncUserSessionVariables() {
+      ensureDummyCookies();
       const messenger = document.querySelector('chat-messenger');
       const variables = {};
 
@@ -3070,6 +3086,150 @@
 
     </div>
   </main>
+
+  <!-- System Architecture Section for Customer Presentation -->
+  <section class="arch-overview-section" style="background: #FFFFFF; border-top: 1px solid var(--nitori-border); padding: 48px 0; margin-top: 40px;">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 36px;">
+        <span style="display: inline-block; background: var(--nitori-teal-light); color: var(--nitori-teal-dark); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; margin-bottom: 10px; letter-spacing: 0.05em;">
+          SYSTEM ARCHITECTURE
+        </span>
+        <h2 style="font-size: 24px; font-weight: 800; color: var(--nitori-text-main); margin-bottom: 8px;">
+          ニトリ AIコンシェルジュ システム構成図
+        </h2>
+        <p style="font-size: 14px; color: var(--nitori-text-sub); max-width: 720px; margin: 0 auto;">
+          Google Cloud の最新生成AI技術（GECX AI Agent・Cloud Run MCP・Vertex AI Search for Commerce）を連携し、音声・テキスト・画像によるマルチモーダルな購買体験を実現します。
+        </p>
+      </div>
+
+      <!-- Visual Flow Diagram -->
+      <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px; padding: 32px 24px; margin-bottom: 32px; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+        <div style="display: flex; flex-wrap: wrap; align-items: stretch; justify-content: space-between; gap: 16px;">
+
+          <!-- 1. Website / User Box -->
+          <div style="flex: 1 1 210px; background: #FFFFFF; border: 2px solid var(--nitori-teal); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <span style="background: var(--nitori-teal); color: #FFF; font-weight: 800; font-size: 12px; padding: 3px 8px; border-radius: 6px;">WEBSITE</span>
+                <span style="font-size: 14px; font-weight: 700; color: var(--nitori-text-main);">ニトリネット UI</span>
+              </div>
+              <p style="font-size: 12px; color: var(--nitori-text-sub); margin-bottom: 14px;">
+                お客様の多様な入力方法（マルチモーダル）にリアルタイム対応
+              </p>
+            </div>
+            <!-- Multimodal Badges -->
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 8px; background: #FFF5F5; border: 1px solid #FED7D7; padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; color: #C53030;">
+                <span>🎙️</span> <span>音声入力 (Voice)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; background: #F7FAFC; border: 1px solid #E2E8F0; padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; color: #2D3748;">
+                <span>💬</span> <span>テキスト対話 (Text)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; background: #EBF8FF; border: 1px solid #BEE3F8; padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; color: #2B6CB0;">
+                <span>🖼️</span> <span>画像アップロード (Image)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow Connector -->
+          <div style="display: flex; align-items: center; justify-content: center; padding: 0 4px;">
+            <div style="display: flex; flex-direction: column; align-items: center; color: var(--nitori-teal); font-weight: 700; font-size: 11px;">
+              <span>マルチモーダル送信</span>
+              <span style="font-size: 22px; line-height: 1;">➔</span>
+            </div>
+          </div>
+
+          <!-- Google Cloud Container -->
+          <div style="flex: 3 1 580px; background: #FFFFFF; border: 2px solid #4285F4; border-radius: 14px; padding: 20px; position: relative;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #EDF2F7;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" fill="#4285F4"/>
+                </svg>
+                <span style="font-size: 15px; font-weight: 800; color: #1A202C;">Google Cloud</span>
+              </div>
+              <span style="font-size: 11px; color: #718096; background: #EDF2F7; padding: 3px 10px; border-radius: 999px; font-weight: 600;">
+                エンタープライズAI基盤
+              </span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; align-items: stretch;">
+              <!-- Step 1: Agent -->
+              <div style="background: #F8FAFC; border: 1px solid #CBD5E0; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; color: #4285F4; margin-bottom: 4px;">STEP 1. 対話・意図理解</div>
+                  <div style="font-size: 15px; font-weight: 800; color: #1A202C; margin-bottom: 6px;">GECX AI Agent</div>
+                  <p style="font-size: 12px; color: #4A5568; line-height: 1.5;">
+                    顧客の発話・画像から意図を解析し、最適なサブエージェントとツールをオーケストレーションします。
+                  </p>
+                </div>
+                <div style="margin-top: 10px; font-size: 11px; font-weight: 600; color: #2B6CB0; background: #EBF8FF; padding: 4px 8px; border-radius: 6px; text-align: center;">
+                  Agent Orchestration
+                </div>
+              </div>
+
+              <!-- Step 2: MCP -->
+              <div style="background: #F8FAFC; border: 1px solid #CBD5E0; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; color: #009E96; margin-bottom: 4px;">STEP 2. ツール・API連携</div>
+                  <div style="font-size: 15px; font-weight: 800; color: #1A202C; margin-bottom: 6px;">MCP (Cloud Run)</div>
+                  <p style="font-size: 12px; color: #4A5568; line-height: 1.5;">
+                    Model Context Protocol (MCP) サーバーを Cloud Run 上で稼働し、安全かつ高速に外部APIや検索基盤と接続します。
+                  </p>
+                </div>
+                <div style="margin-top: 10px; font-size: 11px; font-weight: 600; color: #007D76; background: #E6F6F5; padding: 4px 8px; border-radius: 6px; text-align: center;">
+                  Serverless MCP Integration
+                </div>
+              </div>
+
+              <!-- Step 3: Vertex AI Search for Commerce -->
+              <div style="background: #F8FAFC; border: 1px solid #CBD5E0; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; color: #6B46C1; margin-bottom: 4px;">STEP 3. 商品検索・推論</div>
+                  <div style="font-size: 15px; font-weight: 800; color: #1A202C; margin-bottom: 6px;">AI Commerce Search</div>
+                  <p style="font-size: 12px; color: #4A5568; line-height: 1.5;">
+                    Vertex AI Search for Commerce により、ニトリの膨大な商品カタログから高精度な検索・パーソナライズ推薦を提供します。
+                  </p>
+                </div>
+                <div style="margin-top: 10px; font-size: 11px; font-weight: 600; color: #553C9A; background: #FAF5FF; padding: 4px 8px; border-radius: 6px; text-align: center;">
+                  Vertex AI Search
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Key Highlights Grid for Customer Explanation -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+        <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 10px; padding: 16px;">
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--nitori-text-main); margin-bottom: 6px;">
+            💡 1. マルチモーダル顧客体験
+          </h4>
+          <p style="font-size: 12.5px; color: var(--nitori-text-sub); line-height: 1.6;">
+            テキスト入力だけでなく、音声での相談や部屋の写真をアップロードして「この部屋に合うソファを探して」といった直感的な相談が可能です。
+          </p>
+        </div>
+        <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 10px; padding: 16px;">
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--nitori-text-main); margin-bottom: 6px;">
+            ⚡ 2. MCPによる柔軟なシステム拡張
+          </h4>
+          <p style="font-size: 12.5px; color: var(--nitori-text-sub); line-height: 1.6;">
+            Cloud Run 上に構築された MCP サーバーにより、商品検索・在庫確認・注文履歴照会などのバックエンド機能を標準化されたプロトコルで安全に連携します。
+          </p>
+        </div>
+        <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 10px; padding: 16px;">
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--nitori-text-main); margin-bottom: 6px;">
+            🎯 3. Vertex AI による高精度コマース検索
+          </h4>
+          <p style="font-size: 12.5px; color: var(--nitori-text-sub); line-height: 1.6;">
+            Google の Vertex AI Search for Commerce が検索意図を深く理解し、「お、ねだん以上。」な最適商品をリアルタイムに提案します。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer>
